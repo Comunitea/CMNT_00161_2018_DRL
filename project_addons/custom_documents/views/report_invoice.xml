@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+        <template id="report_invoice_document">
+
+                <!--CABECERA-->
+        <div class="header">
+            <div class="row">
+                <div class="col-xs-3">
+                    <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo)" style="max-height: 120px;"/>
+                </div>
+
+                <div class="text-right" name="company_address">
+                    <div><span style="text-transform:uppercase" t-field="o.company_id.partner_id"/></div>
+                    <div><span t-field="o.company_id.street"/><span t-field="o.company_id.street2"/>, <span t-field="o.company_id.city"/> (<span t-field="o.company_id.country_id"/>)</div>
+                    <div>CIF: <span t-field="o.company_id.vat"/></div>
+                    <div><span t-field="o.company_id.email"/></div>
+                    <div><span t-field="o.company_id.phone"/></div>
+                    <div>NRC: <span t-field="o.company_id.NRC"/>        NR Letra Q: <span t-field="o.company_id.NR_LetraQ"/></div>
+                </div>
+            </div>
+        </div>
+        <br/><br/>
+        <div class="article o_report_layout_standard">
+            <div class="page">
+                <div class="row">
+                    <div class="col-xs-3 text-center" style="border: 1px solid black;"><strong>FACTURA</strong></div>
+                    <div class="col-xs-8 col-xs-offset-1 text-center" style="border: 1px solid black;"><strong>CLIENTE</strong></div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-xs-3">FACTURA Nº <span t-field="o.number"/></div>
+                    <div class="col-xs-8 col-xs-offset-1"><strong><span t-field="o.partner_id"/></strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">FECHA <span t-field="o.date_invoice"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">CLIENTE <span t-field="o.partner_id.ref"/></div>
+                    <div class="col-xs-8 col-xs-offset-1"><strong><span t-field="o.partner_id.street"/></strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">CIF <span t-field="o.partner_id.vat"/></div>
+                    <div class="col-xs-8 col-xs-offset-1"><strong><span t-field="o.partner_id.zip"/> <span t-field="o.partner_id.city"/></strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">C. PROVEEDOR </div>
+                    <div class="col-xs-8 col-xs-offset-1"><strong><span t-field="o.partner_id.state_id"/> - <span t-field="o.partner_id.country_id"/></strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">S/REFERENCIA </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">PÁGINA <span class="page"/> of <span class="topage"/></div>
+                </div>
+
+                <br/><br/> <!--CUERPO FACT-->
+
+                <t t-foreach="o.order_lines_layouted()" t-as="page">
+                    <table class="table table-condensed borderless" >
+                        <thead>
+                            <tr>
+                                <th>ARTÍCULO</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>CANTIDAD</th>
+                                <th>PRECIO</th>
+                                <th>DTO.</th>
+                                <th>IMPORTE</th>
+                            </tr>
+                       </thead>
+                       <tbody class="order_tbody">
+                            <t t-foreach="page" t-as="layout_category">
+
+                                <t t-if="layout_category_size > 1 or page_size > 1">
+                                    <tr class="active">
+                                        <td colspan="7" style="font-weight: bold;">&amp;bull;
+                                            <t t-esc="layout_category['name']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-foreach="layout_category['lines']" t-as="l">
+                                    <tr>
+                                        <td><span t-field="l.product_id.default_code"/></td>
+                                        <td><span t-field="l.product_id.name"/></td>
+                                        <td><span t-field="l.quantity"/><span t-field="l.uom_id"/></td>
+                                        <td><span t-field="l.price_unit"/></td>
+                                        <td><span t-field="l.discount"/></td>
+                                        <td><span t-field="l.price_subtotal"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="clearfix">
+                        <div class="row" name="total">
+                            <div class="col-xs-4 pull-right">
+                                <table class="table table-condensed" style="min-width: 200px;max-width: 350px;">
+                                    <tr class="border-black" style="border-bottom:1px solid #dddddd;">
+                                        <td><strong>Subtotal</strong></td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_untaxed"
+                                                />
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
+                                        <tr style="border-bottom:1px solid #dddddd;">
+                                            <t t-if="amount_by_group[3] == 1 and o.amount_untaxed == amount_by_group[2]">
+                                                <td>
+                                                    <span t-esc="amount_by_group[0]"/>
+                                                    <span>&amp;nbsp;<span>on</span>&amp;nbsp;<t t-esc="amount_by_group[2]"/></span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="amount_by_group[1]"/>
+                                                </td>
+                                            </t>
+                                            <t t-else ="">
+                                                <td>
+                                                    <span t-esc="amount_by_group[0]"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="amount_by_group[1]"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                    <tr class="border-black">
+                                        <td><strong>Total</strong></td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_total"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <div class="row">
+                    <div class="col-xs-2 text-center" style="border: 1px solid black;"><strong>VTO.</strong></div>
+                    <div class="col-xs-2 text-center" style="border: 1px solid black;"><strong>IMPORTE</strong></div>
+                    <div class="col-xs-7 col-xs-offset-1 text-center" style="border: 1px solid black;"><strong>FORMA DE PAGO</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2"><span t-field="o.date_due"/></div>
+                    <div class="col-xs-2 text-right"><span t-field="o.amount_total"/></div>
+                    <div class="col-xs-7 col-xs-offset-1" style="text-transform:uppercase"><span t-field="o.payment_mode_id"/> <span t-field="o.payment_term_id"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-7 col-xs-offset-5"> IBAN - <span t-field="o.partner_bank_id"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-7 col-xs-offset-5"> SWIFT - <span t-field="o.partner_bank_id.bank_id.bic"/></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--PIE-->
+        <div class="footer">
+
+            <div class="text-center" style="font-size:10px;">
+            Sociedad Inscrita en el Registro Mercantil de A Coruña, Tomo 2444, Folio 144, Hoja C-26256, Inscripción 1ª
+            </div>
+            <div style="font-size:10px;">
+            DAIRYLAC S.L. con domicilio social en el Poligono Empresarial A Madalena, Parcelas 44-48, 15800 Melide, A Coruña (España), en cumplimiento de la actual normativa
+            sobre Proteccion de Datos (RGPD UE 2016/679 de 27 de Abril), le notifica que la información facilitada en este formulario tiene carácter confidencial, siendo su única finalidad
+            la creacion de un fichero autorizado o no, a fin de elaborar los documentos relacionados con los servicios y/o productos solicitados por Usted (presupuesto, pedido,
+            albarán, factura, etc...). Si desea acceder a este fichero, rectificar, cancelar u oponerse al tratamiento de sus datos, puede hacerlo por escrito a la direccion antes
+            mencionada, acompañado de fotocopia del D.N.I. Ref. "Datos Personales".
+            </div>
+
+        </div>
+
+
+        </template>
+
+        <template id="report_invoice_v2">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="custom_documents.report_invoice_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+</odoo>
