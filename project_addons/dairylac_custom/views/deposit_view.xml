@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record model="ir.ui.view" id="deposit_tree_view">
+        <field name="name">deposit.tree</field>
+        <field name="model">deposit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="quantity"/>
+                <field name="capacity"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

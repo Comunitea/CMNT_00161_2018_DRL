@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="res_partner_driver" model="ir.ui.view">
+        <field name="name">res.partner.driver</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lang']" position="after">
+                <field name="driver"/>
+            </xpath>
+        </field>
+    </record>
+
+<!--FILTRO-->
+    <record id="res_partner_driver_filter" model="ir.ui.view">
+        <field name="name">res.partner.driver.filter</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <filter name="driver" string="Is driver" domain="[('driver','=',True)]"/>
+            </filter>
+        </field>
+    </record>
+
+
+   <record id="action_partner_driver" model="ir.actions.act_window">
+        <field name="name">Drivers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'search_default_driver': True}</field>
+    </record>
+
+     <record id="action_partner_driver" model="ir.actions.act_window">
+        <field name="name">Drivers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{"search_default_customer":1, 'search_default_driver':1}</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+    </record>
+
+
+    <menuitem id="driver" parent="stock.menu_stock_inventory_control" name="Driver" action="action_partner_driver"/>
+
+</odoo>
+
+

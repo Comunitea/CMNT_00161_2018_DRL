@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+
+    <record model="ir.ui.view" id="vehicle_form_view">
+        <field name="name">vehicle.form</field>
+        <field name="model">vehicle</field>
+        <field name="arch" type="xml">
+            <form>
+                    <group col="2">
+                        <field name="register"/>
+                        <field name="vehicle_type"/>
+                        <field name="description"/>
+                        <field name="letter_code_q"/>
+                        <field name="deposit_id" />
+
+
+                        <field name="total_deposits" />
+                        <field name="total_quantity"  class="oe_subtotal_footer_separator"/>
+                    </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="vehicle_tree_view">
+        <field name="name">vehicle.tree</field>
+        <field name="model">vehicle</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="register"/>
+                <field name="vehicle_type"/>
+                <field name="description"/>
+                <field name="letter_code_q"/>
+                <field name="total_deposits"/>
+                <field name="total_quantity"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_vehicle" model="ir.actions.act_window">
+        <field name="name">Vehicles</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">vehicle</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <menuitem id="vehicle" parent="stock.menu_stock_inventory_control" name="Vehicles" action="action_vehicle"/>
+
+
+
+</odoo>
