@@ -8,10 +8,10 @@ class Vehicle(models.Model):
 
     _name = "vehicle"
 
-    register = fields.Text('Register')
-    vehicle_type = fields.Text("Type of vehicle")
-    description = fields.Text("Description")
-    letter_code_q = fields.Text("Letter code Q")
+    register = fields.Char('Register')
+    vehicle_type_id = fields.Many2one('vehicle.type', "Type of vehicle")
+    description = fields.Char("Description")
+    letter_code_q = fields.Char("Letter code Q")
 
     deposit_id = fields.One2many('deposit', 'quantity', string ="Deposit Used")
 

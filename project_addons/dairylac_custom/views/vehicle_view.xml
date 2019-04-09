@@ -8,7 +8,7 @@
             <form>
                     <group col="2">
                         <field name="register"/>
-                        <field name="vehicle_type"/>
+                        <field name="vehicle_type_id"/>
                         <field name="description"/>
                         <field name="letter_code_q"/>
                         <field name="deposit_id" />
@@ -27,7 +27,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="register"/>
-                <field name="vehicle_type"/>
+                <field name="vehicle_type_id"/>
                 <field name="description"/>
                 <field name="letter_code_q"/>
                 <field name="total_deposits"/>

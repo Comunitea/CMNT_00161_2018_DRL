@@ -11,11 +11,13 @@
     'website': 'https://www.comunitea.com',
     'depends': [
         'base',
+        'delivery'
     ],
     'data': [
     'views/res_partner_view.xml',
     'views/vehicle_view.xml',
-    'views/deposit_view.xml'
+    'views/deposit_view.xml',
+    'views/delivery_carrier_view.xml'
 
     ],
     'installable': True,
