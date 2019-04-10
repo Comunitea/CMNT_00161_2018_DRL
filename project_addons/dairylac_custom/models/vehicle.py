@@ -12,7 +12,8 @@ class Vehicle(models.Model):
     vehicle_type_id = fields.Many2one('vehicle.type', "Type of vehicle")
     description = fields.Char("Description")
     letter_code_q = fields.Char("Letter code Q")
-    deposit_id = fields.One2many('deposit', string ="Deposit Used")
+    deposit_id = fields.One2many('deposit', 'vehicle_id', string ="Deposit " \
+                                                                 "Used")
     total_deposits = fields.Integer(compute='_get_total_deposits', store=False)
     total_quantity = fields.Float(compute='_get_total_quantity', store=False)
 

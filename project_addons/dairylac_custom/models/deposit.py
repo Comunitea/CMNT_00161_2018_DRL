@@ -8,5 +8,6 @@ class Vehicle(models.Model):
 
     _name = "deposit"
 
+    vehicle_id = fields.Many2one('vehicle')
     quantity = fields.Integer(string ="Quantity")
     capacity = fields.Float("Capacity")
