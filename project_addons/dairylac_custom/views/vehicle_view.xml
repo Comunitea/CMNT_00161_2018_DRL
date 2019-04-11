@@ -6,17 +6,15 @@
         <field name="model">vehicle</field>
         <field name="arch" type="xml">
             <form>
-                    <group col="2">
-                        <field name="register"/>
-                        <field name="vehicle_type_id"/>
-                        <field name="description"/>
-                        <field name="letter_code_q"/>
-                        <field name="deposit_id" />
-
-
-                        <field name="total_deposits" />
-                        <field name="total_quantity"  class="oe_subtotal_footer_separator"/>
-                    </group>
+                <field name="register"/>
+                <field name="vehicle_type_id"/>
+                <field name="description"/>
+                <field name="letter_code_q"/>
+                <field name="deposit_id" />
+                <group col="2">
+                    <field name="total_deposits" />
+                    <field name="total_quantity"  class="oe_subtotal_footer_separator"/>
+                </group>
             </form>
         </field>
     </record>
@@ -58,7 +56,5 @@
     </record>
 
     <menuitem id="vehicle" parent="stock.menu_stock_inventory_control" name="Vehicles" action="action_vehicle"/>
-
-
 
 </odoo>
