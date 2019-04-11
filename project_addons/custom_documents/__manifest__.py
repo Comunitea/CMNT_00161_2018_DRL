@@ -16,7 +16,6 @@
         'account',
     ],
     'data': [
-        'views/report_templates.xml',
         'views/report_invoice.xml',
         'views/res_company_view.xml'
     ],

@@ -21,6 +21,19 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="vehicle_search_view">
+        <field name="name">vehicle.search</field>
+        <field name="model">vehicle</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="register"/>
+                <field name="letter_code_q"/>
+                <filter name="group_vehicle_type_id" string="Type Vehicle" icon="vehicle_type_id" context="{'group_by':'vehicle_type_id'}"/>
+            </search>
+        </field>
+    </record>
+
+
     <record model="ir.ui.view" id="vehicle_tree_view">
         <field name="name">vehicle.tree</field>
         <field name="model">vehicle</field>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-03 08:17+0000\n"
-"PO-Revision-Date: 2019-04-03 08:17+0000\n"
+"POT-Creation-Date: 2019-04-09 15:38+0000\n"
+"PO-Revision-Date: 2019-04-09 15:38+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,16 @@ msgid "Capacity"
 msgstr "Capacidad"
 
 #. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_delivery_carrier
+msgid "Carrier"
+msgstr "Forma de envío"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_delivery_carrier_carrier_code
+msgid "Carrier Code"
+msgstr "Carrier Code"
+
+#. module: dairylac_custom
 #: model:ir.model,name:dairylac_custom.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
@@ -28,12 +38,14 @@ msgstr "Contacto"
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit_create_uid
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_create_uid
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit_create_date
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_create_date
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_create_date
 msgid "Created on"
 msgstr "Creado en"
 
@@ -50,6 +62,7 @@ msgstr "Descripción"
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit_display_name
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_display_name
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
@@ -68,6 +81,7 @@ msgstr "Conductores"
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit_id
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_id
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_id
 msgid "ID"
 msgstr "ID (identificación)"
 
@@ -79,17 +93,20 @@ msgstr "Es conductor"
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit___last_update
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle___last_update
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type___last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit_write_uid
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_write_uid
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_write_uid
 msgid "Last Updated by"
 msgstr "Última actualización de"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit_write_date
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_write_date
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_write_date
 msgid "Last Updated on"
 msgstr "Última actualización en"
@@ -98,6 +115,11 @@ msgstr "Última actualización en"
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_letter_code_q
 msgid "Letter code Q"
 msgstr "Letra Q"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_name
+msgid "Name"
+msgstr "Nombre"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit_quantity
@@ -120,7 +142,7 @@ msgid "Total Quantity"
 msgstr "Cantidad total"
 
 #. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_vehicle_type
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_vehicle_type_id
 msgid "Type of vehicle"
 msgstr "Tipo de vehículo"
 
@@ -139,3 +161,8 @@ msgstr "Depósito"
 #: model:ir.model,name:dairylac_custom.model_vehicle
 msgid "vehicle"
 msgstr "vehículo"
+
+#. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_vehicle_type
+msgid "vehicle.type"
+msgstr "vehicle.type"
