@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_milk_planning,access_milk_planning,model_milk_planning,base.group_user,1,1,1,1
+access_milk_planning_purchase,access_milk_planning_purchase,model_milk_planning_purchase,base.group_user,1,1,1,1
+access_milk_planning_sale,access_milk_planning_sale,model_milk_planning_sale,base.group_user,1,1,1,1
+access_milk_planning_stock,access_milk_planning_stock,model_milk_planning_stock,base.group_user,1,1,1,1

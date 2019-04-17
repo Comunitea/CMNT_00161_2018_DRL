@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="milk_planning_purchase_view_tree" model="ir.ui.view">
+        <field name="name">milk.planning.purchase.view.tree</field>
+        <field name="model">milk.planning.purchase</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="has_order_ids" invisible="1"/>
+                <field name="partner_id" attrs="{'readonly': [('has_order_ids', '=', True)]}"/>
+                <field name="day" attrs="{'readonly': [('has_order_ids', '=', True)]}"/>
+                <field name="quantity" attrs="{'readonly': [('has_order_ids', '=', True)]}"/>
+                <field name="purchase_type" invisible="1"/>
+                <button name="action_create_order" type="object"
+                    icon="fa-plus-square"
+                    attrs="{'invisible': [('has_order_ids', '=', True), ('quantity', '>', 0)]}"
+                    string="Create purchase"/>
+                <button name="action_view_orders" type="object"
+                    icon="fa-search-plus"
+                    attrs="{'invisible': [('has_order_ids', '=', False)]}"
+                    string="View orders"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="milk_planning_sale_view_tree" model="ir.ui.view">
+        <field name="name">milk.planning.sale.view.tree</field>
+        <field name="model">milk.planning.sale</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="day"/>
+                <field name="quantity"/>
+                <field name="sale_type" invisible="1"/>
+                <field name="has_order_ids" invisible="1"/>
+                <button name="action_view_orders" type="object"
+                    icon="fa-search-plus"
+                    attrs="{'invisible': [('has_order_ids', '=', False)]}"
+                    string="View orders"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="milk_planning_stock_view_tree" model="ir.ui.view">
+        <field name="name">milk.planning.stock.view.tree</field>
+        <field name="model">milk.planning.stock</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="day"/>
+                <field name="remaining_stock"/>
+                <field name="stock_type" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="milk_planning_view_tree" model="ir.ui.view">
+        <field name="name">milk.planning.view.tree</field>
+        <field name="model">milk.planning</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="milk_planning_form_view" model="ir.ui.view">
+        <field name="name">milk.planning.view.form</field>
+        <field name="model">milk.planning</field>
+        <field name="arch" type="xml">
+            <form string="Planning">
+                <header>
+                    <button name="calculate" string="Calculate" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    <group>
+                        <field name="milk_stock"/>
+                        <field name="cream_stock"/>
+                    </group>
+                    <notebook>
+                        <page string="Sales">
+                            <group>
+                                <field name="raw_milk_sale_ids"/>
+                                <field name="skimmed_milk_sale_ids"/>
+                                <field name="cream_sale_ids"/>
+                            </group>
+                        </page>
+                        <page string="Purchases &amp; Stock">
+                            <group>
+                                <group>
+                                    <field name="milk_purchase_ids" context="{'default_purchase_type': 'milk'}"/>
+                                </group>
+                                <group>
+                                    <field name="milk_stock_ids"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="cream_purchase_ids" context="{'default_purchase_type': 'cream'}"/>
+                                </group>
+                                <group>
+                                    <field name="cream_stock_ids"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="milk_planning_action" model="ir.actions.act_window">
+        <field name="name">Milk planning</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">milk.planning</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <menuitem id="milk_planning_menu_act" name="Milk planning" parent="stock.menu_warehouse_report" action="milk_planning_action"/>
+
+</odoo>
