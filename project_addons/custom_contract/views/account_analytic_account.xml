@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- account.analytic.account inherit form view -->
+    <record id="account_analytic_account_sale_form" model="ir.ui.view">
+        <field name="name">account.analytic.account.inherit.view.form</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="contract.account_analytic_account_sale_form"/>
+        <field name="arch" type="xml">
+            <label for="recurring_interval" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </label>
+            <field name="recurring_interval" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="recurring_rule_type" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="recurring_invoicing_type" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="recurring_invoice_line_ids" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="recurring_invoice_line_ids" position="after">
+                <field name="price_agreement_ids">
+                    <tree editable="top">
+                        <field name="product_id"/>
+                        <field name="price_unit"/>
+                    </tree>
+                </field>
+            </field>
+            <xpath expr="//label[@for='recurring_invoice_line_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <field name="recurring_next_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="date_start" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="date_end" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="recurring_rule_type" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="type" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//field[@name='recurring_invoices']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//separator[1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="contract_sale_generation.act_recurring_sales"
+                        type="action"
+                        icon="fa-usd" string="Sales"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
