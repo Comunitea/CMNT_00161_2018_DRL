@@ -6,11 +6,15 @@
         <field name="model">vehicle</field>
         <field name="arch" type="xml">
             <form>
-                <field name="register"/>
-                <field name="vehicle_type_id"/>
-                <field name="description"/>
-                <field name="letter_code_q"/>
-                <field name="deposit_id" />
+                <group col="4">
+                    <field name="register"/>
+                    <field name="vehicle_type_id"/>
+                    <field name="description"/>
+                    <field name="letter_code_q"/>
+                </group>
+                <group>
+                    <field name="deposit_id" />
+                </group>
                 <group col="2">
                     <field name="total_deposits" />
                     <field name="total_quantity"  class="oe_subtotal_footer_separator"/>

@@ -7,7 +7,7 @@
         <field name="model">delivery.carrier</field>
         <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
+            <xpath expr="//field[@name='name']" position="before">
                 <group>
                     <field name="carrier_code"/>
                 </group>
