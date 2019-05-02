@@ -52,7 +52,7 @@ msgstr "Creado en"
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_deposit_id
 msgid "Deposit Used"
-msgstr "Depósitos usados"
+msgstr "Depósitos"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_description

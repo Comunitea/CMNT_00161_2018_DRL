@@ -1,6 +1,8 @@
 # © 2019 Comunitea
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import fields, models
+import odoo.addons.decimal_precision as dp
+
 
 
 class AccountAnalyticAccount(models.Model):
@@ -20,5 +22,5 @@ class AccountAnalyticAccountPriceAgreement(models.Model):
     _name = 'account.analytic.account.price.agreement'
 
     product_id = fields.Many2one('product.product', 'Product')
-    price_unit = fields.Float()
+    price_unit = fields.Float(digits=dp.get_precision('Product Price'),)
     analytic_account_id = fields.Many2one('account.analytic.account')
