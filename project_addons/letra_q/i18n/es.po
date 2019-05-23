@@ -1,0 +1,100 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* custom_contract
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-22 13:46+0000\n"
+"PO-Revision-Date: 2019-04-22 13:46+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_contract
+#: model:ir.model,name:custom_contract.model_account_analytic_account
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_analytic_account_id
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: custom_contract
+#: code:addons/custom_contract/models/sale.py:25
+#, python-format
+msgid "El producto no se encuentra en el contrato."
+msgstr "El producto no se encuentra en el contrato."
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_id
+msgid "ID"
+msgstr "ID"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement___last_update
+msgid "Last Modified on"
+msgstr "Última Modificación en"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_price_unit
+msgid "Price Unit"
+msgstr "Precio unitario"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_ids
+#: model:ir.model.fields,field_description:custom_contract.field_project_project_price_agreement_ids
+msgid "Price agreements"
+msgstr "Price agreements"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: custom_contract
+#: model:ir.ui.view,arch_db:custom_contract.account_analytic_account_sale_form
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: custom_contract
+#: model:ir.model,name:custom_contract.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de ventas"
+
+#. module: custom_contract
+#: model:ir.model,name:custom_contract.model_account_analytic_account_price_agreement
+msgid "account.analytic.account.price.agreement"
+msgstr "account.analytic.account.price.agreement"
+
+#. module: custom_contract
+#: model:ir.model,name:custom_contract.model_account_analytic_invoice_line
+msgid "account.analytic.invoice.line"
+msgstr "account.analytic.invoice.line"
+
