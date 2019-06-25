@@ -147,9 +147,23 @@
             <p>No weight records to display.</p>
         </field>
     </record>
-    <menuitem id="menu_hr_attendance_view_attendances"
+
+    <menuitem id="menu_weight_registry"
               name="Weight registry" parent="stock.menu_stock_inventory_control"
               sequence="10"
               action="weight_registry_action"/>
+
+
+    <record id="action_set_weight" model="ir.actions.client">
+        <field name="name">Set Weight</field>
+        <field name="tag">set_weight</field>
+        <field name="target">main</field>
+    </record>
+
+    <menuitem id="menu_do_weight" 
+              name="Set Weight" 
+              parent="stock.menu_stock_inventory_control" 
+              sequence="11" action="action_set_weight"/>
+
 
 </odoo>

@@ -41,7 +41,7 @@ class WeightRegistry(models.Model):
     worked_hours = fields.Float(string='Worked Hours', compute='_compute_worked_hours', store=True, readonly=True)
     move_line_ids = fields.One2many('stock.move', 'weight_registry_id', string="Weight register")
     picking_id = fields.Many2one('stock.picking')
-    registry_type = fields.Selection(REGISTRY_TYPE, string="Registy type", required="1")
+    registry_type = fields.Selection(REGISTRY_TYPE, string="Registy type", required=False)
     product_id = fields.Many2one('product.product', 'Product')
 
     @api.multi
@@ -124,6 +124,7 @@ class WeightRegistry(models.Model):
         return vals
 
 
+
     @api.constrains('check_in', 'check_out', 'vehicle_id')
     def _check_validity(self):
         """ Verifies the validity of the attendance record compared to the others from the same employee.
@@ -182,6 +183,12 @@ class WeightRegistry(models.Model):
                                                                                                    last_reg_before_check_out.check_in))),
                                                      })
 
+    @api.model
+    def set_weight_registry(self, vehicle_id):
+        res = True
+        vehicle = self.env['vehicle'].browse(vehicle_id)
+        vehicle.vehicle_action_change()
+        return res
 
 
 

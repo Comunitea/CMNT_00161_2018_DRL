@@ -12,11 +12,13 @@
     'depends': [
         'base',
         'stock',
-        'dairylac_custom'
+        'dairylac_custom',
+        'web'
     ],
     'data': [
         'security/ir.model.access.csv',
         'security/weight_registry_security.xml',
+        'views/assets.xml',
         'views/vehicle_view.xml',
         'views/weight_registry.xml',
         'views/stock_views.xml',
@@ -24,4 +26,7 @@
 
     ],
     'installable': True,
+    'qweb': [
+        "static/src/xml/weight_control.xml",
+    ],
 }

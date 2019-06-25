@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="set_weight assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/weight_registry/static/src/js/set_weight.js"></script>
+            <link rel="stylesheet" href="/weight_registry/static/src/less/set_weight.less"/>
+        </xpath>
+    </template>
+
+</odoo>
