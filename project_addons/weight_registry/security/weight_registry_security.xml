@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id="group_weight_registry_manager" model="res.groups">
+        <field name="name">Weight Registry Manager</field>
+        <field name="category_id" ref="base.module_category_warehouse_management"/>
+        <field name="implied_ids" eval="[(4, ref('stock.group_stock_manager'))]"/>
+    </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_location_incoming_deposit" model="stock.location">
+            <field name="name">Incoming deposits</field>
+            <field name="usage">supplier</field>
+            <field name="posz">1</field>
+            <field name="location_id" ref="stock.stock_location_suppliers"/>
+            <field name="company_id"></field>
+        </record>
+    <record id="stock_location_outgoing_deposit" model="stock.location">
+            <field name="name">Outgoing deposits</field>
+            <field name="usage">customer</field>
+            <field name="posz">1</field>
+            <field name="location_id" ref="stock.stock_location_customers"/>
+            <field name="company_id"></field>
+        </record>
+
+
+        <record id="stock_move_weight_control" model="ir.ui.view">
+            <field name="name">stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_dest_id']" position="after">
+                    <field name="need_weight_registry" invisible="1"/>
+                    <field name="weight_registry_id" attrs="{'invisible':[('need_weight_registry','=',False)]}" nolabel="1"/>
+                    <!--field name="weight_registry_count" widget="statinfo" string="W. registry" attrs="{'invisible':[('picking_type_id.need_weight_registry','=',False)]}" /-->
+                </xpath>
+            </field>
+        </record>
+        <record id="stock_move_weight_control_tree" model="ir.ui.view">
+            <field name="name">stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="weight_registry_id"/>
+                    <!--field name="weight_registry_count" widget="statinfo" string="W. registry" attrs="{'invisible':[('picking_type_id.need_weight_registry','=',False)]}" /-->
+                </xpath>
+            </field>
+        </record>
+
+       <record id="view_picking_type_form_weight_control" model="ir.ui.view">
+        <field name="name">Operation Types</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <field name="show_reserved" position="after">
+                <field name="need_weight_registry"/>
+                <field name="registry_type" attrs="{'invisible': [('need_weight_registry', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_move_operations_weight_control" model="ir.ui.view">
+            <field name="name">stock.move.form.operations</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_stock_move_operations"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_line_ids']" position="before">
+                    <group>
+                        <field name="weight_registry_id" readonly="1"/>
+                    </group>
+
+                </xpath>
+            </field>
+        </record>
+
+     <record id="view_stock_move_line_operation_tree_stock_apk" model="ir.ui.view">
+            <field name="name">Move Line Operations</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_id']" position="before">
+                    <field name="deposit_id" readonly="1" invisible="not context.get('need_weight_registry')"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Purchase button on orderpoints -->
+
+     <record id="view_stock_picking_weight_registry" model="ir.ui.view">
+        <field name="name">stock.picking.weight_registry.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='extra']" position="before">
+                <field name="need_weight_registry" invisible="1"/>
+                <field name="registry_type" invisible="1"/>
+                <page string="Weight registry" attrs="{'invisible': [('need_weight_registry', '=', False)]}">
+                    <header>
+                        <button name="button_weight_to_pick_wzd"
+                                attrs="{'invisible': [('state', 'not in', ('draft', 'confirmed', 'assigned', 'partially_available'))]}"
+                                string="Assing weight registry" type="object" class="oe_highlight" groups="stock.group_stock_manager">
+                                <field name="weight_registry_count" widget="statinfo" string="W. registry"/>
+                         </button>
+                        <field name="weight_control_state" widget="statusbar"/>
+                    </header>
+                    <div class="oe_button_box" name="button_box">
+
+                    </div>
+                    <separator string="Weight registry"/>
+                        <field name="need_weight_registry" invisible="1"/>
+                        <field name="registry_type" invisible="1"/>
+                        <field name="weight_registry_ids" nolabel="1" domain="[('registry_type', '=', registry_type), ('picking_id', '=', False)]">
+                            <tree editable="0" edit="0" create="0" delete="0">
+                                <field name="display_name"/>
+                                <field name="fill"/>
+                                <field name="net"/>
+                                <field name="registry_type" invisible="1"/>
+                                 <button name="action_unlink_weight"
+                                         string="Unlink weight registry" type="object"
+                                         icon="fa-trush" attrs="{'invisible': [('parent.state', '=', 'done')]}" options="{&quot;warn&quot;: true}"/>
+                            </tree>
+                        </field>
+
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

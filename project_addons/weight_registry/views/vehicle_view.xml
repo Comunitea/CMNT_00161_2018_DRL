@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+    <record model="ir.ui.view" id="vehicle_form_view_registry">
+        <field name="name">vehicle.form</field>
+        <field name="model">vehicle</field>
+        <field name="inherit_id" ref="dairylac_custom.vehicle_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                  <field name="weight_control_state" widget="statusbar"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_weight_registry" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('weight_registry_count', '=', 0)]}">
+                    <field name="weight_registry_count" widget="statinfo" string="W. registry"/>
+                </button>
+            </xpath>
+
+            <field name="driver_ids" position="after">
+                <group>
+                    <field name="last_driver_id"/>
+                </group>
+            </field>
+
+        </field>
+    </record>
+</odoo>

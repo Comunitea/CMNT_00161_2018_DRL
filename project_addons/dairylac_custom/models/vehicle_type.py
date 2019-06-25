@@ -9,3 +9,4 @@ class VehicleType(models.Model):
     _name = "vehicle.type"
 
     name=fields.Char('Name')
+    code = fields.Char('Code')
