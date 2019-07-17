@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="qc_test_form_view_add_no_cases">
+        <field name="name">qc.test.form.add_no_cases</field>
+        <field name="model">qc.test</field>
+        <field name="inherit_id" ref="quality_control.qc_test_form_view"/>
+        <field name="arch" type="xml">
+            <field name="active" position="after">
+                <field name="no_cases"/>
+            </field>
+            <xpath expr="//field[@name='test_lines']/tree/field[@name='type']" position="after">
+                <field name="result_type"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="qc_test_question_form_view_add_result_type">
+        <field name="name">qc.test.question.form.add_result_type</field>
+        <field name="model">qc.test.question</field>
+        <field name="inherit_id" ref="quality_control.qc_test_question_form_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="result_type"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
