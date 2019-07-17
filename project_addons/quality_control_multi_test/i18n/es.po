@@ -1,0 +1,148 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* quality_control_multi_test
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-17 15:05+0000\n"
+"PO-Revision-Date: 2019-07-17 15:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_multi_test
+#: selection:qc.test.question,result_type:0
+msgid "All valid"
+msgstr "Todos válidos"
+
+#. module: quality_control_multi_test
+#: selection:qc.test.question,result_type:0
+msgid "Average valid"
+msgstr "Validación valor medio"
+
+#. module: quality_control_multi_test
+#: selection:qc.test,no_cases:0
+msgid "Five columns"
+msgstr "5 valores"
+
+#. module: quality_control_multi_test
+#: selection:qc.test,no_cases:0
+msgid "Four columns"
+msgstr "4 valores"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_no_cases
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_no_cases
+msgid "No of Cases"
+msgstr "No de valores"
+
+#. module: quality_control_multi_test
+#: selection:qc.test,no_cases:0
+msgid "One column"
+msgstr "Un valor"
+
+#. module: quality_control_multi_test
+#: selection:qc.test.question,result_type:0
+msgid "One valid"
+msgstr "Cualquiera válido"
+
+#. module: quality_control_multi_test
+#: model:ir.model,name:quality_control_multi_test.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Inspección del control de calidad"
+
+#. module: quality_control_multi_test
+#: model:ir.model,name:quality_control_multi_test.model_qc_inspection_line
+msgid "Quality control inspection line"
+msgstr "Línea de inspección del control de calidad"
+
+#. module: quality_control_multi_test
+#: model:ir.model,name:quality_control_multi_test.model_qc_test_question
+msgid "Quality control question"
+msgstr "Pregunta del control de calidad"
+
+#. module: quality_control_multi_test
+#: model:ir.model,name:quality_control_multi_test.model_qc_test
+msgid "Quality control test"
+msgstr "Test del control de calidad"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line_quantitative_value2
+msgid "Quantitative value 2"
+msgstr "Cuantitativo 2"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line_quantitative_value3
+msgid "Quantitative value 3"
+msgstr "Cuantitativo 3"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line_quantitative_value4
+msgid "Quantitative value 4"
+msgstr "Cuantitativo 4"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line_quantitative_value5
+msgid "Quantitative value 5"
+msgstr "Cuantitativo 5"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line_quantitative_value6
+msgid "Quantitative value 6"
+msgstr "Cuantitativo 6"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_question_result_type
+msgid "Result type"
+msgstr "Tipo de resultado"
+
+#. module: quality_control_multi_test
+#: selection:qc.test,no_cases:0
+msgid "Six columns"
+msgstr "Seis valores"
+
+#. module: quality_control_multi_test
+#: selection:qc.test.question,result_type:0
+msgid "Sum valid"
+msgstr "Válida la suma"
+
+#. module: quality_control_multi_test
+#: selection:qc.test,no_cases:0
+msgid "Three columns"
+msgstr "Tres valores"
+
+#. module: quality_control_multi_test
+#: selection:qc.test,no_cases:0
+msgid "Two columns"
+msgstr "Dos valores"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value2
+msgid "Value 2 of the result for a quantitative question."
+msgstr "Valor 2 del resultado para la pregunta cuantitativa."
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value3
+msgid "Value 3 of the result for a quantitative question."
+msgstr "Valor 3 del resultado para la pregunta cuantitativa."
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value4
+msgid "Value 4 of the result for a quantitative question."
+msgstr "Valor 4 del resultado para la pregunta cuantitativa."
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value5
+msgid "Value 5 of the result for a quantitative question."
+msgstr "Valor 5 del resultado para la pregunta cuantitativa."
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value6
+msgid "Value 6 of the result for a quantitative question."
+msgstr "Valor 6 del resultado para la pregunta cuantitativa."
+

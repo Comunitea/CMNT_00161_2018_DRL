@@ -10,11 +10,11 @@
                 <field name="no_cases" invisible="1"/>
             </field>
             <field name="quantitative_value" position="after">
-                <field name="quantitative_value2" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'invisible': [('parent.no_cases', '&lt;', 2)]}" />
-                <field name="quantitative_value3" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'invisible': [('parent.no_cases', '&lt;', 3)]}" />
-                <field name="quantitative_value4" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'invisible': [('parent.no_cases', '&lt;', 4)]}" />
-                <field name="quantitative_value5" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'invisible': [('parent.no_cases', '&lt;', 5)]}" />
-                <field name="quantitative_value6" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'invisible': [('parent.no_cases', '&lt;', 6)]}" />
+                <field name="quantitative_value2" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'column_invisible': [('parent.no_cases', '&lt;', 2)]}" />
+                <field name="quantitative_value3" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'column_invisible': [('parent.no_cases', '&lt;', 3)]}" />
+                <field name="quantitative_value4" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'column_invisible': [('parent.no_cases', '&lt;', 4)]}" />
+                <field name="quantitative_value5" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'column_invisible': [('parent.no_cases', '&lt;', 5)]}" />
+                <field name="quantitative_value6" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'column_invisible': [('parent.no_cases', '&lt;', 6)]}" />
             </field>
         </field>
     </record>
