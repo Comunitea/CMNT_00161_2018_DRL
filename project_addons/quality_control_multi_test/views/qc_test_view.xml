@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <field name="active" position="after">
                 <field name="no_cases"/>
+                <field name="location_type"/>
             </field>
             <xpath expr="//field[@name='test_lines']/tree/field[@name='type']" position="after">
                 <field name="result_type"/>

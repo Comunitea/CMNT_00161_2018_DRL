@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-17 15:05+0000\n"
-"PO-Revision-Date: 2019-07-17 15:05+0000\n"
+"POT-Creation-Date: 2019-07-18 05:49+0000\n"
+"PO-Revision-Date: 2019-07-18 05:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,12 @@ msgstr "Todos válidos"
 #. module: quality_control_multi_test
 #: selection:qc.test.question,result_type:0
 msgid "Average valid"
-msgstr "Validación valor medio"
+msgstr "Validac valor medio"
+
+#. module: quality_control_multi_test
+#: selection:qc.test,location_type:0
+msgid "External"
+msgstr "Externo"
 
 #. module: quality_control_multi_test
 #: selection:qc.test,no_cases:0
@@ -36,6 +41,16 @@ msgid "Four columns"
 msgstr "4 valores"
 
 #. module: quality_control_multi_test
+#: selection:qc.test,location_type:0
+msgid "Internal"
+msgstr "Interno"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_location_type
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: quality_control_multi_test
 #: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_no_cases
 #: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_no_cases
 msgid "No of Cases"
@@ -44,7 +59,7 @@ msgstr "No de valores"
 #. module: quality_control_multi_test
 #: selection:qc.test,no_cases:0
 msgid "One column"
-msgstr "Un valor"
+msgstr "1 valor"
 
 #. module: quality_control_multi_test
 #: selection:qc.test.question,result_type:0
@@ -104,7 +119,7 @@ msgstr "Tipo de resultado"
 #. module: quality_control_multi_test
 #: selection:qc.test,no_cases:0
 msgid "Six columns"
-msgstr "Seis valores"
+msgstr "6 valores"
 
 #. module: quality_control_multi_test
 #: selection:qc.test.question,result_type:0
@@ -114,12 +129,12 @@ msgstr "Válida la suma"
 #. module: quality_control_multi_test
 #: selection:qc.test,no_cases:0
 msgid "Three columns"
-msgstr "Tres valores"
+msgstr "3 valores"
 
 #. module: quality_control_multi_test
 #: selection:qc.test,no_cases:0
 msgid "Two columns"
-msgstr "Dos valores"
+msgstr "2 valores"
 
 #. module: quality_control_multi_test
 #: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value2

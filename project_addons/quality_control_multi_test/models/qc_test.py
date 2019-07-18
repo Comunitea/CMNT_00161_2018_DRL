@@ -13,3 +13,6 @@ class QcTest(models.Model):
                    ('5', 'Five columns'), ('6', 'Six columns')], "No of Cases",
                   required=True, default='1')
 
+    location_type = fields.Selection([('internal', 'Internal'),
+                                      ('external', 'External')],
+                                     "Location", default='internal')
