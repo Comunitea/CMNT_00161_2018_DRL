@@ -70,8 +70,38 @@
             <xpath expr="//field[@name='location_dest_id']" position="after">
                 <separator/>
                 <filter string="Letra Q" domain="[('is_letra_q', '=', True)]" help="Movements Letra Q"/>
+                <filter string="Letra Q not exported" domain="[('is_letra_q', '=', True), ('exportation_ids', '=', False)]"/>
             </xpath>
+            <filter name="by_state" position="after">
+                <filter string="Letra Q group" name="letra_q" domain="[]"  context="{'group_by':'letra_q_group'}"/>
+            </filter>
         </field>
     </record>
 
+    <record id="view_stock_move_line_operation_tree" model="ir.ui.view">
+        <field name="name">stock.move.line.inherit.view.tree</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree"/>
+        <field name="arch" type="xml">
+            <field name="location_id" position="before">
+                <field name="vehicle_id" invisible="1"/>
+                <field name="dest_location_type_q" invisible="1"/>
+                <field name="is_letra_q" invisible="1"/>
+                <field name="deposit_id" attrs="{'column_invisible': ['|', ('parent.is_letra_q', '=', False), ('parent.location_type_q', '!=', '3')], 'required': [('is_letra_q', '=', True), ('dest_location_type_q', '=', '3')]}" domain="[('vehicle_id', '=', vehicle_id)]"/>
+                <field name="emptied"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_move_operations" model="ir.ui.view">
+        <field name="name">stock.move.inherit.view.form</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_stock_move_operations"/>
+        <field name="arch" type="xml">
+            <field name="move_line_ids" position="before">
+                    <field name="location_type_q" invisible="1"/>
+                    <field name="is_letra_q" invisible="1"/>
+            </field>
+        </field>
+    </record>
 </odoo>

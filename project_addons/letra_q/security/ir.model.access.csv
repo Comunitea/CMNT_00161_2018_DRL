@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_account_analytic_account_price_agreement,access_account_analytic_account_price_agreement,model_account_analytic_account_price_agreement,base.group_user,1,1,1,1
+access_letra_q_exporter_move,access_letra_q_exporter_move,model_letra_q_exporter_move,base.group_user,1,1,1,1
+access_letra_q_exporter,access_letra_q_exporter,model_letra_q_exporter,base.group_user,1,1,1,1
+access_letra_q_exporter_group,access_letra_q_exporter_group,model_letra_q_exporter_group,base.group_user,1,1,1,1

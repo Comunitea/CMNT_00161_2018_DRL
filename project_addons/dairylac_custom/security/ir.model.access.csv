@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vehicle_type,access_vehicle_type,model_vehicle_type,base.group_user,1,1,1,1
+access_deposit,access_deposit,model_deposit,base.group_user,1,1,1,1
+access_vehicle,access_vehicle,model_vehicle,base.group_user,1,1,1,1

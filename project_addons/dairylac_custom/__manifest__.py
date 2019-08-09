@@ -17,8 +17,8 @@
     'views/res_partner_view.xml',
     'views/vehicle_view.xml',
     'views/deposit_view.xml',
-    'views/delivery_carrier_view.xml'
-
+    'views/delivery_carrier_view.xml',
+    'security/ir.model.access.csv'
     ],
     'installable': True,
 }

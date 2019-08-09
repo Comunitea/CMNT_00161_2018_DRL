@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="export_moves_letra_q_form" model="ir.ui.view">
+        <field name="name">export.moves.letra.q.form</field>
+        <field name="model">export.moves.letra.q</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Export the moves to letra Q">
+                <group>
+                    <field name="exportation_id"/>
+                </group>
+                <footer>
+                    <button name="create_exportation" string="Create" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Export to letra Q"
+        res_model="export.moves.letra.q"
+        src_model="stock.move.line"
+        view_id="export_moves_letra_q_form"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"
+        id="action_export_moves_letra_q"/>
+
+</odoo>

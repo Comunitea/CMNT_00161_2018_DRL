@@ -103,7 +103,6 @@ class WeightPickWzd(models.TransientModel):
 
     @api.multi
     def action_apply_changes(self):
-
         str = ''
         if self.registry_type == 'incoming':
             location_field = 'deposit_id'

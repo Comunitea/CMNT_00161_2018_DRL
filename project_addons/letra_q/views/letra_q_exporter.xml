@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="letra_q_exporter_view_tree" model="ir.ui.view">
+        <field name="name">letra.q.exporter.view.tree</field>
+        <field name="model">letra.q.exporter</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="letra_q_exporter_view_form" model="ir.ui.view">
+        <field name="name">letra.q.exporter.view.form</field>
+        <field name="model">letra.q.exporter</field>
+        <field name="arch" type="xml">
+            <form string="Letra Q exportationn">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="user_id"/>
+                    </group>
+                    <field name="letra_q_groups">
+                        <tree>
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="move_ids"/>
+                        </tree>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <field name="name"/>
+                                </group>
+                                <field name="move_ids">
+                                    <tree>
+                                        <field name="move_date"/>
+                                        <field name="liters"/>
+                                        <field name="origin_q_code"/>
+                                        <field name="dest_q_code"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="picking"/>
+                                                    <field name="move_id"/>
+                                                    <field name="product_id"/>
+                                                    <field name="move_date"/>
+                                                    <field name="liters"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <group>
+                                                    <field name="origin_location"/>
+                                                    <field name="origin_q_code"/>
+                                                    <field name="origin_deposit"/>
+                                                    <field name="origin_center"/>
+                                                    <field name="origin_country"/>
+                                                    <field name="origin_empty"/>
+                                                </group>
+                                                <group>
+                                                    <field name="dest_location"/>
+                                                    <field name="dest_q_code"/>
+                                                    <field name="dest_center"/>
+                                                    <field name="dest_country"/>
+                                                </group>
+                                            </group>
+                                            <field name="notes" widget="textarea"/>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </sheet>
+                        </form>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="letra_q_exporter_action" model="ir.actions.act_window">
+        <field name="name">Letra Q exportations</field>
+        <field name="res_model">letra.q.exporter</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Letra Q exportations" parent="stock.menu_warehouse_report" action="letra_q_exporter_action" id="letra_q_exporter_menu"/>
+</odoo>

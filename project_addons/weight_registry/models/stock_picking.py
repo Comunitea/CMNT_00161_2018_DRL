@@ -6,12 +6,14 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from .weight_control import REGISTRY_TYPE
 
+
 class StockPickingType(models.Model):
 
     _inherit = "stock.picking.type"
 
     need_weight_registry = fields.Boolean("Weight registry", help="If check, need weight to do an action done")
     registry_type = fields.Selection(REGISTRY_TYPE, string="Registy type")
+
 
 class StockPicking(models.Model):
 
