@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 # © 2019 Comunitea
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-
-from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
+from odoo import models, fields
 from .weight_control import REGISTRY_TYPE
 
 
@@ -11,7 +8,8 @@ class StockPickingType(models.Model):
 
     _inherit = "stock.picking.type"
 
-    need_weight_registry = fields.Boolean("Weight registry", help="If check, need weight to do an action done")
+    need_weight_registry = fields.Boolean(
+        "Weight registry", help="If check, need weight to do an action done")
     registry_type = fields.Selection(REGISTRY_TYPE, string="Registy type")
 
 
@@ -19,14 +17,16 @@ class StockPicking(models.Model):
 
     _inherit = "stock.picking"
 
-    need_weight_registry = fields.Boolean(related='picking_type_id.need_weight_registry')
+    need_weight_registry = fields.Boolean(
+        related='picking_type_id.need_weight_registry')
     weight_registry_ids = fields.One2many('weight.registry', 'picking_id')
     registry_type = fields.Selection(related='picking_type_id.registry_type')
-    weight_control_state = fields.Selection(string="Weight state", compute='_compute_weight_state',
-                                            selection=[('checked_out', "Check out"), ('checked_in', "Check in")])
-    weight_registry_count = fields.Integer(string="W. registry count", compute="_get_w_registry_count")
+    weight_control_state = fields.Selection(
+        string="Weight state", compute='_compute_weight_state',
+        selection=[('checked_out', "Check out"), ('checked_in', "Check in")])
+    weight_registry_count = fields.Integer(
+        string="W. registry count", compute="_get_w_registry_count")
 
-    @api.multi
     def _get_w_registry_count(self):
         for pick in self:
             pick.weight_registry_count = len(pick.weight_registry_ids)
@@ -39,10 +39,6 @@ class StockPicking(models.Model):
             else:
                 w_r_id.weight_control_state = 'checked_in'
 
-
-
-
-    @api.multi
     def button_weight_to_pick_wzd(self):
         self.ensure_one()
         action = self.env.ref(

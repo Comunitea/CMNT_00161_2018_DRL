@@ -68,7 +68,9 @@ class StockMoveLine(models.Model):
     def _compute_letra_q_group(self):
         for move in self:
             if move.location_id.location_type_q == '3':
-                move.letra_q_group = '{} - {}'.format(move.vehicle_id.letter_code_q or '', move.picking_id.name or '')
+                move.letra_q_group = '{} - {}'.format(
+                    move.vehicle_id.letter_code_q or '',
+                    move.picking_id.name or '')
             else:
                 move.letra_q_group = move.location_id.code_q
 
@@ -77,7 +79,9 @@ class StockMoveLine(models.Model):
                                 store=True)
     vehicle_id = fields.Many2one(
         'vehicle',
-        related='picking_id.weight_registry_ids.vehicle_id', readonly=True, store=True)
+        related='picking_id.weight_registry_ids.vehicle_id',
+        readonly=True,
+        store=True)
     deposit_id = fields.Many2one('deposit')
     dest_location_type_q = fields.Selection(
         related='location_id.location_type_q', readonly=True)

@@ -12,7 +12,8 @@ class ExportMovesLetraQ(models.TransientModel):
         exportation = self.exportation_id
         if not exportation:
             exportation = self.env['letra.q.exporter'].create({})
-        for move_line in self.env['stock.move.line'].browse(self._context.get('active_ids')):
+        for move_line in self.env['stock.move.line'].browse(
+                self._context.get('active_ids')):
             group_name = move_line.letra_q_group
             use_group = self.env['letra.q.exporter.group'].search([
                 ('exporter_id', '=', exportation.id),

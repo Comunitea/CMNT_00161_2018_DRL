@@ -13,4 +13,3 @@ class ProductTemplate(models.Model):
          ('3', 'caprino')],
         'Milk Species', required=False)
     subject_q = fields. Boolean('Subject to Letra Q')
-

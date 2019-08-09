@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2019 Comunitea Servicios Tecnológicos S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import _, api, fields, models
@@ -8,7 +7,7 @@ from ..models.weight_control import REGISTRY_TYPE
 
 class WeightPickLineWzd(models.TransientModel):
     _name = 'weight.pick.line.wzd'
-    #_order = 'check_in'
+    # _order = 'check_in'
     name = fields.Char('Name')
     wzd_id = fields.Many2one('weight.pick.wzd')
     weight_registry_id = fields.Many2one('weight.registry', string="Weight registry")
@@ -21,6 +20,7 @@ class WeightPickLineWzd(models.TransientModel):
     to_add = fields.Boolean('To add')
     to_unlink = fields.Boolean('To delete')
 
+
 class WeightPickWzd(models.TransientModel):
 
     """Create a stock.batch.picking from stock.picking
@@ -30,8 +30,8 @@ class WeightPickWzd(models.TransientModel):
     _description = 'Asistente para añadir registros de pesaje al albarán'
 
     picking_id = fields.Many2one('stock.picking')
-    #move_lines = fields.One2many(related='picking_id.move_lines')
-    #move_line_ids = fields.One2many(related='picking_id.move_lines_ids')
+    # move_lines = fields.One2many(related='picking_id.move_lines')
+    # move_line_ids = fields.One2many(related='picking_id.move_lines_ids')
     picking_type_id = fields.Many2one(related='picking_id.picking_type_id')
     state = fields.Selection(related='picking_id.state')
     line_ids = fields.Many2many('weight.pick.line.wzd', 'wzd_id')
@@ -40,7 +40,7 @@ class WeightPickWzd(models.TransientModel):
 
     def _prepare_w_lines(self, line):
 
-        vals =  {
+        vals = {
             'wzd_id': self.id,
             'name': line.display_name,
             'fill': line.fill,
@@ -60,12 +60,15 @@ class WeightPickWzd(models.TransientModel):
                 'registry_type': picking_id.registry_type}
         wzd_id = self.create(vals)
 
-        w_r_domain = [('registry_type', '=', picking_id.registry_type), '|', ('picking_id', '=', picking_id.id), ('picking_id', '=', False)]
+        w_r_domain = [
+            ('registry_type', '=', picking_id.registry_type), '|',
+            ('picking_id', '=', picking_id.id), ('picking_id', '=', False)]
         new_line_ids = self.env['weight.pick.line.wzd']
         w_r_ids = self.env['weight.registry'].search(w_r_domain)
 
         for w_r in w_r_ids:
-            new_line_ids |= self.env['weight.pick.line.wzd'] .create(wzd_id._prepare_w_lines(w_r))
+            new_line_ids |= self.env['weight.pick.line.wzd'] .create(
+                wzd_id._prepare_w_lines(w_r))
 
         vals = {
                 'line_ids': [(6, 0, new_line_ids.ids)],
@@ -83,39 +86,44 @@ class WeightPickWzd(models.TransientModel):
         picking_id = self.env['stock.picking'].browse(picking)
         defaults['picking_id'] = picking
         defaults['registry_type'] = picking_id.registry_type
-        w_r_domain = [('registry_type', '=', picking_id.registry_type), '|', ('picking_id', '=', picking), ('picking_id', '=', False)]
+        w_r_domain = [
+            ('registry_type', '=', picking_id.registry_type), '|',
+            ('picking_id', '=', picking), ('picking_id', '=', False)]
 
         old_line_ids = self.env['weight.pick.line.wzd']
         new_line_ids = self.env['weight.pick.line.wzd']
         w_r_ids = self.env['weight.registry'].search(w_r_domain)
 
         for w_r in w_r_ids:
-            new_line_ids |= self.env['weight.pick.line.wzd'] .create(self._prepare_w_lines(w_r))
+            new_line_ids |= self.env['weight.pick.line.wzd'] .create(
+                self._prepare_w_lines(w_r))
         defaults['line_ids'] = [(6, 0, new_line_ids.ids)]
 
         for w_r in w_r_ids.filtered(lambda x: x.picking_id):
-            old_line_ids |= self.env['weight.pick.line.wzd'] .create(self._prepare_w_lines(w_r))
+            old_line_ids |= self.env['weight.pick.line.wzd'] .create(
+                self._prepare_w_lines(w_r))
         defaults['old_line_ids'] = [(6, 0, old_line_ids.ids)]
 
         print (defaults)
         return defaults
 
-
-    @api.multi
     def action_apply_changes(self):
         str = ''
         if self.registry_type == 'incoming':
             location_field = 'deposit_id'
-            location = self.env.ref('weight_registry.stock_location_incoming_deposit')
+            location = self.env.ref(
+                'weight_registry.stock_location_incoming_deposit')
 
         elif self.registry_type == 'outgoing':
             location_field = 'deposit_dest_id'
-            location = self.env.ref('weight_registry.stock_location_outgoing_deposit')
+            location = self.env.ref(
+                'weight_registry.stock_location_outgoing_deposit')
 
         pick = self.picking_id
         if len(pick.move_lines) == 1:
             move = pick.move_lines
-        to_unlink = self.line_ids.filtered(lambda x: x.to_unlink).mapped('weight_registry_id')
+        to_unlink = self.line_ids.filtered(
+            lambda x: x.to_unlink).mapped('weight_registry_id')
 
         if to_unlink:
             to_unlink.mapped('picking_id').do_unreserve()
@@ -125,32 +133,32 @@ class WeightPickWzd(models.TransientModel):
             self.env['stock.move.line'].search(domain).write(vals)
             to_unlink.write({'picking_id': False})
 
-
         for line in self.line_ids.filtered(lambda x: x.to_add):
 
             w_r = line.weight_registry_id
             vehicle_id = w_r.vehicle_id
 
             if w_r.product_id:
-                move = pick.move_lines.filtered(lambda x: x.product_id == w_r.product_id)
+                move = pick.move_lines.filtered(
+                    lambda x: x.product_id == w_r.product_id)
             if len(move) != 1:
-                raise ValidationError (_('Unable to map a move in this pick'))
+                raise ValidationError(_('Unable to map a move in this pick'))
 
             move.weight_registry_id = w_r
             ctx = self._context.copy()
 
             for deposit in vehicle_id.deposit_id:
                 qty = deposit.capacity
-                ctx.update(weight_registry_id=w_r.id, deposit_id=deposit.id, location=location, location_field=location_field)
-                move_line_vals = move.with_context(ctx)._prepare_move_line_vals(quantity=qty)
-                print (move_line_vals)
+                ctx.update(
+                    weight_registry_id=w_r.id, deposit_id=deposit.id,
+                    location=location, location_field=location_field)
+                move_line_vals = move.with_context(
+                    ctx)._prepare_move_line_vals(quantity=qty)
                 self.env['stock.move.line'].create(move_line_vals)
 
             w_r.apply_net_to_qty_done()
             str = '{}, {}'.format(str, line.display_name)
-            print (str)
             w_r.picking_id = self.picking_id
-
 
         # self.move_id.do_unreserve_for_pda()
         # route_vals = self.move_id.update_info_route_vals()
