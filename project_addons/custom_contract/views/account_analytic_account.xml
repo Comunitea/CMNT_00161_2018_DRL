@@ -6,6 +6,13 @@
         <field name="model">account.analytic.account</field>
         <field name="inherit_id" ref="contract.account_analytic_account_sale_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+
+                    <button name="validate" states="draft" string="Confirm" type="object" class="oe_highlight"/>
+                    <button name="set_to_draft" string="Set to Draft" type="object" attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+
+            </xpath>
             <label for="recurring_interval" position="attributes">
                 <attribute name="invisible">1</attribute>
             </label>
@@ -26,6 +33,14 @@
                     <tree editable="top">
                         <field name="product_id"/>
                         <field name="price_unit"/>
+                    </tree>
+                </field>
+                <field name="delivery_agreement_ids">
+                    <tree editable="top">
+                        <field name="product_id"/>
+                        <field name="quantity"/>
+                        <field name="delivery_date"/>
+                        <field name="partner_shipping_id"/>
                     </tree>
                 </field>
             </field>
@@ -62,4 +77,58 @@
             </xpath>
         </field>
     </record>
+
+        <record id="view_contract_delivery_calendar" model="ir.ui.view">
+            <field name="name">Draft Deliveries</field>
+            <field name="model">contract.delivery.agreement</field>
+            <field name="arch" type="xml">
+                <calendar string="Draft Deliveries" date_start="delivery_date"  mode="month" quick_add="False" color="analytic_account_id">
+                    <field name="display_name"/>
+                </calendar>
+            </field>
+        </record>
+
+    <record id="view_contract_delivery_form" model="ir.ui.view">
+            <field name="name">Draft Deliveries</field>
+            <field name="model">contract.delivery.agreement</field>
+            <field name="arch" type="xml">
+                <form string="Draft Deliveries" >
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                 <field name="delivery_date"/>
+                                <field name="partner_shipping_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record id="open_deliver_calendar" model="ir.actions.act_window">
+            <field name="name">Contract Deliveries</field>
+            <field name="res_model">contract.delivery.agreement</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_contract_delivery_form"/>
+            <field name="context">{
+            }</field>
+            <field name="domain">[('state','=','draft')]</field>
+            <!--field name="search_view_id" ref="view_hr_holidays_filter"/-->
+
+        </record>
+
+    <record id="action_open_draft_deliveries_contract" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="view_contract_delivery_calendar"/>
+            <field name="act_window_id" ref="open_deliver_calendar"/>
+        </record>
+
+        <menuitem
+            id="menu_open_draft_deliveries_contract"
+            parent="sale.sale_order_menu"
+            action="open_deliver_calendar"
+            sequence="2"/>
 </odoo>
