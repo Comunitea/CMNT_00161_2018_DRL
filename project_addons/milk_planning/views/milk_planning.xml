@@ -9,7 +9,7 @@
                 <field name="has_order_ids" invisible="1"/>
                 <field name="partner_id" attrs="{'readonly': [('has_order_ids', '=', True)]}"/>
                 <field name="day" attrs="{'readonly': [('has_order_ids', '=', True)]}"/>
-                <field name="quantity" attrs="{'readonly': [('has_order_ids', '=', True)]}"/>
+                <field name="quantity" attrs="{'readonly': [('has_order_ids', '=', True)]}" sum="Total"/>
                 <field name="purchase_type" invisible="1"/>
                 <button name="action_create_order" type="object"
                     icon="fa-plus-square"
@@ -29,13 +29,20 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="day"/>
-                <field name="quantity"/>
+                <field name="confirmed_quantity" sum="Total Confirmed"/>
                 <field name="sale_type" invisible="1"/>
                 <field name="has_order_ids" invisible="1"/>
-                <button name="action_view_orders" type="object"
+                 <button name="action_view_orders" type="object"
                     icon="fa-search-plus"
                     attrs="{'invisible': [('has_order_ids', '=', False)]}"
                     string="View orders"/>
+                 <field name="contract_quantity" sum="Total Draft"/>
+                <field name="has_contract_ids" invisible="1"/>
+                <button name="action_view_contracts" type="object"
+                    icon="fa-search-plus"
+                    attrs="{'invisible': [('has_contract_ids', '=', False)]}"
+                    string="View Contract Deliveries"/>
+                <field name="quantity" sum="Total"/>
             </tree>
         </field>
     </record>
@@ -78,14 +85,37 @@
                     </group>
                     <group>
                         <field name="milk_stock"/>
+                        <field name="milk_do_stock"/>
+                        <field name="milk_100_stock"/>
                         <field name="cream_stock"/>
                     </group>
                     <notebook>
                         <page string="Sales">
-                            <group>
-                                <field name="raw_milk_sale_ids"/>
-                                <field name="skimmed_milk_sale_ids"/>
-                                <field name="cream_sale_ids"/>
+                            <group col="6" colspan="4">
+                                <group colspan="2" >
+                                    <separator string="Raw Milk" colspan="2"/>
+                                    <field name="raw_milk_sale_ids"  nolabel="1" />
+                                </group>
+                                <group colspan="2">
+                                    <separator string="Raw Milk D.O." colspan="2"/>
+                                    <field name="raw_milk_do_sale_ids" nolabel="1"/>
+                                </group>
+                                <group colspan="2">
+                                    <separator string="Raw Milk 100%" colspan="2"/>
+                                    <field name="raw_milk_100_sale_ids" nolabel="1" />
+                                </group>
+                            </group>
+                            <group col="6" colspan="4">
+                                <group colspan="2">
+                                    <separator string="Skimmed Milk" colspan="2"/>
+                                    <field name="skimmed_milk_sale_ids" nolabel="1" colspan="2"/>
+                                </group>
+                                <group colspan="2">
+                                    <separator string="Cream" colspan="2"/>
+                                    <field name="cream_sale_ids" nolabel="1" colspan="2"/>
+
+                                </group>
+
                             </group>
                         </page>
                         <page string="Purchases &amp; Stock">
@@ -95,6 +125,22 @@
                                 </group>
                                 <group>
                                     <field name="milk_stock_ids"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="milk_do_purchase_ids" context="{'default_purchase_type': 'milk_do'}"/>
+                                </group>
+                                <group>
+                                    <field name="milk_do_stock_ids"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="milk_100_purchase_ids" context="{'default_purchase_type': 'milk_100'}"/>
+                                </group>
+                                <group>
+                                    <field name="milk_100_stock_ids"/>
                                 </group>
                             </group>
                             <group>

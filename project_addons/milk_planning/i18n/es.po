@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-17 09:30+0000\n"
-"PO-Revision-Date: 2019-04-17 09:30+0000\n"
+"POT-Creation-Date: 2019-10-17 16:24+0000\n"
+"PO-Revision-Date: 2019-10-17 16:24+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,22 @@ msgid "Calculate"
 msgstr "Calcular"
 
 #. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_confirmed_quantity
+msgid "Confirmed Quantity"
+msgstr "Cantidad confirmada"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_contract_ids
+msgid "Contract"
+msgstr "Entregas en negociación"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_contract_quantity
+msgid "Contract Quantity"
+msgstr "Cantidad en negociación"
+
+#. module: milk_planning
+#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 #: selection:milk.planning.purchase,purchase_type:0
 #: selection:milk.planning.stock,stock_type:0
 msgid "Cream"
@@ -104,6 +120,11 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_has_contract_ids
+msgid "Has Contract"
+msgstr "Has Contract"
+
+#. module: milk_planning
 #: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_has_order_ids
 #: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_has_order_ids
 msgid "Has Order"
@@ -148,6 +169,40 @@ msgid "Milk"
 msgstr "Leche"
 
 #. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_100_purchase_ids
+msgid "Milk 100 Purchase"
+msgstr "Compra de leche 100%"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_100_stock
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_100_stock_ids
+msgid "Milk 100 Stock"
+msgstr "Stock de leche 100%"
+
+#. module: milk_planning
+#: selection:milk.planning.purchase,purchase_type:0
+#: selection:milk.planning.stock,stock_type:0
+msgid "Milk 100%"
+msgstr "Leche 100%"
+
+#. module: milk_planning
+#: selection:milk.planning.purchase,purchase_type:0
+#: selection:milk.planning.stock,stock_type:0
+msgid "Milk D.O."
+msgstr "Leche D.O."
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_do_purchase_ids
+msgid "Milk Do Purchase"
+msgstr "Compra de leche D.O"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_do_stock
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_do_stock_ids
+msgid "Milk Do Stock"
+msgstr "Stock de leche D.O"
+
+#. module: milk_planning
 #: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_purchase_ids
 msgid "Milk Purchase"
 msgstr "Compra de leche"
@@ -172,7 +227,7 @@ msgstr "Planificación de leche"
 #. module: milk_planning
 #: model:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
 msgid "Milk products"
-msgstr "Productos lacteos"
+msgstr "Productos lácteos"
 
 #. module: milk_planning
 #: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_order_ids
@@ -204,6 +259,16 @@ msgid "Product Raw Milk"
 msgstr "Producto leche cruda"
 
 #. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings_product_raw_milk_100
+msgid "Product Raw Milk 100"
+msgstr "Producto leche cruda 100%"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings_product_raw_milk_do
+msgid "Product Raw Milk Do"
+msgstr "Producto leche cruda D.O."
+
+#. module: milk_planning
 #: model:ir.model.fields,field_description:milk_planning.field_res_config_settings_product_skimmed_milk
 msgid "Product Skimmed Milk"
 msgstr "Producto leche desnatada"
@@ -225,6 +290,31 @@ msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: milk_planning
+#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+msgid "Raw Milk"
+msgstr "Leche cruda"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_raw_milk_100_sale_ids
+msgid "Raw Milk 100 Sale"
+msgstr "Ventas de leche 100%"
+
+#. module: milk_planning
+#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+msgid "Raw Milk 100%"
+msgstr "Leche cruda 100%"
+
+#. module: milk_planning
+#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+msgid "Raw Milk D.O."
+msgstr "Leche cruda D.O."
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_raw_milk_do_sale_ids
+msgid "Raw Milk Do Sale"
+msgstr "Ventas de leche D.O."
+
+#. module: milk_planning
 #: model:ir.model.fields,field_description:milk_planning.field_milk_planning_raw_milk_sale_ids
 msgid "Raw Milk Sale"
 msgstr "Ventas leche cruda"
@@ -233,6 +323,16 @@ msgstr "Ventas leche cruda"
 #: selection:milk.planning.sale,sale_type:0
 msgid "Raw milk"
 msgstr "Leche cruda"
+
+#. module: milk_planning
+#: selection:milk.planning.sale,sale_type:0
+msgid "Raw milk 100%"
+msgstr "Leche cruda 100%"
+
+#. module: milk_planning
+#: selection:milk.planning.sale,sale_type:0
+msgid "Raw milk D.O."
+msgstr "Leche cruda D.O."
 
 #. module: milk_planning
 #: model:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
@@ -247,12 +347,17 @@ msgstr "Existencias"
 #. module: milk_planning
 #: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_sale_type
 msgid "Sale Type"
-msgstr "Sale Type"
+msgstr "Tipo de venta"
 
 #. module: milk_planning
 #: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 msgid "Sales"
 msgstr "Ventas"
+
+#. module: milk_planning
+#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+msgid "Skimmed Milk"
+msgstr "Leche desnatada"
 
 #. module: milk_planning
 #: model:ir.model.fields,field_description:milk_planning.field_milk_planning_skimmed_milk_sale_ids
@@ -272,7 +377,7 @@ msgstr "Producto leche desnatada"
 #. module: milk_planning
 #: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_stock_type
 msgid "Stock Type"
-msgstr "Stock Type"
+msgstr "Tipo de stock"
 
 #. module: milk_planning
 #: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_partner_id
@@ -280,10 +385,31 @@ msgid "Supplier"
 msgstr "Proveedor"
 
 #. module: milk_planning
-#: code:addons/milk_planning/models/milk_planning.py:185
+#: code:addons/milk_planning/models/milk_planning.py:260
 #, python-format
 msgid "The order can not be created without establishing a supplier"
 msgstr "La orden no puede ser creada si no se ha establecido un proveedor"
+
+#. module: milk_planning
+#: model:ir.ui.view,arch_db:milk_planning.milk_planning_purchase_view_tree
+#: model:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
+msgid "Total"
+msgstr "Total"
+
+#. module: milk_planning
+#: model:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
+msgid "Total Confirmed"
+msgstr "Total confirmado"
+
+#. module: milk_planning
+#: model:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
+msgid "Total Draft"
+msgstr "Total en negociación"
+
+#. module: milk_planning
+#: model:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
+msgid "View Contract Deliveries"
+msgstr "Ver entregas en negociación"
 
 #. module: milk_planning
 #: model:ir.ui.view,arch_db:milk_planning.milk_planning_purchase_view_tree

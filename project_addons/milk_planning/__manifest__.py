@@ -9,7 +9,12 @@
     'maintainer': 'Comunitea',
     'website': 'www.comunitea.com',
     'license': 'AGPL-3',
-    'depends': ['product', 'stock', 'sale', 'purchase', 'onchange_helper'],
+    'depends': ['product',
+                'stock',
+                'sale',
+                'purchase',
+                'custom_contract',
+                'onchange_helper'],
     'data': [
         'views/res_config_settings.xml',
         'views/milk_planning.xml',

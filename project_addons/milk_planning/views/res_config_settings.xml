@@ -20,6 +20,14 @@
 									<field name="product_raw_milk" class="oe_inline" required="True" />
 								</div>
 								<div class="mt16">
+									<label for="product_raw_milk_do" string="Raw milk product" class="o_light_label" />
+									<field name="product_raw_milk_do" class="oe_inline" required="True" />
+								</div>
+								<div class="mt16">
+									<label for="product_raw_milk_100" string="Raw milk product" class="o_light_label" />
+									<field name="product_raw_milk_100" class="oe_inline" required="True" />
+								</div>
+								<div class="mt16">
 									<label for="product_skimmed_milk" string="Skimmed milk product" class="o_light_label" />
 									<field name="product_skimmed_milk" class="oe_inline" required="True" />
 								</div>

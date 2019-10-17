@@ -15,6 +15,10 @@ class ProductProduct(models.Model):
                 int(self.env['ir.config_parameter'].get_param(
                     'milk_planning.product_raw_milk')),
                 int(self.env['ir.config_parameter'].get_param(
+                    'milk_planning.product_raw_milk_do')),
+                int(self.env['ir.config_parameter'].get_param(
+                    'milk_planning.product_raw_milk_100')),
+                int(self.env['ir.config_parameter'].get_param(
                     'milk_planning.product_skimmed_milk')),
                 int(self.env['ir.config_parameter'].get_param(
                     'milk_planning.product_cream'))
@@ -25,6 +29,10 @@ class ProductProduct(models.Model):
             ids = [
                 int(self.env['ir.config_parameter'].get_param(
                     'milk_planning.product_raw_milk')),
+                int(self.env['ir.config_parameter'].get_param(
+                    'milk_planning.product_raw_milk_do')),
+                int(self.env['ir.config_parameter'].get_param(
+                    'milk_planning.product_raw_milk_100')),
                 int(self.env['ir.config_parameter'].get_param(
                     'milk_planning.product_skimmed_milk'))
             ]

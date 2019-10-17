@@ -27,16 +27,30 @@ class MilkPlanning(models.Model):
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True)
     milk_stock = fields.Float()
+    milk_do_stock = fields.Float()
+    milk_100_stock = fields.Float()
     cream_stock = fields.Float()
     milk_purchase_ids = fields.One2many(
         'milk.planning.purchase', 'planning_id',
         domain=[('purchase_type', '=', 'milk')])
+    milk_do_purchase_ids = fields.One2many(
+        'milk.planning.purchase', 'planning_id',
+        domain=[('purchase_type', '=', 'milk_do')])
+    milk_100_purchase_ids = fields.One2many(
+        'milk.planning.purchase', 'planning_id',
+        domain=[('purchase_type', '=', 'milk_100')])
     cream_purchase_ids = fields.One2many(
         'milk.planning.purchase', 'planning_id',
         domain=[('purchase_type', '=', 'cream')])
     raw_milk_sale_ids = fields.One2many(
         'milk.planning.sale', 'planning_id',
         domain=[('sale_type', '=', 'raw_milk')], readonly=True)
+    raw_milk_do_sale_ids = fields.One2many(
+        'milk.planning.sale', 'planning_id',
+        domain=[('sale_type', '=', 'raw_milk_do')], readonly=True)
+    raw_milk_100_sale_ids = fields.One2many(
+        'milk.planning.sale', 'planning_id',
+        domain=[('sale_type', '=', 'raw_milk_100')], readonly=True)
     skimmed_milk_sale_ids = fields.One2many(
         'milk.planning.sale', 'planning_id',
         domain=[('sale_type', '=', 'skimmed_milk')], readonly=True)
@@ -46,6 +60,12 @@ class MilkPlanning(models.Model):
     milk_stock_ids = fields.One2many(
         'milk.planning.stock', 'planning_id',
         domain=[('stock_type', '=', 'milk')])
+    milk_do_stock_ids = fields.One2many(
+        'milk.planning.stock', 'planning_id',
+        domain=[('stock_type', '=', 'milk_do')])
+    milk_100_stock_ids = fields.One2many(
+        'milk.planning.stock', 'planning_id',
+        domain=[('stock_type', '=', 'milk_100')])
     cream_stock_ids = fields.One2many(
         'milk.planning.stock', 'planning_id',
         domain=[('stock_type', '=', 'cream')])
@@ -65,7 +85,11 @@ class MilkPlanning(models.Model):
             # asi que tenemos que buscar por la última hora del día.
             day_datetime_start = day + ' 00:00:00'
             day_datetime_end = day + ' 23:59:59'
-            for product_name in ['raw_milk', 'skimmed_milk', 'cream']:
+            for product_name in ['raw_milk',
+                                 'raw_milk_do',
+                                 'raw_milk_100',
+                                 'skimmed_milk',
+                                 'cream']:
                 product_id = self.env[
                     'product.product'].get_milk_product_by_name(
                         product_name).id
@@ -81,36 +105,68 @@ class MilkPlanning(models.Model):
                     fields=['sale_line_id', 'product_uom_qty'],
                     groupby=['sale_line_id', 'product_uom_qty'],
                     lazy=False)
+                contracts = self.env[
+                    'contract.delivery.agreement'].search(
+                     [('state', 'in',
+                      ('draft',)),
+                     ('delivery_date', '>=', day_datetime_start),
+                     ('delivery_date', '<=', day_datetime_end),
+                     ('product_id', '=', product_id)],
+                    )
+
                 move_quantity = 0
+                contract_quantity = 0
                 orders = []
+                deliveries = []
                 if moves:
                     order_lines = [x['sale_line_id'][0] for x in moves]
                     order_ids = self.env['sale.order.line'].browse(
                         order_lines).read(['order_id'])
                     orders = [x['order_id'][0] for x in order_ids]
                     move_quantity = sum([x['product_uom_qty'] for x in moves])
+                if contracts:
+                    deliveries = contracts.ids
+                    contract_quantity = sum([x['quantity'] for x in contracts])
+                total_quantity = move_quantity + contract_quantity
                 self.env['milk.planning.sale'].create({
                     'day': day,
-                    'quantity': move_quantity,
+                    'confirmed_quantity': move_quantity,
                     'sale_type': product_name,
                     'planning_id': self.id,
-                    'order_ids': [(6, 0, orders)]
+                    'order_ids': [(6, 0, orders)],
+                    'contract_quantity': contract_quantity,
+                    'contract_ids': [(6, 0, deliveries)],
+                    'quantity': total_quantity,
                 })
 
     def generate_stocks(self):
         last_day_milk_stock = self.milk_stock
+        last_day_milk_do_stock = self.milk_do_stock
+        last_day_milk_100_stock = self.milk_100_stock
         last_day_cream_stock = self.cream_stock
         for day in self.get_range():
 
+            raw_milk_100_sales = sum(self.raw_milk_100_sale_ids.filtered(
+                lambda r: r.day == day).mapped('quantity'))
+            raw_milk_do_sales = sum(self.raw_milk_do_sale_ids.filtered(
+                lambda r: r.day == day).mapped('quantity'))
             raw_milk_sales = sum(self.raw_milk_sale_ids.filtered(
                 lambda r: r.day == day).mapped('quantity'))
             skimmed_milk_sales = sum(self.skimmed_milk_sale_ids.filtered(
                 lambda r: r.day == day).mapped('quantity'))
             milk_purchases = sum(self.milk_purchase_ids.filtered(
                 lambda r: r.day == day).mapped('quantity'))
+            milk_do_purchases = sum(self.milk_do_purchase_ids.filtered(
+                lambda r: r.day == day).mapped('quantity'))
+            milk_100_purchases = sum(self.milk_100_purchase_ids.filtered(
+                lambda r: r.day == day).mapped('quantity'))
 
             remaining_milk_stock = last_day_milk_stock - raw_milk_sales - \
-                skimmed_milk_sales + milk_purchases
+                skimmed_milk_sales * 0.895 + milk_purchases
+            remaining_milk_do_stock = last_day_milk_do_stock - \
+                                      raw_milk_do_sales + milk_do_purchases
+            remaining_milk_100_stock = last_day_milk_100_stock - \
+                                      raw_milk_100_sales + milk_do_purchases
 
             self.env['milk.planning.stock'].create({
                 'day': day,
@@ -118,6 +174,19 @@ class MilkPlanning(models.Model):
                 'planning_id': self.id,
                 'stock_type': 'milk'
             })
+            self.env['milk.planning.stock'].create({
+                'day': day,
+                'remaining_stock': remaining_milk_do_stock,
+                'planning_id': self.id,
+                'stock_type': 'milk_do'
+            })
+            self.env['milk.planning.stock'].create({
+                'day': day,
+                'remaining_stock': remaining_milk_100_stock,
+                'planning_id': self.id,
+                'stock_type': 'milk_100'
+            })
+
 
             cream_sales = sum(self.cream_sale_ids.filtered(
                 lambda r: r.day == day).mapped('quantity'))
@@ -154,7 +223,10 @@ class MilkPlanningStock(models.Model):
 
     day = fields.Date()
     remaining_stock = fields.Float()
-    stock_type = fields.Selection([('milk', 'Milk'), ('cream', 'Cream')])
+    stock_type = fields.Selection([('milk', 'Milk'),
+                                   ('milk_do', 'Milk D.O.'),
+                                   ('milk_100', 'Milk 100%'),
+                                   ('cream', 'Cream')])
     planning_id = fields.Many2one('milk.planning')
 
 
@@ -167,7 +239,10 @@ class MilkPlanningPurchase(models.Model):
         'res.partner', 'Supplier', domain=[('supplier', '=', True)])
     day = fields.Date(required=True)
     quantity = fields.Float()
-    purchase_type = fields.Selection([('milk', 'Milk'), ('cream', 'Cream')])
+    purchase_type = fields.Selection([('milk', 'Milk'),
+                                   ('milk_do', 'Milk D.O.'),
+                                   ('milk_do', 'Milk 100%'),
+                                   ('cream', 'Cream')])
     planning_id = fields.Many2one('milk.planning')
     order_ids = fields.Many2many('purchase.order')
     has_order_ids = fields.Boolean(compute='_compute_has_order_ids')
@@ -222,14 +297,20 @@ class MilkPlanningSale(models.Model):
     _order = 'day'
 
     day = fields.Date()
+    confirmed_quantity = fields.Float()
+    contract_quantity = fields.Float()
     quantity = fields.Float()
     sale_type = fields.Selection(
         [('raw_milk', 'Raw milk'),
+         ('raw_milk_do', 'Raw milk D.O.'),
+         ('raw_milk_100', 'Raw milk 100%'),
          ('skimmed_milk', 'Skimmed milk'),
          ('cream', 'Cream milk')])
     planning_id = fields.Many2one('milk.planning')
     order_ids = fields.Many2many('sale.order')
+    contract_ids = fields.Many2many('contract.delivery.agreement')
     has_order_ids = fields.Boolean(compute='_compute_has_order_ids')
+    has_contract_ids = fields.Boolean(compute='_compute_has_contract_ids')
 
     @api.depends('order_ids')
     def _compute_has_order_ids(self):
@@ -239,6 +320,14 @@ class MilkPlanningSale(models.Model):
             else:
                 sale.has_order_ids = False
 
+    @api.depends('contract_ids')
+    def _compute_has_contract_ids(self):
+        for sale in self:
+            if sale.contract_ids:
+                sale.has_contract_ids = True
+            else:
+                sale.has_contract_ids = False
+
     def action_view_orders(self):
         action = self.env.ref('sale.action_orders').read()[0]
         if len(self.order_ids) == 1:
@@ -247,4 +336,9 @@ class MilkPlanningSale(models.Model):
             action['res_id'] = self.order_ids.id
         else:
             action['domain'] = [('id', 'in', self.order_ids.ids)]
+        return action
+
+    def action_view_contracts(self):
+        action = self.env.ref('custom_contract.open_deliver_calendar').read()[0]
+        action['domain'] = [('id', 'in', self.contract_ids.ids)]
         return action
