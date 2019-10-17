@@ -22,10 +22,10 @@ class ResConfigSettings(models.TransientModel):
                 'milk_planning.product_raw_milk', default=False
             )),
             product_raw_milk_do=int(get_param(
-                'product_milk_do.product_raw_milk', default=False
+                'milk_planning.product_raw_milk_do', default=False
             )),
             product_raw_milk_100=int(get_param(
-                'product_milk_100.product_raw_milk', default=False
+                'milk_planning.product_raw_milk_100', default=False
             )),
             product_skimmed_milk=int(get_param(
                 'milk_planning.product_skimmed_milk', default=False
