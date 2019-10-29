@@ -109,13 +109,13 @@
                 <field name="vehicle_id"/>
 
                 <filter name="today" string="Today" domain="[('check_in', '&gt;=', datetime.datetime.now().replace(hour=0, minute=0, second=0)),('check_in', '&lt;=', datetime.datetime.now().replace(hour=23, minute=59, second=59))]" />
-                <filter string="Current Month" domain="[('check_in', '&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]" />
+                <filter name="current_month" string="Current Month" domain="[('check_in', '&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]" />
                 <separator/>
                 <filter name="fill" string="Filling " domain="[('fill', '=', True)]" />
                 <filter name="no_fill" string="Emptying " domain="[('fill', '=', False)]"/>
                 <separator/>
-                <filter string="No Check Out" domain="[('check_out', '=', False)]" />
-                <filter string="My registrys" domain="[('partner_id.user_id.id', '=', uid)]" />
+                <filter name="no_check_out" string="No Check Out" domain="[('check_out', '=', False)]" />
+                <filter name="my_registries" string="My registrys" domain="[('partner_id.user_id.id', '=', uid)]" />
                 <group expand="0" string="Group By">
                     <filter name="vehicle" string="Vehicle" context="{'group_by':'vehicle_id'}"/>
                     <separator/>

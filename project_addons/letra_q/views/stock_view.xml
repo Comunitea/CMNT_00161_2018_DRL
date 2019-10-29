@@ -20,9 +20,8 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='move_lines']/tree/field[@name='quantity_done']" position="after">
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="after">
                 <field name="emptied"/>
-
             </xpath>
         </field>
     </record>
@@ -45,8 +44,7 @@
         <field name="inherit_id" ref="stock.view_move_search"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='product_id']" position="before">
-                <separator/>
-                <filter string="Letra Q" domain="[('is_letra_q', '=', True)]" help="Movements Letra Q"/>
+                <filter name="letra_Q" string="Letra Q" domain="[('is_letra_q', '=', True)]" help="Movements Letra Q"/>
             </xpath>
         </field>
     </record>
@@ -69,8 +67,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='location_dest_id']" position="after">
                 <separator/>
-                <filter string="Letra Q" domain="[('is_letra_q', '=', True)]" help="Movements Letra Q"/>
-                <filter string="Letra Q not exported" domain="[('is_letra_q', '=', True), ('exportation_ids', '=', False)]"/>
+                <filter name="letra_Q" string="Letra Q" domain="[('is_letra_q', '=', True)]" help="Movements Letra Q"/>
+                <filter name="letra_Q_ne" string="Letra Q not exported" domain="[('is_letra_q', '=', True), ('exportation_ids', '=', False)]"/>
             </xpath>
             <filter name="by_state" position="after">
                 <filter string="Letra Q group" name="letra_q" domain="[]"  context="{'group_by':'letra_q_group'}"/>

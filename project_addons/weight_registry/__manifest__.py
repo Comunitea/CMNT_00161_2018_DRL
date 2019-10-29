@@ -3,7 +3,7 @@
 
 {
     'name': 'Control weight registry for Dairylac',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Uncategorized',
     'license': 'AGPL-3',
     'author': "Comunitea,",
@@ -12,6 +12,7 @@
         'base',
         'stock',
         'dairylac_custom',
+        'delivery',
         'web'
     ],
     'data': [

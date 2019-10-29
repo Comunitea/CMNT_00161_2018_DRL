@@ -3,7 +3,7 @@
 
 {
     'name': 'Quality control multi test',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Quality Control',
     'author': 'Comunitea',
     'maintainer': 'Comunitea',

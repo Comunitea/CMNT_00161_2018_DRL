@@ -5,20 +5,20 @@ import odoo.addons.decimal_precision as dp
 
 
 
-class AccountAnalyticAccount(models.Model):
+class ContractContract(models.Model):
 
-    _inherit = 'account.analytic.account'
+    _inherit = 'contract.contract'
 
 
-    type = fields.Selection(default='sale')
+    contract_type = fields.Selection(default='sale')
     recurring_invoices = fields.Boolean(default=False)
     price_agreement_ids = fields.One2many(
-        'account.analytic.account.price.agreement',
-        'analytic_account_id',
+        'contract.price.agreement',
+        'contract_id',
         'Price agreements')
     delivery_agreement_ids = fields.One2many(
         'contract.delivery.agreement',
-        'analytic_account_id',
+        'contract_id',
         'Delivery Dates ')
     state = fields.Selection([
         ('draft', "Draft"),
@@ -35,7 +35,7 @@ class AccountAnalyticAccount(models.Model):
 
     def set_to_draft(self):
         sales = self.env['sale.order'].search(
-            [('analytic_account_id', '=', self.id)])
+            [('contract_id', '=', self.id)])
         sales.action_cancel()
         self.state = 'draft'
 
@@ -58,19 +58,19 @@ class AccountAnalyticAccount(models.Model):
             'partner_id': self.partner_id.id,
             'partner_shipping_id': delivery_line.partner_shipping_id.id,
             'requested_date': delivery_line.delivery_date,
-            'analytic_account_id': self.id,
+            'contract_id': self.id,
             'payment_mode_id': self.payment_mode_id.id,
             'order_line': [(0, 0, sale_line_vals)
                            for sale_line_vals in sale_line_vals_list]
         }
 
-class AccountAnalyticAccountPriceAgreement(models.Model):
+class ContractPriceAgreement(models.Model):
 
-    _name = 'account.analytic.account.price.agreement'
+    _name = 'contract.price.agreement'
 
     product_id = fields.Many2one('product.product', 'Product')
     price_unit = fields.Float(digits=dp.get_precision('Product Price'),)
-    analytic_account_id = fields.Many2one('account.analytic.account')
+    contract_id = fields.Many2one('contract.contract')
 
 
 class ContractDeliveryAgreement(models.Model):
@@ -83,9 +83,9 @@ class ContractDeliveryAgreement(models.Model):
     quantity = fields.Float(digits=dp.get_precision(
         'Product Unit of Measure'))
     delivery_date =  fields.Date('Delivery Date')
-    analytic_account_id = fields.Many2one('account.analytic.account')
+    contract_id = fields.Many2one('contract.contract')
     partner_shipping_id = fields.Many2one('res.partner')
-    state = fields.Selection(related="analytic_account_id.state")
+    state = fields.Selection(related="contract_id.state")
 
     @api.depends('product_id', 'quantity')
     def _compute_display_name(self):

@@ -1,5 +1,5 @@
 # Buildout base para proyectos con Odoo y PostgreSQL
-Odoo 11.0 en el base, PostgreSQL 10.3 , python3, con supervisor
+Odoo 12.0 en el base, PostgreSQL 10.3 , python3, con supervisor
 - Buildout crea cron para iniciar Supervisord después de reiniciar (esto no lo he probado)
 - Supervisor ejecuta PostgreSQL, más info http://supervisord.org/
 - También ejecuta la instancia de PostgreSQL

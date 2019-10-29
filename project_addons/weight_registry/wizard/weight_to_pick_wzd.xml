@@ -18,7 +18,7 @@
                 <h3>
                         <field name="registry_type" readonly="1"/>
                 </h3>
-                <label string="Select weight registry to add. Green lines already added"/>
+                <span string="Select weight registry to add. Green lines already added"/>
                 <br/>
 
 
