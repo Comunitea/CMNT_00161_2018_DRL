@@ -1,7 +1,13 @@
 # © 2019 Comunitea
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import api, models, _
+from odoo import api, models, fields, _
 from odoo.exceptions import UserError
+
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    contract_id = fields.Many2one('contract.contract')
 
 
 class SaleOrderLine(models.Model):

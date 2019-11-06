@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import api,fields, models
 import odoo.addons.decimal_precision as dp
+from odoo.exceptions import UserError
 
 
 
@@ -86,6 +87,17 @@ class ContractDeliveryAgreement(models.Model):
     contract_id = fields.Many2one('contract.contract')
     partner_shipping_id = fields.Many2one('res.partner')
     state = fields.Selection(related="contract_id.state")
+
+    @api.onchange('product_id')
+    def product_id_change_check_contract_lines(self):
+        if self.product_id and \
+                self.contract_id_id.price_agreement_ids:
+            product_line = self.order_id.contract_id.price_agreement_ids \
+                .filtered(
+                lambda r: r.product_id.id == self.product_id.id)
+            if not product_line:
+                raise UserError(
+                    _('El producto no se encuentra en el contrato.'))
 
     @api.depends('product_id', 'quantity')
     def _compute_display_name(self):

@@ -75,16 +75,15 @@ class MilkPlanning(models.Model):
         day = self.date_start
         while day <= self.date_end:
             days.append(day)
-            day = fields.Date.to_string(
-                fields.Date.from_string(day) + relativedelta(days=1))
+            day = fields.Date.from_string(day) + relativedelta(days=1)
         return days
 
     def find_sales(self):
         for day in self.get_range():
             # La fecha del albaran es datetime,
             # asi que tenemos que buscar por la última hora del día.
-            day_datetime_start = day + ' 00:00:00'
-            day_datetime_end = day + ' 23:59:59'
+            day_datetime_start = day.strftime('%d/%m/%Y') + ' 00:00:00'
+            day_datetime_end = day.strftime('%d/%m/%Y') + ' 23:59:59'
             for product_name in ['raw_milk',
                                  'raw_milk_do',
                                  'raw_milk_100',
@@ -99,8 +98,8 @@ class MilkPlanning(models.Model):
                      ('state', 'in',
                      ('waiting', 'confirmed',
                       'partially_available', 'assigned')),
-                     ('picking_id.scheduled_date', '>=', day_datetime_start),
-                     ('picking_id.scheduled_date', '<=', day_datetime_end),
+                     ('date_expected', '>=', day_datetime_start),
+                     ('date_expected', '<=', day_datetime_end),
                      ('product_id', '=', product_id)],
                     fields=['sale_line_id', 'product_uom_qty'],
                     groupby=['sale_line_id', 'product_uom_qty'],
