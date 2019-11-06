@@ -82,8 +82,8 @@ class MilkPlanning(models.Model):
         for day in self.get_range():
             # La fecha del albaran es datetime,
             # asi que tenemos que buscar por la última hora del día.
-            day_datetime_start = day.strftime('%d/%m/%Y') + ' 00:00:00'
-            day_datetime_end = day.strftime('%d/%m/%Y') + ' 23:59:59'
+            day_datetime_start = day.strftime('%m/%d/%Y') + ' 00:00:00'
+            day_datetime_end = day.strftime('%m/%d/%Y') + ' 23:59:59'
             for product_name in ['raw_milk',
                                  'raw_milk_do',
                                  'raw_milk_100',
