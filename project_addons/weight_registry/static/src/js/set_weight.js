@@ -2,13 +2,15 @@ odoo.define('weight_registry.set_weight', function (require) {
 "use strict";
 
 var core = require('web.core');
-var Widget = require('web.Widget');
+// var Widget = require('web.Widget');
+var AbstractAction = require('web.AbstractAction');
+
 
 var QWeb = core.qweb;
 var _t = core._t;
 
 
-var SetWeight = Widget.extend({
+var SetWeight = AbstractAction.extend({
     events: {
         "click .fa-truck": function() {
             // this.$('fa-truck').attr("disabled", "disabled");
