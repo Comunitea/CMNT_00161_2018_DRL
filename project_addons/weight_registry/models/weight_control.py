@@ -112,10 +112,11 @@ class WeightRegistry(models.Model):
     def _compute_worked_hours(self):
         for registry in self:
             if registry.check_out:
-                delta = datetime.strptime(
-                    registry.check_out,
-                    DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(
-                    registry.check_in, DEFAULT_SERVER_DATETIME_FORMAT)
+                # delta = datetime.strptime(
+                #     registry.check_out,
+                #     DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(
+                #     registry.check_in, DEFAULT_SERVER_DATETIME_FORMAT)
+                delta =  registry.check_out - registry.check_in
                 registry.worked_hours = delta.total_seconds() / 3600.0
 
                 registry.net = abs(

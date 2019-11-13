@@ -18,11 +18,11 @@
                 <t t-if="widget.state == '1step'">
                     <t t-if="widget.vehicle.weight_control_state=='checked_out'">
                         <h1>Vehicle <t t-esc="widget.vehicle.register"/></h1>
-                        <i class="fa fa-caret-square-o-down btn-primary o_weight_registry_sign_in_out_icon"/>
+                        <i class="fa fa-caret-square-o-down btn-primary o_weight_registry_sign_in_out_icon truck_button"/>
                     </t>
                     <t t-if="widget.vehicle.weight_control_state=='checked_in'">
                         <h1>Vehicle <t t-esc="widget.vehicle.register"/></h1>
-                        <i class="fa fa-caret-square-o-up btn-primary o_weight_registry_sign_in_out_icon"/>
+                        <i class="fa fa-caret-square-o-up btn-primary o_weight_registry_sign_in_out_icon truck_button"/>
                     </t>
                 </t>
               
