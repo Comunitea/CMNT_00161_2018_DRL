@@ -2,34 +2,68 @@
 <template xml:space="preserve">
 
 
-
+    <!-- VENTANA ESTABLECER PESADAS -->
     <t t-name="WeightRegistryMyMainMenu">
         <div class="o_weight_registry_kiosk_mode_container o_app_switcher_background">
             <div class="o_weight_registry_kiosk_mode">
-                <t t-if="widget.state == 'init'">
+                <!--VENTANA 1 - PRIMERA PESADA -->
+                <t t-if="widget.state == 'weight1'">
                     <h1>Please set the vehicle number</h1>
+
+                    <!-- Mensaje error -->
                     <t t-if="widget.error">
                         <h2  style="color:red;">Vehicle <t t-esc="widget.input_number"/> not found, try again</h2>
                      </t >
+
+                    <!-- Número Vehículo  -->
                     <input type="text" name="vehicle_number" class="input_vehicle_number"/>
                     <i class="fa fa-truck btn-primary truck_button"/>
                 </t>
 
-                <t t-if="widget.state == '1step'">
+                <!--VENTANA 2 - SEGUNDA PESADA -->
+                <t t-if="widget.state == 'weight2'">
+                    <h1>VEHICLE <t t-esc="widget.vehicle.register"/></h1>
+
+                    <!-- Campo -->
+                    <div class="wc-data">
+                        <label for="customer" id="label-weight">WEIGHT:</label>
+                        <input type="text" class='wc-weight' t-att-value="widget.weight.toFixed(2)"/>
+                    </div>
+
+                    <!-- Botón primera pesada - Botón segunda pesada -->
                     <t t-if="widget.vehicle.weight_control_state=='checked_out'">
-                        <h1>Vehicle <t t-esc="widget.vehicle.register"/></h1>
                         <i class="fa fa-caret-square-o-down btn-primary o_weight_registry_sign_in_out_icon truck_button"/>
                     </t>
                     <t t-if="widget.vehicle.weight_control_state=='checked_in'">
-                        <h1>Vehicle <t t-esc="widget.vehicle.register"/></h1>
+
+                        <div class="wh-deposits-block">
+                            <table class="wh-deposits-table">
+                                <thead>
+                                    <th class="wh-deposits-line">Nº</th>
+                                    <th class="wh-deposits-line">Qty</th>
+                                </thead>
+                                <tbody>
+                                    <t t-set="num_deposit" t-value="0"/>
+                                    <t t-foreach="widget.deposit_id" t-as="deposit">
+                                        <t t-set="num_deposit" t-value="num_deposit+1"/>
+                                        <tr t-att-dep_id="deposit.id">
+                                            <td>
+                                                <span t-esc="num_deposit"/>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
                         <i class="fa fa-caret-square-o-up btn-primary o_weight_registry_sign_in_out_icon truck_button"/>
                     </t>
                 </t>
-              
-              
             </div>
         </div>
     </t>
 
-   
 </template>

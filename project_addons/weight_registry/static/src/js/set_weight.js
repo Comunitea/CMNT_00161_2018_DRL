@@ -25,9 +25,10 @@ var SetWeight = AbstractAction.extend({
 
     start: function () {
         var self = this;
-        self.state = 'init'
+        self.state = 'weight1'
         self.error = false;
         self.input_number = ''
+        self.weight = 1000.0
 
         self.$el.html(QWeb.render("WeightRegistryMyMainMenu", {widget: self}));
     },
@@ -44,12 +45,13 @@ var SetWeight = AbstractAction.extend({
         .then(function (res) {
             if (_.isEmpty(res) ) {
                 self.error = true;
-                self.state = 'init';
+                self.state = 'weight1';
             }
             else {
-                self.error = true;
-                self.state = '1step'
+                self.error = false;
+                self.state = 'weight2'
                 self.vehicle = res[0];
+                self.weight = 600
                 
             }
             self.$el.html(QWeb.render("WeightRegistryMyMainMenu", {widget: self}));
@@ -64,10 +66,10 @@ var SetWeight = AbstractAction.extend({
         this._rpc({
             model: 'weight.registry',
             method: 'set_weight_registry',
-            args: [self.vehicle.id],
+            args: [self.vehicle.id, self.weight],
         })
         .then(function(result) {
-            self.state = 'init'
+            self.state = 'weight1'
             self.$el.html(QWeb.render("WeightRegistryMyMainMenu", {widget: self}));
         });
     },
