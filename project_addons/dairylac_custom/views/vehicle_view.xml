@@ -25,9 +25,9 @@
 
                     <notebook>
                         <page name="deposits" string="Deposits">
-                            <field name="deposit_id">
+                            <field name="deposit_ids">
                                 <tree editable="bottom">
-                                    <field name="quantity"/>
+                                    <field name="number"/>
                                     <field name="capacity"/>
                                 </tree>
                             </field>

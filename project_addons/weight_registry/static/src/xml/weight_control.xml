@@ -3,7 +3,7 @@
 
 
     <!-- VENTANA ESTABLECER PESADAS -->
-    <t t-name="WeightRegistryMyMainMenu">
+    <t t-name="WeightRegistryWidget">
         <div class="o_weight_registry_kiosk_mode_container o_app_switcher_background">
             <div class="o_weight_registry_kiosk_mode">
                 <!--VENTANA 1 - PRIMERA PESADA -->
@@ -27,28 +27,30 @@
                     <!-- Campo -->
                     <div class="wc-data">
                         <label for="customer" id="label-weight">WEIGHT:</label>
-                        <input type="text" class='wc-weight' t-att-value="widget.weight.toFixed(2)"/>
+                        <input  id="weight-field" type="text" class='wc-weight' t-att-value="widget.weight.toFixed(2)"/>
                     </div>
 
                     <!-- Botón primera pesada - Botón segunda pesada -->
-                    <t t-if="widget.vehicle.weight_control_state=='checked_out'">
+                    <t t-if="widget.vehicle.weight_registry_state=='checked_out'">
                         <i class="fa fa-caret-square-o-down btn-primary o_weight_registry_sign_in_out_icon truck_button"/>
                     </t>
-                    <t t-if="widget.vehicle.weight_control_state=='checked_in'">
+                    <t t-if="widget.vehicle.weight_registry_state=='checked_in'">
 
                         <div class="wh-deposits-block">
                             <table class="wh-deposits-table">
                                 <thead>
                                     <th class="wh-deposits-line">Nº</th>
-                                    <th class="wh-deposits-line">Qty</th>
+                                    <th class="wh-deposits-line">Capacity</th>
+                                    <th class="wh-deposits-line">Fill/Empty</th>
                                 </thead>
                                 <tbody>
-                                    <t t-set="num_deposit" t-value="0"/>
-                                    <t t-foreach="widget.deposit_id" t-as="deposit">
-                                        <t t-set="num_deposit" t-value="num_deposit+1"/>
+                                    <t t-foreach="widget.vehicle.deposit_ids" t-as="deposit">
                                         <tr t-att-dep_id="deposit.id">
                                             <td>
-                                                <span t-esc="num_deposit"/>
+                                                <span t-esc="deposit.number"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="deposit.capacity"/>
                                             </td>
                                             <td>
                                                 <input type="checkbox"/>

@@ -16,7 +16,7 @@ class Vehicle(models.Model):
     vehicle_type_id = fields.Many2one('vehicle.type', "Type of vehicle")
     description = fields.Char("Description")
     letter_code_q = fields.Char("Letter code Q")
-    deposit_id = fields.One2many(
+    deposit_ids = fields.One2many(
         'deposit', 'vehicle_id', string="Deposit Used")
     total_deposits = fields.Integer(compute='_get_total_deposits', store=False)
     total_quantity = fields.Float(compute='_get_total_quantity', store=False)
@@ -24,7 +24,7 @@ class Vehicle(models.Model):
         'res.partner', string="Drivers", domain=[('driver', '=', True)])
 
     def action_view_vh_deposit(self):
-        w_reg = self.mapped('deposit_id')
+        w_reg = self.mapped('deposit_ids')
         action = self.env.ref(
             'dairylac_custom.show_deposit_action_vehicle').read()[0]
         action['context'] = {'default_vehicle_id': self.id}
@@ -41,10 +41,10 @@ class Vehicle(models.Model):
 
     def _get_total_deposits(self):
         for vh in self:
-            vh.deposit_id_count = len(vh.deposit_id)
+            vh.deposit_id_count = len(vh.deposit_ids)
 
     def _get_total_quantity(self):
         for vh in self:
-            for linea in vh.deposit_id:
-                vh.total_quantity += linea.capacity * linea.quantity
+            for linea in vh.deposit_ids:
+                vh.total_quantity += linea.capacity
 

@@ -202,11 +202,12 @@ class WeightRegistry(models.Model):
     def set_weight_registry(self, vehicle_id, weight):
         res = True
         vehicle = self.env['vehicle'].browse(vehicle_id)
-        vehicle.vehicle_action_change()
-        # if not vehicle.check_in_weight:
-        #     vehicle.check_in_weight = weight
-        # else:
-        #     vehicle.check_out_weight = weight
+        reg = vehicle.vehicle_action_change()
+        if reg:
+            if not reg.check_in_weight:
+                reg.check_in_weight = weight
+            else:
+                reg.check_out_weight = weight
         return res
 
 

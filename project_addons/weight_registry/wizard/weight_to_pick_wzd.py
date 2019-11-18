@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-from ..models.weight_control import REGISTRY_TYPE
+from ..models.weight_registry import REGISTRY_TYPE
 
 
 class WeightPickLineWzd(models.TransientModel):
@@ -147,7 +147,7 @@ class WeightPickWzd(models.TransientModel):
             move.weight_registry_id = w_r
             ctx = self._context.copy()
 
-            for deposit in vehicle_id.deposit_id:
+            for deposit in vehicle_id.deposit_ids:
                 qty = deposit.capacity
                 ctx.update(
                     weight_registry_id=w_r.id, deposit_id=deposit.id,

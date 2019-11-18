@@ -97,7 +97,7 @@
                                 string="Assing weight registry" type="object" class="oe_highlight" groups="stock.group_stock_manager">
                                 <field name="weight_registry_count" widget="statinfo" string="W. registry"/>
                          </button>
-                        <field name="weight_control_state" widget="statusbar"/>
+                        <field name="weight_registry_state" widget="statusbar"/>
                     </header>
                     <div class="oe_button_box" name="button_box">
 

@@ -42,7 +42,7 @@ class Vehicle(models.Model):
         help='list of weight.registry for this vehicle')
     last_weight_control_id = fields.Many2one(
         'weight.registry', compute='_compute_last_weight_control_id')
-    weight_control_state = fields.Selection(
+    weight_registry_state = fields.Selection(
         string="Vehicle state", compute='_compute_last_weight_state',
         selection=[('checked_out', "Check out"), ('checked_in', "Check in")])
     last_driver_id = fields.Many2one(
@@ -70,7 +70,7 @@ class Vehicle(models.Model):
         'last_weight_control_id')
     def _compute_last_weight_state(self):
         for vehicle in self:
-            vehicle.weight_control_state = vehicle.last_weight_control_id and \
+            vehicle.weight_registry_state = vehicle.last_weight_control_id and \
                 not vehicle.last_weight_control_id.check_out and \
                 'checked_in' or 'checked_out'
 
@@ -110,7 +110,7 @@ class Vehicle(models.Model):
             )
         action_date = fields.Datetime.now()
 
-        if self.weight_control_state != 'checked_in':
+        if self.weight_registry_state != 'checked_in':
             vals = {
                 'vehicle_id': self.id,
                 'check_in': action_date,
@@ -135,3 +135,28 @@ class Vehicle(models.Model):
     @api.multi
     def vehicle_action(self, next_action, weight=0.0):
         return
+    
+    @api.model
+    def get_vehicle_data(self, vehicle_number):
+        res = {}
+        domain = [('register', '=', vehicle_number)]
+        vehicle = self.search(domain, limit=1)
+        if vehicle:
+            deposits = []
+            for dep in vehicle.deposit_ids:
+                dep_val = {
+                    'id': dep.id,
+                    'code': dep.code,
+                    'number': dep.number,
+                    'capacity': dep.capacity
+                }
+                deposits.append(dep_val)
+
+            res = {
+                'id': vehicle.id,
+                'weight_registry_state': vehicle.weight_registry_state,
+                'register': vehicle.register,
+                'barcode': vehicle.barcode,
+                'deposit_ids': deposits
+            }
+        return res

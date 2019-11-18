@@ -30,7 +30,7 @@ var SetWeight = AbstractAction.extend({
         self.input_number = ''
         self.weight = 1000.0
 
-        self.$el.html(QWeb.render("WeightRegistryMyMainMenu", {widget: self}));
+        self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));
     },
 
     search_vehicle: function () {
@@ -38,9 +38,12 @@ var SetWeight = AbstractAction.extend({
         var vehicle_number = this.$('.input_vehicle_number').val();
         self.input_number = vehicle_number
         this._rpc({
+            // model: 'vehicle',
+            // method: 'search_read',
+            // args: [[['register', '=',vehicle_number]], []],
             model: 'vehicle',
-            method: 'search_read',
-            args: [[['register', '=',vehicle_number]], []],
+            method: 'get_vehicle_data',
+            args: [vehicle_number],
         })
         .then(function (res) {
             if (_.isEmpty(res) ) {
@@ -50,11 +53,11 @@ var SetWeight = AbstractAction.extend({
             else {
                 self.error = false;
                 self.state = 'weight2'
-                self.vehicle = res[0];
+                self.vehicle = res;
                 self.weight = 600
                 
             }
-            self.$el.html(QWeb.render("WeightRegistryMyMainMenu", {widget: self}));
+            self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));
 
         });
     },
@@ -62,7 +65,9 @@ var SetWeight = AbstractAction.extend({
 
     update_registry: function () {
         var self = this;
-       
+        var weight_field = this.$('#weight-field').val();
+        self.weight = weight_field * 1.0
+
         this._rpc({
             model: 'weight.registry',
             method: 'set_weight_registry',
@@ -70,7 +75,7 @@ var SetWeight = AbstractAction.extend({
         })
         .then(function(result) {
             self.state = 'weight1'
-            self.$el.html(QWeb.render("WeightRegistryMyMainMenu", {widget: self}));
+            self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));
         });
     },
 });

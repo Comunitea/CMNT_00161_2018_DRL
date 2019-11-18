@@ -14,11 +14,10 @@ class Deposit(models.Model):
         for dep in self:
             result.append((dep.id, '{}: {}'.format(
                 dep.vehicle_id and
-                dep.vehicle_id.display_name or dep.code, dep.order)))
+                dep.vehicle_id.display_name or dep.code, dep.number)))
         return result
 
     vehicle_id = fields.Many2one('vehicle')
-    quantity = fields.Integer(string="Quantity")
     capacity = fields.Float("Capacity")
     code = fields.Char('Code', default='COD')
-    order = fields.Integer('Order', default="1")
+    number = fields.Integer('Number', default="1")

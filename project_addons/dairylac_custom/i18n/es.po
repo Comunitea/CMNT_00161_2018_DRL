@@ -50,7 +50,7 @@ msgid "Created on"
 msgstr "Creado en"
 
 #. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_deposit_id
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_deposit_ids
 msgid "Deposit Used"
 msgstr "Depósitos"
 
@@ -79,7 +79,7 @@ msgid "Drivers"
 msgstr "Conductores"
 
 #. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_deposit_id
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit_ids
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_id
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_id
 msgid "ID"

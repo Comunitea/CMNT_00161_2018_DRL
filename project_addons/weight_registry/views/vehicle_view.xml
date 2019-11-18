@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="dairylac_custom.vehicle_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                  <field name="weight_control_state" widget="statusbar"/>
+                  <field name="weight_registry_state" widget="statusbar"/>
             </xpath>
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="action_view_weight_registry" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('weight_registry_count', '=', 0)]}">

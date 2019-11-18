@@ -1,7 +1,7 @@
 # © 2019 Comunitea
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from odoo import models, fields
-from .weight_control import REGISTRY_TYPE
+from .weight_registry import REGISTRY_TYPE
 
 
 class StockPickingType(models.Model):
@@ -21,7 +21,7 @@ class StockPicking(models.Model):
         related='picking_type_id.need_weight_registry')
     weight_registry_ids = fields.One2many('weight.registry', 'picking_id')
     registry_type = fields.Selection(related='picking_type_id.registry_type')
-    weight_control_state = fields.Selection(
+    weight_registry_state = fields.Selection(
         string="Weight state", compute='_compute_weight_state',
         selection=[('checked_out', "Check out"), ('checked_in', "Check in")])
     weight_registry_count = fields.Integer(
@@ -35,9 +35,9 @@ class StockPicking(models.Model):
     def _compute_weight_state(self):
         for w_r_id in self:
             if all(w_r.check_out for w_r in w_r_id.weight_registry_ids):
-                w_r_id.weight_control_state = 'checked_out'
+                w_r_id.weight_registry_state = 'checked_out'
             else:
-                w_r_id.weight_control_state = 'checked_in'
+                w_r_id.weight_registry_state = 'checked_in'
 
     def button_weight_to_pick_wzd(self):
         self.ensure_one()
