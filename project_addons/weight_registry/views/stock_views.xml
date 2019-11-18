@@ -67,17 +67,17 @@
             </field>
         </record>
 
-     <!-- <record id="view_stock_move_line_operation_tree_stock_apk" model="ir.ui.view">
-            <field name="name">Move Line Operations</field>
+
+        <record id="view_stock_move_line_operation_tree_custom" model="ir.ui.view">
+            <field name="name">view_stock_move_line_operation_tree_custom</field>
             <field name="model">stock.move.line</field>
             <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='location_id']" position="before">
-                    <field name="deposit_id" readonly="1" invisible="not context.get('need_weight_registry')"/>
-                </xpath>
-
+                <field name="product_id" position="after">
+                    <field name="registry_line_id"/>
+                </field>
             </field>
-        </record> -->
+        </record>
 
         <!-- Purchase button on orderpoints -->
 

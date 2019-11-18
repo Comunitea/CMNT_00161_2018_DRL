@@ -55,5 +55,8 @@ class StockMoveLine(models.Model):
     registry_type = fields.Selection(related='picking_id.registry_type')
     # deposit_id = fields.Many2one('deposit', 'Src deposit')
     # deposit_dest_id = fields.Many2one('deposit', 'Dest deposit')
+    registry_line_id = fields.Many2one(
+        'weight.registry.line', 'Wheigt Line',
+        domain=[('move_line_id', '=', False)])
 
 

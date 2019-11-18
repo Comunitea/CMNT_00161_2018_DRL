@@ -90,7 +90,7 @@ class WeightRegistry(models.Model):
         result = []
         for registry in self:
             if not registry.check_out:
-                result.append((registry.id, _("%(empl_name)s from %(check_in)s: %(weight)s Kgrs") % {
+                result.append((registry.id, _("%(empl_name)s [%(check_in)s] : %(weight)s Kg") % {
                     'empl_name': registry.vehicle_id.register,
                     'weight': registry.check_in_weight,
                     'check_in': fields.Datetime.to_string(fields.Datetime.context_timestamp(registry,
@@ -98,7 +98,7 @@ class WeightRegistry(models.Model):
                                                                                                 registry.check_in))),
                 }))
             else:
-                result.append((registry.id, _("%(empl_name)s from %(check_in)s: %(weight_in)s Kgrs to %(check_out)s: %(weight_out)s Kgrs") % {
+                result.append((registry.id, _("%(empl_name)s [%(check_in)s] : %(weight_in)s Kg --> [%(check_out)s] : %(weight_out)s Kg") % {
                     'empl_name': registry.vehicle_id.register,
                     'weight_in': registry.check_in_weight,
                     'weight_out': registry.check_out_weight,
@@ -212,16 +212,16 @@ class WeightRegistry(models.Model):
                 reg.check_in_weight = weight
             else:
                 reg.check_out_weight = weight
-        print("DEPOSITS")
-        print(deposits)
-        for dep in deposits:
-            vals = {
-                'registry_id':reg.id,
-                'deposit_id': dep['id'],
-                'empty': dep['check'],
+            print("DEPOSITS")
+            print(deposits)
+            for dep in deposits:
+                vals = {
+                    'registry_id':reg.id,
+                    'deposit_id': dep['id'],
+                    'empty': dep['check'],
 
-            }
-            self.env['weight.registry.line'].create(vals)
+                }
+                self.env['weight.registry.line'].create(vals)
         return res
 
 
@@ -230,8 +230,20 @@ class WeightRegistryLine(models.Model):
 
     _name = "weight.registry.line"
 
-    registry_id = fields.Many2one('weight.registry', 'Weight Registry')
+    registry_id = fields.Many2one('weight.registry', 'Weight Registry', 
+                                  required=True, ondelete="cascade")
     deposit_id = fields.Many2one('deposit', 'Deposit')
     move_line_id = fields.Many2one('stock.move', 'Move')
     empty = fields.Boolean('Empty')
+    
+    def name_get(self):
+        result = []
+        for line in self:
+            custom_name = "%(registry_name)s DEPOSIT: %(deposit)s -->" % \
+            {
+                'registry_name': line.registry_id.display_name,
+                'deposit': line.deposit_id.number
+            }
+            result.append((line.id, custom_name))
+        return result
 

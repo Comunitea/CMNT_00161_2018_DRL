@@ -172,6 +172,68 @@
               name="Set Weight" 
               parent="stock.menu_stock_inventory_control" 
               sequence="11" action="action_set_weight"/>
+    
 
+    <!-- WEIGHT REGISTRY LINE VIEWS -->
+
+    <record id="view_registry_line_tree" model="ir.ui.view">
+        <field name="name">weight_registry.tree</field>
+        <field name="model">weight.registry.line</field>
+        <field name="arch" type="xml">
+            <tree string="Weight registry">
+                <field name="registry_id"/>
+                <field name="deposit_id"/>
+                <field name="move_line_id"/>
+                <field name="empty"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="weight_registry_line_view_form" model="ir.ui.view">
+        <field name="name">weight_registry.line.form</field>
+        <field name="model">weight.registry.line</field>
+        <field name="arch" type="xml">
+            <form string="Weight Line">
+                <sheet>
+                    <group string="Info" col="4">
+                        <field name="registry_id"/>
+                        <field name="deposit_id"/>
+                        <field name="move_line_id"/>
+                        <field name="empty"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="weight_registry_line_view_filter" model="ir.ui.view">
+        <field name="name">weight_registry_line_view_filter</field>
+        <field name="model">weight.registry.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="registry_id"/>
+                <separator/>
+                <filter name="Assigned" string="Assigned" domain="[('move_line_id', '!=', False)]" />
+
+                <group expand="0" string="Group By">
+                    <filter name="registry" string="Weight Registry" context="{'group_by':'registry_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="weight_registry_line_action" model="ir.actions.act_window">
+        <field name="name">Weight registriLinees</field>
+        <field name="res_model">weight.registry.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_weight_registry_line"
+              name="Weight Lines" parent="stock.menu_stock_inventory_control"
+              sequence="11"
+              action="weight_registry_line_action"/>
 
 </odoo>
