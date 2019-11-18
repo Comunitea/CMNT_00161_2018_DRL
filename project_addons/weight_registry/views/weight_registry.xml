@@ -48,6 +48,15 @@
                             <field name="check_out_weight"/>
                         </group>
                     </group>
+                    <group string="Registry Lines">
+                        <field name="line_ids" nolabel="1">
+                            <tree editable="False">
+                                <field name="deposit_id"/>
+                                <field name="move_line_id"/>
+                                <field name="empty"/>
+                            </tree>
+                        </field>
+                    </group>
                      <group attrs="{'invisible': [('picking_id', '=', False)]}">
                         <group string="Picking" readonly="1">
                             <h2>

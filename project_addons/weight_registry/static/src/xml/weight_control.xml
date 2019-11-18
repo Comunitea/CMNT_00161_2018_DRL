@@ -45,7 +45,7 @@
                                 </thead>
                                 <tbody>
                                     <t t-foreach="widget.vehicle.deposit_ids" t-as="deposit">
-                                        <tr t-att-dep_id="deposit.id">
+                                        <tr t-att-dep="deposit.id">
                                             <td>
                                                 <span t-esc="deposit.number"/>
                                             </td>

@@ -30,6 +30,8 @@ class WeightRegistry(models.Model):
 
     _name = "weight.registry"
 
+    _order = "id desc"
+
     vehicle_id = fields.Many2one('vehicle', string="Vehicle", required=True)
     scale_weight = fields.Integer('weight')
     fill = fields.Boolean(
@@ -57,6 +59,8 @@ class WeightRegistry(models.Model):
     registry_type = fields.Selection(
         REGISTRY_TYPE, string="Registy type", required=False)
     product_id = fields.Many2one('product.product', 'Product')
+    line_ids = fields.One2many('weight.registry.line', 'registry_id', 
+                               'Registry Lines')
 
     def apply_net_to_qty_done(self):
         for w_r in self.filtered(lambda x: x.check_out):
@@ -199,7 +203,7 @@ class WeightRegistry(models.Model):
                                                      })
 
     @api.model
-    def set_weight_registry(self, vehicle_id, weight):
+    def set_weight_registry(self, vehicle_id, weight, deposits):
         res = True
         vehicle = self.env['vehicle'].browse(vehicle_id)
         reg = vehicle.vehicle_action_change()
@@ -208,9 +212,26 @@ class WeightRegistry(models.Model):
                 reg.check_in_weight = weight
             else:
                 reg.check_out_weight = weight
+        print("DEPOSITS")
+        print(deposits)
+        for dep in deposits:
+            vals = {
+                'registry_id':reg.id,
+                'deposit_id': dep['id'],
+                'empty': dep['check'],
+
+            }
+            self.env['weight.registry.line'].create(vals)
         return res
 
 
 
+class WeightRegistryLine(models.Model):
 
+    _name = "weight.registry.line"
+
+    registry_id = fields.Many2one('weight.registry', 'Weight Registry')
+    deposit_id = fields.Many2one('deposit', 'Deposit')
+    move_line_id = fields.Many2one('stock.move', 'Move')
+    empty = fields.Boolean('Empty')
 

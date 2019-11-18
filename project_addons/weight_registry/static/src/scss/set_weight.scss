@@ -46,11 +46,18 @@
     }
 
     .truck_button {
-        font-size: 15em;
+        font-size: 10em;
         cursor: pointer;
         margin: 20px 0px 20px 0px;
         padding: 0px 15px 0px 15px;
         border-radius: 10%;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
     }
+}
+
+.wh-deposits-table{
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+    margin-top: 1em;
 }

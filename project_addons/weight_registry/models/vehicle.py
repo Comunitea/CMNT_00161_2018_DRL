@@ -79,7 +79,7 @@ class Vehicle(models.Model):
         for vehicle in self:
             last = self.env['weight.registry'].search([
                 ('vehicle_id', '=', vehicle.id),
-            ], limit=1)
+            ], order="id desc", limit=1)
             vehicle.last_weight_control_id = last
             last = self.env['weight.registry'].search([
                 ('vehicle_id', '=', vehicle.id), ('partner_id', '!=', False)

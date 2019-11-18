@@ -68,10 +68,18 @@ var SetWeight = AbstractAction.extend({
         var weight_field = this.$('#weight-field').val();
         self.weight = weight_field * 1.0
 
+        var deposits = []
+        this.$('.wh-deposits-table tbody tr').each(function(){
+            var deposit_id = $(this).attr('dep')
+            var check = $(this).find('td').eq(2).find('input').is(':checked')
+            deposits.push({id: deposit_id, check: check})
+            console.log(this)
+        });
+
         this._rpc({
             model: 'weight.registry',
             method: 'set_weight_registry',
-            args: [self.vehicle.id, self.weight],
+            args: [self.vehicle.id, self.weight, deposits],
         })
         .then(function(result) {
             self.state = 'weight1'
