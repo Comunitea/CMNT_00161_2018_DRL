@@ -3,6 +3,5 @@
 
 from . import vehicle
 from . import weight_registry
-from . import stock_move
-from . import stock_picking
+from . import stock_move_line
 

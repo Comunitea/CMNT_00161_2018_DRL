@@ -54,7 +54,6 @@ var SetWeight = AbstractAction.extend({
                 self.error = false;
                 self.state = 'weight2'
                 self.vehicle = res;
-                self.weight = 600
                 
             }
             self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));

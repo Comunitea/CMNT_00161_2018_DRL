@@ -33,12 +33,10 @@
                         <field name="vehicle_id"/>
                         <field name="registry_type"/>
                         <field name="partner_id"/>
-                        <field name="picking_id"/>
                         <field name="worked_hours"/>
-                        <field name="net" />
-                        <field name="fill" />
+                      
                     </group>
-                    <group>
+                    <group col="3">
                         <group string="First Weight">
                             <field name="check_in"/>
                             <field name="check_in_weight"/>
@@ -47,30 +45,23 @@
                             <field name="check_out"/>
                             <field name="check_out_weight"/>
                         </group>
+                        <group string="Summary">
+                            <field name="net" />
+                            <field name="fill"/>
+                        </group>
                     </group>
                     <group string="Registry Lines">
                         <field name="line_ids" nolabel="1">
                             <tree editable="False">
                                 <field name="deposit_id"/>
-                                <field name="move_line_id"/>
+                                <field name="capacity"/>
+                                <field name="move_line_ids" widget="many2many tags"/>
+                                <field name="used"/>
                                 <field name="empty"/>
+                                <field name="filled"/>
+                                <field name="qty"/>
                             </tree>
                         </field>
-                    </group>
-                     <group attrs="{'invisible': [('picking_id', '=', False)]}">
-                        <group string="Picking" readonly="1">
-                            <h2>
-                                <field name="picking_id" />
-                            </h2>
-                        </group>
-                        <group string="Moves">
-                            <field name="move_line_ids" readonly="1" >
-                                <field name="product_id"/>
-                                <field name="product_uom_qty"/>
-                                <field name="lot_id"/>
-
-                            </field>
-                        </group>
                     </group>
                 </sheet>
             </form>
@@ -113,7 +104,7 @@
         <field name="name">weight_registry_view_filter</field>
         <field name="model">weight.registry</field>
         <field name="arch" type="xml">
-            <search string="Weight Segistry Search">
+            <search>
                 <field name="vehicle_id"/>
 
                 <filter name="today" string="Today" domain="[('check_in', '&gt;=', datetime.datetime.now().replace(hour=0, minute=0, second=0)),('check_in', '&lt;=', datetime.datetime.now().replace(hour=23, minute=59, second=59))]" />
@@ -156,12 +147,15 @@
         </field>
     </record>
 
+    <menuitem id="menu_weights" name="Weights Control" parent="stock.menu_stock_root" sequence="2"/>
+
     <menuitem id="menu_weight_registry"
-              name="Weight registry" parent="stock.menu_stock_inventory_control"
+              name="Weight registry" parent="menu_weights"
               sequence="10"
               action="weight_registry_action"/>
 
 
+    <!-- APP SET WEIGHT -->
     <record id="action_set_weight" model="ir.actions.client">
         <field name="name">Set Weight</field>
         <field name="tag">set_weight</field>
@@ -170,8 +164,8 @@
 
     <menuitem id="menu_do_weight" 
               name="Set Weight" 
-              parent="stock.menu_stock_inventory_control" 
-              sequence="11" action="action_set_weight"/>
+              parent="menu_weights" 
+              sequence="99" action="action_set_weight"/>
     
 
     <!-- WEIGHT REGISTRY LINE VIEWS -->
@@ -183,8 +177,12 @@
             <tree string="Weight registry">
                 <field name="registry_id"/>
                 <field name="deposit_id"/>
-                <field name="move_line_id"/>
+                <field name="capacity"/>
+                <field name="move_line_ids" widget="many2many_tags"/>
+                <field name="used"/>
+                <field name="filled"/>
                 <field name="empty"/>
+                <field name="qty"/>
             </tree>
         </field>
     </record>
@@ -198,8 +196,12 @@
                     <group string="Info" col="4">
                         <field name="registry_id"/>
                         <field name="deposit_id"/>
-                        <field name="move_line_id"/>
+                        <field name="capacity"/>
+                        <field name="used"/>
+                        <field name="filled"/>
                         <field name="empty"/>
+                        <field name="qty"/>
+                        <field name="move_line_ids" widget="many2many_tags"/>
                     </group>
                 </sheet>
             </form>
@@ -213,10 +215,13 @@
             <search>
                 <field name="registry_id"/>
                 <separator/>
-                <filter name="Assigned" string="Assigned" domain="[('move_line_id', '!=', False)]" />
+                <filter name="Assigned" string="Assigned" domain="[('move_line_ids', '!=', False)]"/>
+                <filter name="Not Assigned" string="Assigned" domain="[('move_line_ids', '=', False)]"/>
+                <filter name="Used" string="Assigned" domain="[('used', '=', True)]"/>
 
                 <group expand="0" string="Group By">
                     <filter name="registry" string="Weight Registry" context="{'group_by':'registry_id'}"/>
+                    <filter name="deposit" string="Deposit" context="{'group_by':'deposit_id'}"/>
                 </group>
             </search>
         </field>
@@ -224,7 +229,7 @@
 
 
     <record id="weight_registry_line_action" model="ir.actions.act_window">
-        <field name="name">Weight registriLinees</field>
+        <field name="name">Weight registry Lines</field>
         <field name="res_model">weight.registry.line</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
@@ -232,7 +237,7 @@
 
 
     <menuitem id="menu_weight_registry_line"
-              name="Weight Lines" parent="stock.menu_stock_inventory_control"
+              name="Weight Lines" parent="menu_weights"
               sequence="11"
               action="weight_registry_line_action"/>
 

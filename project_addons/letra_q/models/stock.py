@@ -79,7 +79,7 @@ class StockMoveLine(models.Model):
                                 store=True)
     vehicle_id = fields.Many2one(
         'vehicle',
-        related='picking_id.weight_registry_ids.vehicle_id',
+        related='registry_line_id.registry_id.vehicle_id',
         readonly=True,
         store=True)
     deposit_id = fields.Many2one('deposit')

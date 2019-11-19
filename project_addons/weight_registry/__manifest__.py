@@ -22,8 +22,6 @@
         'views/vehicle_view.xml',
         'views/weight_registry.xml',
         'views/stock_views.xml',
-        'wizard/weight_to_pick_wzd.xml'
-
     ],
     'installable': True,
     'qweb': [

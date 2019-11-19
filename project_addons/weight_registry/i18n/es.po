@@ -1,0 +1,575 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* weight_registry
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-19 16:57+0000\n"
+"PO-Revision-Date: 2019-11-19 16:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/weight_registry.py:98
+#, python-format
+msgid "%(empl_name)s [%(check_in)s] : %(weight)s Kg"
+msgstr ""
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/weight_registry.py:106
+#, python-format
+msgid "%(empl_name)s [%(check_in)s] : %(weight_in)s Kg --> [%(check_out)s] : %(weight_out)s Kg"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_weight_pick_wzd
+msgid "Asistente para añadir registros de pesaje al albarán"
+msgstr ""
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_filter
+msgid "Assigned"
+msgstr "Asignado"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_vehicle__barcode
+msgid "Badge ID"
+msgstr ""
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/weight_registry.py:184
+#, python-format
+msgid "Cannot create new registry record for %(empl_name)s, the vehicle hasn't checked out since %(datetime)s"
+msgstr "No se puede crear un registro para %(empl_name)s, la matrícula no hizo check out desde %(datetime)s"
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/weight_registry.py:168
+#: code:addons/weight_registry/models/weight_registry.py:201
+#, python-format
+msgid "Cannot create new registry record for %(empl_name)s, the vehicle was already checked in on %(datetime)s"
+msgstr "No se puede crear un nuevo registro para %(empl_name)s, la matrícula ya hizo check in en %(datetime)s"
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/vehicle.py:109
+#, python-format
+msgid "Cannot perform check in or check out on multiple vehicles."
+msgstr "No se puede hacer check in o check out de múltiples vehículos"
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/vehicle.py:130
+#, python-format
+msgid "Cannot perform check out on %(empl_name)s, could not find corresponding check in. Your attendances have probably been modified manually by human resources."
+msgstr "No se puede hacer check out on %(empl_name)s, no se encontro el correspondiente check in"
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/stock_move_line.py:22
+#: sql_constraint:stock.move.line:0
+#, python-format
+msgid "Cant associate the same weight registry line to diferent move              lines"
+msgstr "No se puede asociar la mísma línea de registro de pesada a líneas de movimientos diferentes"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:43
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__capacity
+#, python-format
+msgid "Capacity"
+msgstr "Capacidad"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__check_in
+msgid "Check In"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__check_out
+msgid "Check Out"
+msgstr ""
+
+#. module: weight_registry
+#: selection:vehicle,weight_registry_state:0
+msgid "Check in"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__check_out_weight
+msgid "Check in weight"
+msgstr "Peso al Check In"
+
+#. module: weight_registry
+#: selection:vehicle,weight_registry_state:0
+msgid "Check out"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__check_in_weight
+msgid "Check out weight"
+msgstr "Peso al Check Out"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__code
+msgid "Code"
+msgstr "Código"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__create_uid
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__create_uid
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__create_date
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__create_date
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
+msgid "Current Month"
+msgstr "Mes actual"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__deposit_id
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_filter
+msgid "Deposit"
+msgstr "Depósito"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__display_name
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__display_name
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__empty
+msgid "Empty"
+msgstr "Vaciado"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
+msgid "Emptying"
+msgstr "Vaciado"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__qty
+msgid "Estimated Qty"
+msgstr "Cantidad estimada"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__fill
+msgid "Fill"
+msgstr "Es LLenado"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:44
+#, python-format
+msgid "Fill/Empty"
+msgstr "Llenado / Vaciado"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__filled
+msgid "Filled"
+msgstr "LLenado"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
+msgid "Filling"
+msgstr "LLenado"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_form
+msgid "First Weight"
+msgstr "Primera pesada"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_filter
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__id
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__id
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__id
+msgid "ID"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,help:weight_registry.field_vehicle__barcode
+msgid "ID used for vehicle identification."
+msgstr "ID usado para la identificación"
+
+#. module: weight_registry
+#: selection:weight.registry,registry_type:0
+msgid "Incoming"
+msgstr "Entrada"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_form
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_form
+msgid "Info"
+msgstr "Información"
+
+#. module: weight_registry
+#: selection:weight.registry,registry_type:0
+msgid "Internal"
+msgstr "Interno"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_vehicle__last_driver_id
+msgid "Last Driver"
+msgstr "Último asistente"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry____last_update
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line____last_update
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__write_uid
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__write_uid
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__write_date
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__write_date
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_vehicle__last_weight_control_id
+msgid "Last Weight Control"
+msgstr "ültimo registro de pesada"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__partner_id
+msgid "Measured by"
+msgstr "Medido por"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
+msgid "Month"
+msgstr "Mes"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__move_line_ids
+msgid "Move"
+msgstr "Asiento"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__move_type_id
+msgid "Move type"
+msgstr "Tipo movimiento"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
+msgid "My registrys"
+msgstr "Mis registros"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__net
+msgid "Net weight"
+msgstr "Peso Neto"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
+msgid "No Check Out"
+msgstr "Sin Check Out"
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/vehicle.py:98
+#, python-format
+msgid "No vehicle corresponding to barcode %(barcode)s"
+msgstr "No hay matrícula correspondiete a  %(barcode)s"
+
+#. module: weight_registry
+#: model_terms:ir.actions.act_window,help:weight_registry.weight_registry_action_vehicle
+msgid "No weight records to display."
+msgstr "No hay registros de pesadas que mostrar"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__note
+msgid "Notes"
+msgstr "Notas"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:42
+#, python-format
+msgid "Nº"
+msgstr ""
+
+#. module: weight_registry
+#: selection:weight.registry,registry_type:0
+msgid "Other"
+msgstr "Otro"
+
+#. module: weight_registry
+#: selection:weight.registry,registry_type:0
+msgid "Outgoing"
+msgstr "Salida"
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_stock_picking_type
+msgid "Picking Type"
+msgstr "Tipo de albarán"
+
+#. module: weight_registry
+#: model_terms:ir.actions.act_window,help:weight_registry.weight_registry_action
+msgid "Please make sure you're using the correct filter if you expected to see any."
+msgstr "Asegurate de que estás usando el filtro correcto si esperabas ver algo"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:11
+#, python-format
+msgid "Please set the vehicle number"
+msgstr "Porfavor indica en número de matrícula"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: weight_registry
+#: selection:weight.registry,registry_type:0
+msgid "Production"
+msgstr "Producción"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move_line__weight_registry_id
+msgid "Weight Registry"
+msgstr "Registro de pesada"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__line_ids
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_form
+msgid "Registry Lines"
+msgstr "Líneas registro"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__registry_type
+msgid "Registy type"
+msgstr "Tipo registro"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_form
+msgid "Second Weight"
+msgstr "Seccunda pesada"
+
+#. module: weight_registry
+#: model:ir.actions.client,name:weight_registry.action_set_weight
+#: model:ir.ui.menu,name:weight_registry.menu_do_weight
+msgid "Set Weight"
+msgstr "Establece el peso"
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de existencias"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_form
+msgid "Summary"
+msgstr "Resumen"
+
+#. module: weight_registry
+#: model_terms:ir.actions.act_window,help:weight_registry.weight_registry_action
+msgid "The weight registry records of your vehicles will be displayed here."
+msgstr "Los registros de pesada de tus vehículos se mostrarán aquí"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
+msgid "Today"
+msgstr "Hoy"
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__used
+msgid "Used"
+msgstr "USADO"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:25
+#, python-format
+msgid "VEHICLE"
+msgstr "MATRÍCULA"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:15
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__vehicle_id
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
+#, python-format
+msgid "Vehicle"
+msgstr "Mátricula"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_vehicle__weight_registry_state
+msgid "Vehicle state"
+msgstr "Estado matrícula"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_form
+msgid "Vehicle weight registry"
+msgstr "Registro pesada matrícula"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.vehicle_form_view_registry
+msgid "W. registry"
+msgstr "Registro pesada"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:29
+#, python-format
+msgid "WEIGHT:"
+msgstr "PESO:"
+
+#. module: weight_registry
+#: selection:weight.registry,registry_type:0
+msgid "Wash"
+msgstr "Lavado"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_vehicle__weight_control_ids
+msgid "Weight Control"
+msgstr "Control Peso"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_form
+msgid "Weight Line"
+msgstr "Línea de pesada"
+
+#. module: weight_registry
+#: model:ir.ui.menu,name:weight_registry.menu_weight_registry_line
+msgid "Weight Lines"
+msgstr "Líneas de pesadas"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__registry_id
+#: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_filter
+msgid "Weight Registry"
+msgstr "Registro de pesada"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_vehicle__weight_registry_count
+msgid "Weight Registry Count"
+msgstr "Contador registros pesada"
+
+#. module: weight_registry
+#: model:res.groups,name:weight_registry.group_weight_registry_manager
+msgid "Weight Registry Manager"
+msgstr "COntrol de psadas responsable"
+
+#. module: weight_registry
+#: model:ir.actions.act_window,name:weight_registry.weight_registry_line_action
+msgid "Weight registry Lines"
+msgstr "Líneas de registro de pesada"
+
+#. module: weight_registry
+#: model:ir.actions.act_window,name:weight_registry.weight_registry_action
+#: model:ir.actions.act_window,name:weight_registry.weight_registry_action_vehicle
+msgid "Weight registries"
+msgstr "Registro de pesadas"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_vehicle__weight_registry_ids
+#: model:ir.ui.menu,name:weight_registry.menu_weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_registry_line_tree
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_registry_tree
+msgid "Weight registry"
+msgstr "Registro de pesadas"
+
+#. module: weight_registry
+#: model:ir.ui.menu,name:weight_registry.menu_weights
+msgid "Weights Control"
+msgstr "Control de pesadas"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move_line__registry_line_id
+msgid "Wheigt Line"
+msgstr "Línea pesada"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__worked_hours
+msgid "Worked Hours"
+msgstr "Horas trabajadas"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_weight_registry_kanban
+msgid "hola"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,help:weight_registry.field_vehicle__weight_control_ids
+msgid "list of weight.registry for this vehicle"
+msgstr "lista de registros de pesada para este vehículo"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:15
+#, python-format
+msgid "not found, try again"
+msgstr "no encontrada, prueba otra vez"
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_vehicle
+msgid "vehicle"
+msgstr "matrícula"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__scale_weight
+msgid "weight"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_weight_pick_line_wzd
+msgid "weight.pick.line.wzd"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_weight_registry
+msgid "weight.registry"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_weight_registry_line
+msgid "weight.registry.line"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_weight_registry_type
+msgid "weight.registry.type"
+msgstr ""
+

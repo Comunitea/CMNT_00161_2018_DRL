@@ -4,6 +4,11 @@ from datetime import datetime
 from odoo import models, fields, api, exceptions, _
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
+# import logging
+
+# _logger = logging.getLogger('WHEIGHT_REGISTRY')
+
+
 REGISTRY_TYPE = [
     ('incoming', 'Incoming'),
     ('outgoing', 'Outgoing'),
@@ -53,38 +58,38 @@ class WeightRegistry(models.Model):
     worked_hours = fields.Float(
         string='Worked Hours', compute='_compute_worked_hours',
         store=True, readonly=True)
-    move_line_ids = fields.One2many(
-        'stock.move', 'weight_registry_id', string="Weight register")
-    picking_id = fields.Many2one('stock.picking')
+    # move_line_ids = fields.One2many(
+    #     'stock.move', 'weight_registry_id', string="Weight register")
+    # picking_id = fields.Many2one('stock.picking')
     registry_type = fields.Selection(
         REGISTRY_TYPE, string="Registy type", required=False)
     product_id = fields.Many2one('product.product', 'Product')
     line_ids = fields.One2many('weight.registry.line', 'registry_id', 
                                'Registry Lines')
 
-    def apply_net_to_qty_done(self):
-        for w_r in self.filtered(lambda x: x.check_out):
-            qty_done = w_r.net
-            if any(x.state == 'done' for x in w_r.mapped('move_line_ids')):
-                raise exceptions.ValidationError(
-                    _('Move {} is done.'.format(
-                        w_r.mapped('move_line_ids').mapped('display_name'))))
+    # def apply_net_to_qty_done(self):
+    #     for w_r in self.filtered(lambda x: x.check_out):
+    #         qty_done = w_r.net
+    #         if any(x.state == 'done' for x in w_r.mapped('move_line_ids')):
+    #             raise exceptions.ValidationError(
+    #                 _('Move {} is done.'.format(
+    #                     w_r.mapped('move_line_ids').mapped('display_name'))))
 
-            for mv in w_r.move_line_ids:
-                for ml in mv.move_line_ids:
-                    mv.qty_done = min(ml.product_uom_qty, qty_done)
-                    qty_done -= mv.qty_done
-                if qty_done:
-                    mv.qty_done += qty_done
+    #         for mv in w_r.move_line_ids:
+    #             for ml in mv.move_line_ids:
+    #                 mv.qty_done = min(ml.product_uom_qty, qty_done)
+    #                 qty_done -= mv.qty_done
+    #             if qty_done:
+    #                 mv.qty_done += qty_done
 
-    def unlink(self):
-        self.action_unlink_weight()
-        return super().unlink()
+    # def unlink(self):
+    #     self.action_unlink_weight()
+    #     return super().unlink()
 
-    def action_unlink_weight(self):
-        for w_r in self:
-            w_r.mapped('picking_id').do_unreserve()
-            w_r.picking_id = False
+    # def action_unlink_weight(self):
+    #     for w_r in self:
+    #         w_r.mapped('picking_id').do_unreserve()
+    #         w_r.picking_id = False
 
     def name_get(self):
         result = []
@@ -201,6 +206,27 @@ class WeightRegistry(models.Model):
                                                                                                fields.Datetime.from_string(
                                                                                                    last_reg_before_check_out.check_in))),
                                                      })
+    @api.model
+    def _estimate_qty_in_deposits(self, deposits, net):
+        res = {}
+        # _logger.info("DEPOSITS")
+        # _logger.info(deposits)
+        # import ipdb; ipdb.set_trace()
+        # used_deposits = [dep for dep in deposits if dep['check']]
+        # _logger.info("USED DEPOSITS")
+        # _logger.info(used_deposits)
+        used_deposit_ids = [int(dep['id']) for dep in deposits if dep['check']]
+        used_deposits = self.env['deposit'].browse(used_deposit_ids)
+        total_capacity = sum(used_deposits.mapped('capacity'))
+        if not total_capacity:
+            return res
+
+        factor = net / total_capacity
+        for dep in used_deposits:
+            res[dep.id] = factor * dep.capacity
+        return res
+
+
 
     @api.model
     def set_weight_registry(self, vehicle_id, weight, deposits):
@@ -212,14 +238,19 @@ class WeightRegistry(models.Model):
                 reg.check_in_weight = weight
             else:
                 reg.check_out_weight = weight
-            print("DEPOSITS")
-            print(deposits)
+
+            if not deposits:
+                return res
+
+            deposit_qtys = self._estimate_qty_in_deposits(deposits, reg.net)
             for dep in deposits:
+                deposit_id = int(dep['id'])
+                qty = deposit_qtys.get(deposit_id, 0.0)
                 vals = {
                     'registry_id':reg.id,
-                    'deposit_id': dep['id'],
-                    'empty': dep['check'],
-
+                    'deposit_id': deposit_id,
+                    'used': dep['check'],
+                    'qty': qty
                 }
                 self.env['weight.registry.line'].create(vals)
         return res
@@ -230,19 +261,38 @@ class WeightRegistryLine(models.Model):
 
     _name = "weight.registry.line"
 
+    @api.multi
+    def _get_filled_or_empty(self):
+        for line in self:
+            line.filled = line.used and line.registry_id.fill
+            line.empty = line.used and not line.registry_id.fill
+
+
     registry_id = fields.Many2one('weight.registry', 'Weight Registry', 
                                   required=True, ondelete="cascade")
     deposit_id = fields.Many2one('deposit', 'Deposit')
-    move_line_id = fields.Many2one('stock.move', 'Move')
-    empty = fields.Boolean('Empty')
+    capacity = fields.Float('Capacity', related='deposit_id.capacity')
+    # One2many para que al asignarlo al stock.move.line, se asigne solo
+    move_line_ids = fields.One2many(
+        'stock.move.line', 'registry_line_id', 'Move')
+    used = fields.Boolean('Used')
+    empty = fields.Boolean('Empty', compute='_get_filled_or_empty')
+    filled = fields.Boolean('Filled', compute='_get_filled_or_empty')
+    qty = fields.Float('Estimated Qty')
     
     def name_get(self):
         result = []
         for line in self:
-            custom_name = "%(registry_name)s DEPOSIT: %(deposit)s -->" % \
+            custom_name = \
+                "%(veh)s[%(check_out)s] Nº: %(deposit)s (%(cap)s) - \
+                    [%(qty)s / %(net)s]" % \
             {
-                'registry_name': line.registry_id.display_name,
-                'deposit': line.deposit_id.number
+                'veh': line.registry_id.vehicle_id.register,
+                'check_out': line.registry_id.check_in,
+                'deposit': line.deposit_id.number,
+                'cap': line.deposit_id.capacity,
+                'qty': line.qty,
+                'net': line.registry_id.net,
             }
             result.append((line.id, custom_name))
         return result
