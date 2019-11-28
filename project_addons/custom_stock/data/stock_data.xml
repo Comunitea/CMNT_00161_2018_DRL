@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+
+        <record id="lot_merge_production" model="stock.location">
+            <field name="name">Lot Merges</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="usage">production</field>
+            <field name="company_id"></field>
+        </record>
+      
+    </data>
+</odoo>
