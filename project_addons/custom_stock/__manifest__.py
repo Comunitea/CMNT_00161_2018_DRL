@@ -13,7 +13,8 @@
         'letra_q'
     ],
     'data': [
-        'data/stock_data.xml'
+        'data/stock_data.xml',
+        'views/mrp_production.xml',
     ],
     'installable': True,
 }

@@ -22,7 +22,8 @@ class StockPicking(models.Model):
                 # TODO ESTO QUIZÁ NO HACE FALTA Y SIEMPRE SE COGE EL ÚNICO
                 # PRODUCTO DEL SILO
                 merged_product = pick._get_merged_product()
-                locs2merge.create_production_merge(merged_product)
+                prods = locs2merge.create_production_merge(merged_product)
+                prods.write({'orig_picking_id': self.id})
         return res
     
     @api.multi
@@ -47,7 +48,7 @@ class StockPicking(models.Model):
         )
         
         for loc in locs:
-            domain = [('location_id', '=', loc.id)]
+            domain = [('location_id', '=', loc.id), ('quantity', '>', 0)]
             quants = self.env['stock.quant'].read_group(
                 domain, fields=['product_id', 'lot_id'], 
                 groupby=['lot_id'])
