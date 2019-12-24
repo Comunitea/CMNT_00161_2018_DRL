@@ -8,60 +8,148 @@
             <div class="o_weight_registry_kiosk_mode">
                 <!--VENTANA 1 - PRIMERA PESADA -->
                 <t t-if="widget.state == 'weight1'">
+
+
                     <h1>Please set the vehicle number</h1>
 
                     <!-- Mensaje error -->
                     <t t-if="widget.error">
                         <h2  style="color:red;">Vehicle <t t-esc="widget.input_number"/> not found, try again</h2>
                      </t >
-
                     <!-- Número Vehículo  -->
                     <input type="text" name="vehicle_number" class="input_vehicle_number"/>
+
                     <i class="fa fa-truck btn-primary truck_button"/>
+                    <h4>Buscar</h4>
                 </t>
 
                 <!--VENTANA 2 - SEGUNDA PESADA -->
                 <t t-if="widget.state == 'weight2'">
-                    <h1>VEHICLE <t t-esc="widget.vehicle.register"/></h1>
+                    <t t-if="widget.vehicle.weight_registry_state=='checked_out'">
+                        <h1 class="btn-primary">Entrada de <t t-esc="widget.vehicle.register"/></h1>
+                    </t>
+                    <t t-if="widget.vehicle.weight_registry_state=='checked_in'">
+                        <h1 class="btn-primary">Salida de <t t-esc="widget.vehicle.register"/></h1>
+                    </t>
 
                     <!-- Campo -->
                     <div class="wc-data">
-                        <label for="customer" id="label-weight">WEIGHT:</label>
-                        <input  id="weight-field" type="text" class='wc-weight' t-att-value="widget.weight.toFixed(2)"/>
+                        <div t-if="widget.vehicle.weight_registry_state=='checked_in'" style="text-align: left">
+                             <label for="customer" id="label-weight" style="width: 20%; text-align: left">Inicial:</label>
+                            <strong ><span t-esc="widget.vehicle.check_in_weight" style="width: 30%; text-align: left"/> Kgrs.</strong>
+                        </div>
+                        <div style="text-align: left">
+
+                            <label for="customer" id="label-weight" style="width: 20%">En báscula:</label>
+                            <input id="weight-field" type="text" style="
+                                    color: #7C7BAD;
+                                    font-weight: bolder;
+                                    text-align: center;
+                                    width: 25%;
+                                    display: inline" t-att-value="widget.weight.toFixed(2)"/>
+                            <label for="customer" id="label-weight" style="width: 5%">Kgrs.</label>
+                        </div>
+
                     </div>
 
                     <!-- Botón primera pesada - Botón segunda pesada -->
                     <t t-if="widget.vehicle.weight_registry_state=='checked_out'">
-                        <i class="fa fa-caret-square-o-down btn-primary o_weight_registry_sign_in_out_icon truck_button"/>
-                    </t>
-                    <t t-if="widget.vehicle.weight_registry_state=='checked_in'">
-
+                        <h2 style="text-align: left">Listado de matrículas</h2>
                         <div class="wh-deposits-block">
-                            <table class="wh-deposits-table">
+                            <!--table class="wh-deposits-table">
                                 <thead>
                                     <th class="wh-deposits-line">Nº</th>
                                     <th class="wh-deposits-line">Capacity</th>
                                     <th class="wh-deposits-line">Fill/Empty</th>
                                 </thead>
+                            </table-->
+                            <table class="wh-vehicles-table">
                                 <tbody>
-                                    <t t-foreach="widget.vehicle.deposit_ids" t-as="deposit">
-                                        <tr t-att-dep="deposit.id">
-                                            <td>
-                                                <span t-esc="deposit.number"/>
+                                    <t t-foreach="widget.vehicle.vehicle_ids" t-as="vehicle_id">
+                                        <tr t-att-veh="vehicle_id.id">
+                                            <td style="width: 25%">Matricula: </td>
+                                            <td colspan="2" >
+                                                <strong>
+                                                    <span t-esc="vehicle_id.register"/>
+                                                </strong>
                                             </td>
-                                            <td>
-                                                <span t-esc="deposit.capacity"/>
-                                            </td>
-                                            <td>
-                                                <input type="checkbox"/>
-                                            </td>
+
                                         </tr>
+                                        <!--t t-foreach="vehicle_id.deposit_ids" t-as="deposit">
+                                            <tr t-att-dep="deposit.id">
+                                                <td>
+                                                    <span t-esc="deposit.number"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="deposit.capacity"/>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox"/>
+                                                </td>
+                                            </tr>
+                                        </t-->
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                        <i class="fa fa-caret-square-o-down btn-primary o_weight_registry_sign_in_out_icon truck_button"/>
+                        <h4> Registrar entrada (1º Paso)</h4>
+                    </t>
+                    <t t-if="widget.vehicle.weight_registry_state=='checked_in'">
+                        <!--table class="wh-vehicles-table">
+                            <thead>
+                                <th class="wh-deposits-line">Matricula</th>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="widget.vehicle.vehicle_ids" t-as="vehicle_id">
+                                    <tr t-att-veh="vehicle_id.id">
+                                        <td>
+                                            <span t-esc="vehicle_id.register"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table-->
+                        <div class="wh-deposits-block">
+                            <table class="wh-deposits-table">
+                                <thead>
+                                    <th class="wh-deposits-line" style="width: 25%" >Nº</th>
+                                    <th class="wh-deposits-line" style="width: 50%">Capacity</th>
+                                    <th class="wh-deposits-line" style="width: 25%">Used</th>
+                                </thead>
+                            </table>
+                            <table class="wh-deposits-table">
+                                <tbody>
+                                    <t t-foreach="widget.vehicle.vehicle_ids" t-as="vehicle_id">
+                                        <tr>
+                                            <td style="width: 25%">Matrícula:</td>
+                                            <td colspan="2" style="width: 75%; text-align: left" >
+                                                <strong>
+                                                    <span t-esc="vehicle_id.register"/>
+                                                </strong>
+                                            </td>
+
+                                        </tr>
+                                        <t t-foreach="vehicle_id.deposit_ids" t-as="deposit">
+                                            <tr t-att-dep="deposit.id">
+                                                <td style="width: 25%">
+                                                    <span t-esc="deposit.number"/>
+                                                </td>
+                                                <td style="width: 50%">
+                                                    <span t-esc="deposit.capacity"/>
+                                                </td>
+                                                <td style="width: 25%" >
+                                                    <input type="checkbox"/>
+                                                </td>
+                                            </tr>
+                                        </t>
                                     </t>
                                 </tbody>
                             </table>
                         </div>
 
                         <i class="fa fa-caret-square-o-up btn-primary o_weight_registry_sign_in_out_icon truck_button"/>
+                        <h4> Registrar salida (2º Paso)</h4>
                     </t>
                 </t>
             </div>

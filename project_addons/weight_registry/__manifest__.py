@@ -19,9 +19,12 @@
         'security/ir.model.access.csv',
         'security/weight_registry_security.xml',
         'views/assets.xml',
+        'views/product_view.xml',
         'views/vehicle_view.xml',
         'views/weight_registry.xml',
         'views/stock_views.xml',
+        'views/stock_picking.xml',
+        'wizard/link_weight_moves_wzd.xml'
     ],
     'installable': True,
     'qweb': [

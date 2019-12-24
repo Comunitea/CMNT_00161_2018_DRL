@@ -4,4 +4,8 @@
 from . import vehicle
 from . import weight_registry
 from . import stock_move_line
-
+from . import stock_picking
+from . import deposit
+from . import stock_picking_type
+from . import product_product
+from . import stock_location

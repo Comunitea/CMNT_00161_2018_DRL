@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_link_weight_moves_wzd" model="ir.ui.view">
+        <field name="name">view.link.weight.moves.wzd</field>
+        <field name="model">stock.picking.weight.control.wzd</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name='state' widget='statusbar'/>
+                </header>
+                <h2>
+                    <field name="registry_id" readonly="1"/>
+                </h2>
+                <div states="lots,moves">
+
+                    <h3 >
+                        <field name="picking_id" readonly="1" class="oe_inline"/>
+                        <label for="product_id" string=" -> " class="oe_inline"/>
+                        <field name="product_id" readonly="1" class="oe_inline"/>
+                    </h3>
+
+                </div>
+                <group states="picks">
+                    <group>
+                        <field name="type" readonly="1"/>
+                        <!--field name="fill" readonly="1"/-->
+                    </group>
+                    <group>
+                        <field name="net" readonly="1"/>
+                    </group>
+                </group>
+                <div name="picks" states="picks">
+                    <group string="Depositos" cols="2" >
+                            <field name="registry_line_ids" domain="[('used', '=', True)]" nolabel="1">
+                                <tree editable="False" create="0" delete="0">
+                                    <field name="deposit_id"/>
+                                    <field name="capacity"/>
+                                    <!--field name="used"/>
+                                    <field name="empty"/>
+                                    <field name="filled"/-->
+                                    <field name="qty"/>
+                                </tree>
+                            </field>
+                    </group>
+                    <group string="Cantidad a trasladar" cols="2">
+
+                            <field name="select_qty" attrs = "{'readonly': [('state', '!=', 'picks')]}"/>
+
+                    </group>
+                    <group string="Albaranes disponibles" cols="2">
+                        <field name="available_pickings" nolabel="1">
+                            <tree create="0" delete="0">
+                                <field name="picking_id"/>
+                                <button name="action_link_picking_id"
+                                    string="Asignar"
+                                    type="object"
+                                    class="oe_highlight"
+                                    style="padding-bottom: 0px; padding-top: 0px; padding-left: 10px; padding-right:10px"/>
+                                <field name="product_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </div>
+                <div name="lots" states="lots">
+                     <button name="action_assign_lots" string="Crear y asignar lotes" type="object" class="oe_highlight" states="lots"/>
+                </div>
+                <div name="lines" states="moves">
+                    <group string="Ubicaciones" cols="2">
+                        <field name="location_id" readonly="1"/>
+                        <field name="location_dest_id" readonly="1"/>
+                        <field name="full_empty" />
+                    </group>
+                    <group>
+                        <field name="unique_lot_id"
+                               options="{'no_create_edit': True, 'no_quick_create': True}"
+                               domain="[('product_id', '=', product_id)]"
+                               context="{'default_product_id': product_id}"/>
+                        <field name="unique_location_dest_id"
+                               options="{'no_create_edit': True, 'no_quick_create': True}"
+                               attrs="{'invisible': [('type', 'in', ('outgoing', 'all'))]}"
+                               domain="[('id', 'child_of', location_dest_id), ('weight_control','=', True)]"
+                        />
+                        <field name="unique_location_id"
+                               options="{'no_create_edit': True, 'no_quick_create': True}"
+                               attrs="{'invisible': [('type', 'in', ('incoming', 'all'))]}"
+                               domain="[('id', 'child_of', location_id), ('weight_control','=', True)]"
+                        />
+                    </group>
+                    <group string="Lineas de movimientos" cols="2">
+                        <field name="available_moves" nolabel="1">
+                            <tree editable="top" create="0" delete="0">
+                                <field name="move_id" invisible="1"/>
+                                <field name="product_id" invisible="1"/>
+                                <field name="location_id"
+                                       options="{'no_create_edit': True, 'no_quick_create': True}"
+                                       domain="[('id', 'child_of', parent.location_id),('weight_control','=', True)]"
+                                       attrs="{'column_invisible': ['|', ('parent.unique_location_id', '!=', False), ('parent.type', 'in', ('incoming', 'all'))]}"/>
+
+                                <field name="deposit_id" readonly="1"/>
+                                <field name="qty"/>
+                                <field name="lot_id"
+                                       options="{'no_create_edit': True, 'no_quick_create': True}"
+                                       attrs="{'column_invisible': [('parent.unique_lot_id', '!=', False)]}"
+                                       domain="[('product_id', '=', product_id)]"
+                                       context="{'default_product_id': parent.product_id}"/>
+                                <field name="location_dest_id"
+                                       options="{'no_create_edit': True, 'no_quick_create': True}"
+                                       domain="[('id', 'child_of', parent.location_dest_id), ('weight_control','=', True)]"
+                                       attrs="{'column_invisible': ['|', ('parent.unique_location_dest_id', '!=', False), ('parent.type', 'in', ('outgoing', 'all'))]}"/>
+                            </tree>
+                        </field>
+                    </group>
+                </div>
+
+                <footer>
+
+                    <button string="Atrás" class="oe_link" name = "button_back" type="object" states="lots,moves"/>
+                    <button name="action_assign_product" string="Asignar movimiento" type="object" class="oe_highlight" states="moves"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--act_window name="Empaquetar movimientos"
+                res_model="stock.move.pack.wzd"
+                src_model="stock.move"
+                view_mode="form"
+                target="new"
+                key2="client_action_multi"
+                id="view_stock_move_pack_wzd_act_window"/-->
+
+
+</odoo>
+

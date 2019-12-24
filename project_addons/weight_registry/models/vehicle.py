@@ -139,24 +139,45 @@ class Vehicle(models.Model):
     @api.model
     def get_vehicle_data(self, vehicle_number):
         res = {}
-        domain = [('register', '=', vehicle_number)]
-        vehicle = self.search(domain, limit=1)
-        if vehicle:
+        vehicle_number = vehicle_number.upper()
+        vehicle_number.replace(',', ' ').replace('-', ' ')
+        reg_ids = vehicle_number.split(' ')
+        domain = [('register', 'in', reg_ids)]
+        vehicle_ids = self.env['vehicle'].search(domain)
+        ##primero busco si hay una entrada para esta matrícula
+        domain = [('check_out', '=', False)]
+        control_ids = self.env['weight.registry'].search(domain)
+        check_in_weight = 0.00
+        for control_id in control_ids:
+            vehicle_in_ids = control_id.vehicle_ids
+            if list(set(vehicle_in_ids) & set(vehicle_ids)):
+                vehicle_ids = vehicle_in_ids
+                check_in_weight = control_id.check_in_weight
+                continue
+        if vehicle_ids:
+            vehicles = []
+            vehicle_id = vehicle_ids[0]
             deposits = []
-            for dep in vehicle.deposit_ids:
-                dep_val = {
-                    'id': dep.id,
-                    'code': dep.code,
-                    'number': dep.number,
-                    'capacity': dep.capacity
-                }
-                deposits.append(dep_val)
+            for vehicle in vehicle_ids:
+                dep_ids = []
 
+                for dep in vehicle.deposit_ids:
+                    dep_val = dep.get_app_vals()
+                    dep_ids.append(dep_val)
+                    deposits.append(dep_val)
+
+                vehicles.append({'id': vehicle.id,
+                                 'register': vehicle.register,
+                                 'deposit_ids': dep_ids})
             res = {
-                'id': vehicle.id,
-                'weight_registry_state': vehicle.weight_registry_state,
-                'register': vehicle.register,
-                'barcode': vehicle.barcode,
-                'deposit_ids': deposits
+                'id': vehicle_id.id,
+                'weight_registry_state': vehicle_id.weight_registry_state,
+                'register': vehicle_id.register,
+                'barcode': vehicle_id.barcode,
+                'deposit_ids': deposits,
+                'vehicle_ids': vehicles,
+                'check_in_weight': check_in_weight
+
             }
+        print ("Devuelvo en get_vehicle_data: {}".format(res))
         return res

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="product_uom_form_view_wr" model="ir.ui.view">
+        <field name="name">uom.uom.form.wr</field>
+        <field name="model">uom.uom</field>
+        <field name="inherit_id" ref="uom.product_uom_form_view"/>
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="template_id"/>
+            </field>
+            <field name="rounding" position="after">
+                <field name="kgr_to_uom_factor_ids">
+                    <tree>
+                        <field name="name"/>
+                        <field name="template_id"/>
+                        <field name="factor"/>
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_template_wr_form" model="ir.ui.view">
+        <field name="name">Product Weight Registry</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_template_property_form"/>
+        <field name="arch" type="xml">
+            <field name="tracking" position="after">
+                <field name="weight_control"/>
+                 <field name="kgr_to_uom_factor_ids">
+                    <tree>
+                        <field name="name"/>
+                        <field name="template_id" invisible="1"/>
+                        <field name="factor"/>
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+</odoo>

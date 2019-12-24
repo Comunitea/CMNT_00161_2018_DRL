@@ -9,7 +9,8 @@
                   <field name="weight_registry_state" widget="statusbar"/>
             </xpath>
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button name="action_view_weight_registry" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('weight_registry_count', '=', 0)]}">
+                <button name="action_view_weight_registry" type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('weight_registry_count', '=', 0)]}">
                     <field name="weight_registry_count" widget="statinfo" string="W. registry"/>
                 </button>
             </xpath>

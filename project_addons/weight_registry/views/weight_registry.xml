@@ -7,9 +7,21 @@
         <field name="name">weight_registry.tree</field>
         <field name="model">weight.registry</field>
         <field name="arch" type="xml">
-            <tree string="Weight registry">
+            <tree string="Weight registry"
+                  decoration-info="not check_out"
+                  decoration-danger="not registry_type"
+                  decoration-success="picking_ids != False">
+
+                <field name="registry_type"/>
                 <field name="display_name" readonly="1"/>
                 <field name="vehicle_id" invisible="context.get('default_vehicle_id', False)"/>
+                <field name="picking_ids" invisible="1"/>
+                <button name="create_new_wzd"
+                        string="Link to stock picking"
+                        type="object"
+                        icon="fa-share-alt"
+                        attrs="{'invisible': ['|', '|',('picking_ids', '!=', []), ('registry_type', '=', False), ('check_out', '=', False)]}"
+                    />
                 <field name="check_in" invisible="1"/>
                 <field name="check_out" invisible="1"/>
                 <field name="check_in_weight" invisible="1"/>
@@ -22,6 +34,17 @@
         </field>
     </record>
 
+    <record id="act_qties_in_used_deposit" model="ir.actions.server">
+        <field name="name">Update qties</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_weight_registry"/>
+        <field name="binding_model_id" ref="model_weight_registry"/>
+        <field name="state">code</field>
+        <field name="code">
+            records.recalc_weight_lines()
+        </field>
+    </record>
+
     <record id="weight_registry_view_form" model="ir.ui.view">
         <field name="name">weight_registry.form</field>
         <field name="model">weight.registry</field>
@@ -31,9 +54,11 @@
                 <sheet>
                     <group string="Info" col="4">
                         <field name="vehicle_id"/>
+                        <field name="vehicle_ids" widget="many2many_tags"/>
                         <field name="registry_type"/>
                         <field name="partner_id"/>
                         <field name="worked_hours"/>
+                        <field name="picking_ids" widget="many2many_tags"/>
                       
                     </group>
                     <group col="3">
@@ -83,7 +108,10 @@
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_global_click">
                             <div>
-                                <img alt="hola" t-att-src="kanban_image('vehicle', 'image_small', record.vehicle_id.raw_value)" t-att-title="record.vehicle_id.value" width="24" height="24" class="oe_kanban_avatar mr4"/>
+                                <img alt="hola"
+                                     t-att-src="kanban_image('vehicle', 'image_small', record.vehicle_id.raw_value)"
+                                     t-att-title="record.vehicle_id.value"
+                                     width="24" height="24" class="oe_kanban_avatar mr4"/>
                                 <span class="o_kanban_record_title">
                                     <strong><t t-esc="record.vehicle_id.value"/></strong>
                                 </span>
