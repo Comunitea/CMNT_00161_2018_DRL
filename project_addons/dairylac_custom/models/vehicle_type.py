@@ -9,3 +9,4 @@ class VehicleType(models.Model):
 
     name = fields.Char('Name')
     code = fields.Char('Code')
+    master = fields.Boolean('Master')

@@ -6,6 +6,7 @@ from odoo import models, fields, api
 class Vehicle(models.Model):
 
     _name = "vehicle"
+    _order = 'master desc, register asc'
 
     def name_get(self):
         return [
@@ -22,6 +23,8 @@ class Vehicle(models.Model):
     total_quantity = fields.Float(compute='_get_total_quantity', store=False)
     driver_ids = fields.Many2many(
         'res.partner', string="Drivers", domain=[('driver', '=', True)])
+    master = fields.Boolean(related='vehicle_type_id.master', store=True)
+    code = fields.Char(related='vehicle_type_id.code', store=True)
 
     def action_view_vh_deposit(self):
         w_reg = self.mapped('deposit_ids')

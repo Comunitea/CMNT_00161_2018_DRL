@@ -19,6 +19,7 @@
                     <group col="4">
                         <field name="register"/>
                         <field name="vehicle_type_id"/>
+                        <field name="master"/>
                         <field name="description"/>
                         <field name="letter_code_q"/>
                     </group>
@@ -52,7 +53,11 @@
         <field name="arch" type="xml">
             <search>
                 <field name="register"/>
+                <field name="master"/>
                 <field name="letter_code_q"/>
+                <filter string="Master" name="master" domain="[('master', '=' , True)]"/>
+                <filter string="Cisterna" name="not_master" domain="[('master', '!=' , True)]"/>
+                <separator/>
                 <filter name="group_vehicle_type_id" string="Type Vehicle" icon="vehicle_type_id" context="{'group_by':'vehicle_type_id'}"/>
             </search>
         </field>
@@ -66,6 +71,7 @@
             <tree>
                 <field name="register"/>
                 <field name="vehicle_type_id"/>
+                <field name="master"/>
                 <field name="description"/>
                 <field name="letter_code_q"/>
                 <field name="total_deposits"/>
