@@ -5,40 +5,70 @@ from odoo import api, models
 
 class ProductProduct(models.Model):
 
-    _inherit = 'product.product'
+    _inherit = "product.product"
 
     @api.model
     def get_milk_product_by_name(self, name):
-        if name == '*':
+        if name == "*":
             # Retornamos todos los productos
             ids = [
-                int(self.env['ir.config_parameter'].get_param(
-                    'milk_planning.product_raw_milk')),
-                int(self.env['ir.config_parameter'].get_param(
-                    'milk_planning.product_raw_milk_do')),
-                int(self.env['ir.config_parameter'].get_param(
-                    'milk_planning.product_raw_milk_100')),
-                int(self.env['ir.config_parameter'].get_param(
-                    'milk_planning.product_skimmed_milk')),
-                int(self.env['ir.config_parameter'].get_param(
-                    'milk_planning.product_cream'))
+                int(
+                    self.env["ir.config_parameter"].get_param(
+                        "milk_planning.product_raw_milk"
+                    )
+                ),
+                int(
+                    self.env["ir.config_parameter"].get_param(
+                        "milk_planning.product_raw_milk_do"
+                    )
+                ),
+                int(
+                    self.env["ir.config_parameter"].get_param(
+                        "milk_planning.product_raw_milk_100"
+                    )
+                ),
+                int(
+                    self.env["ir.config_parameter"].get_param(
+                        "milk_planning.product_skimmed_milk"
+                    )
+                ),
+                int(
+                    self.env["ir.config_parameter"].get_param(
+                        "milk_planning.product_cream"
+                    )
+                ),
             ]
-            return self.env['product.product'].browse(ids)
-        elif name == 'milk':
+            return self.env["product.product"].browse(ids)
+        elif name == "milk":
             # Retornamos los productos leche cruda y leche desnatada
             ids = [
-                int(self.env['ir.config_parameter'].get_param(
-                    'milk_planning.product_raw_milk')),
-                int(self.env['ir.config_parameter'].get_param(
-                    'milk_planning.product_raw_milk_do')),
-                int(self.env['ir.config_parameter'].get_param(
-                    'milk_planning.product_raw_milk_100')),
-                int(self.env['ir.config_parameter'].get_param(
-                    'milk_planning.product_skimmed_milk'))
+                int(
+                    self.env["ir.config_parameter"].get_param(
+                        "milk_planning.product_raw_milk"
+                    )
+                ),
+                int(
+                    self.env["ir.config_parameter"].get_param(
+                        "milk_planning.product_raw_milk_do"
+                    )
+                ),
+                int(
+                    self.env["ir.config_parameter"].get_param(
+                        "milk_planning.product_raw_milk_100"
+                    )
+                ),
+                int(
+                    self.env["ir.config_parameter"].get_param(
+                        "milk_planning.product_skimmed_milk"
+                    )
+                ),
             ]
-            return self.env['product.product'].browse(ids)
+            return self.env["product.product"].browse(ids)
         else:
             # Buscamos por valor de parametro
-            id = int(self.env['ir.config_parameter'].get_param(
-                'milk_planning.product_%s' % name))
-            return self.env['product.product'].browse(id)
+            id = int(
+                self.env["ir.config_parameter"].get_param(
+                    "milk_planning.product_%s" % name
+                )
+            )
+            return self.env["product.product"].browse(id)
