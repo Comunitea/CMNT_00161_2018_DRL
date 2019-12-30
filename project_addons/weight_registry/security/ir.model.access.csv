@@ -3,6 +3,3 @@ access_weight_registry_user,weight.registry.user,model_weight_registry,stock.gro
 access_weight_registry_manager,weight.registry.manager,model_weight_registry,stock.group_stock_manager,1,1,1,1
 access_weight_registry_type,access_weight_registry_type,model_weight_registry_type,stock.group_stock_manager,1,1,1,1
 access_weight_registry_line_user,weight.registry.line.user,model_weight_registry_line,stock.group_stock_manager,1,1,1,1
-
-access_product_uom_factor_user,product_uom_factor.user,model_product_uom_factor,stock.group_stock_user,1,0,0,0
-access_product_uom_factor_manager,product_uom_factor.manager,model_product_uom_factor,stock.group_stock_manager,1,1,1,1
