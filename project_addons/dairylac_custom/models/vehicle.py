@@ -44,7 +44,7 @@ class Vehicle(models.Model):
 
     def _get_total_deposits(self):
         for vh in self:
-            vh.deposit_id_count = len(vh.deposit_ids)
+            vh.total_deposits = len(vh.deposit_ids)
 
     def _get_total_quantity(self):
         for vh in self:
