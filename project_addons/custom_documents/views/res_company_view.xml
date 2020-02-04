@@ -5,12 +5,12 @@
     <record id="res_company_invoice" model="ir.ui.view">
         <field name="name">res.company.invoice</field>
         <field name="model">res.company</field>
-        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="inherit_id" ref="base.view_company_document_template_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='report_header']" position="after">
 
-                <field name="NRC"/>
-                <field name="NR_LetraQ"/>
+                <field name="nrc"/>
+                <field name="nr_letraq"/>
 
             </xpath>
         </field>

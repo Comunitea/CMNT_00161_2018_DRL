@@ -17,7 +17,7 @@
                     <div>CIF: <span t-field="o.company_id.vat"/></div>
                     <div><span t-field="o.company_id.email"/></div>
                     <div><span t-field="o.company_id.phone"/></div>
-                    <div>NRC: <span t-field="o.company_id.NRC"/>        NR Letra Q: <span t-field="o.company_id.NR_LetraQ"/></div>
+                    <div>NRC: <span t-field="o.company_id.nrc"/>        NR Letra Q: <span t-field="o.company_id.nr_letraq"/></div>
                 </div>
             </div>
         </div>

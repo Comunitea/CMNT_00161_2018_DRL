@@ -14,10 +14,13 @@
         'web',
         'sale',
         'account',
+        'contract'
     ],
     'data': [
         'views/report_invoice.xml',
-        'views/res_company_view.xml'
+        'views/res_company_view.xml',
+        'views/report_contract.xml',
+        'views/contract.xml'
     ],
     'installable': True,
 }
