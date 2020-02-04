@@ -15,12 +15,12 @@
                 <field name="registry_type"/>
                 <field name="display_name" readonly="1"/>
                 <field name="vehicle_id" invisible="context.get('default_vehicle_id', False)"/>
-                <field name="picking_ids" invisible="1"/>
+
                 <button name="create_new_wzd"
                         string="Link to stock picking"
                         type="object"
                         icon="fa-share-alt"
-                        attrs="{'invisible': ['|', '|',('picking_ids', '!=', []), ('registry_type', '=', False), ('check_out', '=', False)]}"
+                        attrs="{'invisible': ['|', ('picking_ids', '!=', []), ('registry_type', '=', False)]}"
                     />
                 <field name="check_in" invisible="1"/>
                 <field name="check_out" invisible="1"/>
@@ -29,7 +29,7 @@
                 <field name="fill" invisible="0"/>
                 <field name="net" invisible="0"/>
                 <field name="partner_id" invisible="0"/>
-                <field name="worked_hours" invisible="0"/>
+                <field name="picking_ids" widget="many2many_tags" invisible="0"/>
             </tree>
         </field>
     </record>
@@ -82,8 +82,8 @@
                                 <field name="capacity"/>
                                 <field name="move_line_ids" widget="many2many tags"/>
                                 <field name="used"/>
-                                <field name="empty"/>
-                                <field name="filled"/>
+                                <field name="empty" invisible="1"/>
+                                <field name="filled" invisible="1"/>
                                 <field name="qty"/>
                             </tree>
                         </field>

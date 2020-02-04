@@ -3,6 +3,10 @@
 from datetime import datetime
 from odoo import models, fields, api, exceptions, _
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from datetime import date
+from dateutil.relativedelta import relativedelta
+
+from odoo.tools.float_utils import float_compare, float_round, float_is_zero
 
 # import logging
 
@@ -17,6 +21,8 @@ REGISTRY_TYPE = [
     ('wash', 'Wash'),
     ('other', 'Other'),
     ('none', 'None')]
+
+
 
 
 class WeightRegistryType(models.Model):
@@ -72,6 +78,12 @@ class WeightRegistry(models.Model):
 
     used_line_ids = fields.One2many('weight.registry.line', 'registry_id', domain=[('used','=', True)], string='Used Registry Lines')
     picking_ids = fields.Many2many('stock.picking', "pick_weight_rel", column1="picking_id" , column2="weight_id", string="Albaranes asociados")
+    linked = fields.Boolean('Relacionado', compute="compute_linked", store=True)
+
+    @api.depends('picking_ids')
+    def compute_linked(self):
+        for wc in self:
+            wc.write({'linked': len(wc.picking_ids) != 0})
 
 
     # def apply_net_to_qty_done(self):
@@ -163,9 +175,11 @@ class WeightRegistry(models.Model):
             tara = self.check_in_weight
             gross = weight
         net = gross-tara
+
         vals = {'check_out': date,
                 'weight_check_out': weight,
-                'net': net
+                'net': net,
+                'registry_type': 'incoming' if net >= 0 else 'outgoing'
                 }
         return vals
 
@@ -292,17 +306,48 @@ class WeightRegistry(models.Model):
             if not deposits:
                 return res
             deposit_qtys = self._estimate_qty_in_deposits(deposits, reg.net)
-            for dep in deposits:
-                deposit_id = int(dep['id'])
-                qty = deposit_qtys.get(deposit_id, 0.0)
-                vals = {
-                    'register': reg.vehicle_id.register,
-                    'registry_id': reg.id,
-                    'deposit_id': deposit_id,
-                    'used': dep['check'],
-                    'qty': qty
-                }
-                self.env['weight.registry.line'].create(vals)
+            if not reg.line_ids:
+                ## En este caso las lineas se crean en el 2 pesaje
+                for dep in deposits:
+                    deposit_id = int(dep['id'])
+                    qty = deposit_qtys.get(deposit_id, 0.0)
+                    vals = {
+                        'register': reg.vehicle_id.register,
+                        'registry_id': reg.id,
+                        'deposit_id': deposit_id,
+                        'used': dep['check'],
+                        'qty': qty
+                    }
+                    self.env['weight.registry.line'].create(vals)
+            else:
+                ## En este caso las lineas se crean antes del pesaje
+                ## por lo tanto ya tengo un albarán y unos movimientos asovciados a la línea
+                move_id = reg.line_ids.move_line_ids[0].move_id
+                if move_id.quantity_done == 0:
+                    update_move_line = True
+                product_id = move_id.product_id
+                ##paso el pesaje neto a miles de litros
+                available_total_qty = product_id.uom_id._compute_quantity(reg.net, move_id.product_uom)
+
+                for line in reg.line_ids.filtered(lambda x: x.used):
+                    qty = deposit_qtys.get(line.deposit_id.id, 0.0)
+                    available_total_qty -= qty
+                    line.qty = qty
+                    if update_move_line:
+                        line.move_line_ids.write({'qty_done': qty/len(line.move_line_ids)})
+
+                ## lo que sobra/falte lo meto en el último deposito
+                line.qty += available_total_qty
+                if update_move_line:
+                    line.move_line_ids.write({'qty_done': line.qty / len(line.move_line_ids)})
+                    ## Escribo la cantidad total
+
+
+
+
+
+
+
             return res
 
     @api.model
@@ -333,11 +378,16 @@ class WeightRegistry(models.Model):
         return res
 
     @api.multi
-    def create_new_wzd(self):
-
+    def create_new_wzd(self, picking_id=False, product_id=False):
         self.ensure_one()
-        domain = [('picking_type_id.weight_control', '=', self.registry_type), ('picking_id.weight_registry_ids', '=', False)]
+        domain = [
+            #('picking_type_id.weight_control', '=', self.registry_type),
+
+                  ('picking_id.weight_registry_ids', '=', False),
+                  ('date_expected', '<=', fields.Date.to_string(date.today() + relativedelta(days=7)))
+                  ]
         moves = self.env['stock.move'].search(domain)
+
         wzd_vals = {'type': self.registry_type,
                     'registry_id': self.id,
                     'product': self.product_id,
@@ -347,13 +397,33 @@ class WeightRegistry(models.Model):
                     #'select_qty': False,
                     'select_pick': True,
                     }
+        if not self.check_out:
+            self.line_ids.unlink()
+            deposit_ids = self.vehicle_ids.mapped('deposit_ids')
+            for dep in deposit_ids:
+                vals = {
+                    'register': dep.vehicle_id.register,
+                    'registry_id': self.id,
+                    'deposit_id': dep.id,
+                    'used': True,
+                    'qty': dep.capacity
+                }
+                self.env['weight.registry.line'].create(vals)
 
         wzd_id = self.env['stock.picking.weight.control.wzd'].create(wzd_vals)
-        for move in moves:
-            new_line_val = {'wzd_id': wzd_id.id,
-                            'picking_id': move.picking_id.id,
-                            'product_id': move.product_id.id}
-            self.env['available.line.picks.wzd'].create(new_line_val)
+        if picking_id:
+            new_line_val={'wzd_id': wzd_id.id,
+                           'picking_id': picking_id.id,
+                           'product_id': product_id.id}
+            new_line = self.env['available.line.picks.wzd'].create(new_line_val)
+            new_line.action_link_picking_id()
+
+        else:
+            for move in moves:
+                new_line_val = {'wzd_id': wzd_id.id,
+                                'picking_id': move.picking_id.id,
+                                'product_id': move.product_id.id}
+                self.env['available.line.picks.wzd'].create(new_line_val)
 
         action = wzd_id.get_formview_action()
         action['target'] = 'new'
@@ -395,7 +465,6 @@ class WeightRegistryLine(models.Model):
 
     @api.multi
     def create_new_wzd(self):
-
         self.ensure_one()
         wzd_vals = {'type': self.type,
                     'registry_id': self.id,

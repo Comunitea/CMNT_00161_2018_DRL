@@ -11,6 +11,30 @@
         </field>
     </record>
 
+    <record id="view_stock_picking_tree_wr" model="ir.ui.view">
+        <field name="name">stock.picking.wr.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                 <field name="weight_registry_ids"/>
+                <button name="link_weight_wzd"
+                        string="Seleccionar un pesaje para este albarán"
+                        type="object"
+                        icon="fa-balance-scale"
+                        attrs="{'invisible': [('weight_registry_ids', '!=', [])]}"
+                    />
+                <button name="fill_from_weight_wzd"
+                        string="Rellenar datos desde el pesaje"
+                        type="object"
+                        icon="fa-pencil-square-o"
+
+                    />
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_stock_picking_wr" model="ir.ui.view">
         <field name="name">stock.picking.wr.form</field>
         <field name="model">stock.picking</field>

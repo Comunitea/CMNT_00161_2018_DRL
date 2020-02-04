@@ -51,6 +51,7 @@ class AvailableLineMovesWzd(models.TransientModel):
     qty = fields.Float('Qty')
     lot_id = fields.Many2one('stock.production.lot')
     registry_line_id = fields.Many2one('weight.registry.line')
+    used = fields.Boolean('Used')
 
     @api.onchange('location_id')
     def onchange_location_id(self):
@@ -75,12 +76,13 @@ class StockPickwightControlWzd(models.TransientModel):
     _name = 'stock.picking.weight.control.wzd'
     _description = 'Asistente para empaquetar'
 
-    state = fields.Selection(selection=[('picks', 'Albaranes'), ('lots', 'Lotes'), ('moves', 'Movimientos')], string='Estado', default='picks')
+    state = fields.Selection(selection=[('not_check_out','Parcial'), ('picks', 'Albaranes'), ('lots', 'Lotes'), ('moves', 'Movimientos')], string='Estado', default='picks')
     type = fields.Selection(selection=REGISTRY_TYPE, string='Type', default='none')
     registry_id = fields.Many2one('weight.registry')
     product_id = fields.Many2one('product.product')
     #registry_line_ids = fields.Many2many('weight.registry.line')
     registry_line_ids = fields.One2many(related="registry_id.used_line_ids")
+
     product = fields.Many2many ('product.product', string="Linked product")#, domain=[('weight_control', '=', True)])
     fill = fields.Boolean('Fill')
     net = fields.Integer('Net weight')
@@ -102,6 +104,7 @@ class StockPickwightControlWzd(models.TransientModel):
 
     @api.multi
     def button_back(self):
+
         if self.state == 'moves':
             self.state = 'lots'
 
@@ -168,6 +171,7 @@ class StockPickwightControlWzd(models.TransientModel):
 
     @api.multi
     def action_assign_product(self):
+
         if self.product_id.tracking != 'none' and self.unique_lot_id == False and (any(not line.lot_id for line in self.available_moves)):
             raise ValidationError ('Tienes movimientos sin lote asignado')
         if self.unique_location_dest_id == False and (any(not line.location_dest_id for line in self.available_moves)):
@@ -184,9 +188,9 @@ class StockPickwightControlWzd(models.TransientModel):
         assigned_moves = self.env['stock.move']
         partially_available_moves = self.env['stock.move']
         new_move_lines = self.env['stock.move.line']
-        #import ipdb; ipdb.set_trace()
 
-        for line in self.available_moves:
+
+        for line in self.available_moves.filtered(lambda x: x.used):
             move = line.move_id
             rounding = roundings[move]
             missing_reserved_uom_quantity = move.product_uom_qty - move.reserved_availability
@@ -197,25 +201,29 @@ class StockPickwightControlWzd(models.TransientModel):
             missing_reserved_quantity = line_need
             ctx = self._context.copy()
 
-            lot_id = self.unique_lot_id and self.unique_lot_id.id or line.lot_id and line.lot_id.id or False
+            lot_id = self.unique_lot_id or line.lot_id  or False
             location_dest_id = self.unique_location_dest_id and self.unique_location_dest_id.id or line.location_dest_id.id
             location_id = self.unique_location_id and self.unique_location_id.id or line.location_id.id
             from_wc = {
-                'lot_id': lot_id,
+                'lot_id': lot_id.id,
                 'emptied': self.full_empty,
                 'registry_line_id': line.registry_line_id.id,
                 'location_dest_id': location_dest_id,
                 'location_id': location_id,
                 'qty_done': line_need
             }
+            if lot_id:
+                from_wc.update(lot_name = lot_id.name)
             ctx.update(from_wc=from_wc)
             if move.location_id.should_bypass_reservation() or move.location_id.weight_control:
-                new_move_lines |= self.env['stock.move.line'].create(move.with_context(ctx)._prepare_move_line_vals(quantity=line_need))
+                new_move_line = self.env['stock.move.line'].create(move.with_context(ctx)._prepare_move_line_vals(quantity=line_need))
+                new_move_lines |= new_move_line
                 assigned_moves |= move
+                line.write({'move_line_ids': [(4, new_move_line.id)]})
 
             else:
                 if move.procure_method == 'make_to_order':
-                        continue
+                    continue
                 # If we don't need any quantity, consider the move assigned.
 
                 if float_is_zero(line_need, precision_rounding=rounding):

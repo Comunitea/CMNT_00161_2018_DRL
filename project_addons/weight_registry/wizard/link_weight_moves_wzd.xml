@@ -33,10 +33,10 @@
                 <div name="picks" states="picks">
                     <group string="Depositos" cols="2" >
                             <field name="registry_line_ids" domain="[('used', '=', True)]" nolabel="1">
-                                <tree editable="False" create="0" delete="0">
-                                    <field name="deposit_id"/>
-                                    <field name="capacity"/>
-                                    <!--field name="used"/>
+                                <tree editable="top" create="0" delete="1">
+                                    <field name="deposit_id" readonly="1"/>
+                                    <field name="capacity" readonly="1"/>
+                                    <!--field name="used" invisible="context.get('no_check_out', False)"/>
                                     <field name="empty"/>
                                     <field name="filled"/-->
                                     <field name="qty"/>
@@ -89,15 +89,15 @@
                     </group>
                     <group string="Lineas de movimientos" cols="2">
                         <field name="available_moves" nolabel="1">
-                            <tree editable="top" create="0" delete="0">
+                            <tree editable="top" create="0" delete="1">
                                 <field name="move_id" invisible="1"/>
                                 <field name="product_id" invisible="1"/>
                                 <field name="location_id"
                                        options="{'no_create_edit': True, 'no_quick_create': True}"
                                        domain="[('id', 'child_of', parent.location_id),('weight_control','=', True)]"
                                        attrs="{'column_invisible': ['|', ('parent.unique_location_id', '!=', False), ('parent.type', 'in', ('incoming', 'all'))]}"/>
-
                                 <field name="deposit_id" readonly="1"/>
+                                <field name="used"/>
                                 <field name="qty"/>
                                 <field name="lot_id"
                                        options="{'no_create_edit': True, 'no_quick_create': True}"
