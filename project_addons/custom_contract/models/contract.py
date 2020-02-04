@@ -84,15 +84,23 @@ class ContractDeliveryAgreement(models.Model):
     )
     product_id = fields.Many2one("product.product", "Product")
     quantity = fields.Float(digits=dp.get_precision("Product Unit of Measure"))
+    quantity_document = fields.Float(
+        digits=dp.get_precision("Product Unit of Measure"),
+        compute="_compute_quantity_document",
+    )
     delivery_date = fields.Date("Delivery Date")
     contract_id = fields.Many2one("contract.contract")
     partner_shipping_id = fields.Many2one("res.partner", required=True)
     state = fields.Selection(related="contract_id.state")
 
+    def _compute_quantity_document(self):
+        for delivery in self:
+            delivery.quantity_document = delivery.quantity * 1000
+
     @api.onchange("product_id")
     def product_id_change_check_contract_lines(self):
         if self.product_id and self.contract_id.price_agreement_ids:
-            product_line = self.order_id.contract_id.price_agreement_ids.filtered(
+            product_line = self.contract_id.price_agreement_ids.filtered(
                 lambda r: r.product_id.id == self.product_id.id
             )
             if not product_line:

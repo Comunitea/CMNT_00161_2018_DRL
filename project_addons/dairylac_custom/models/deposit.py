@@ -12,12 +12,20 @@ class Deposit(models.Model):
     def name_get(self):
         result = []
         for dep in self:
-            result.append((dep.id, '{}: {}'.format(
-                dep.vehicle_id and
-                dep.vehicle_id.display_name or dep.code, dep.number)))
+            result.append(
+                (
+                    dep.id,
+                    "{}: {}".format(
+                        dep.vehicle_id
+                        and dep.vehicle_id.display_name
+                        or dep.code,
+                        dep.number,
+                    ),
+                )
+            )
         return result
 
-    vehicle_id = fields.Many2one('vehicle')
+    vehicle_id = fields.Many2one("vehicle")
     capacity = fields.Float("Capacity")
-    code = fields.Char('Code', default='COD')
-    number = fields.Integer('Number', default="1")
+    code = fields.Char("Code", default="COD")
+    number = fields.Integer("Number", default="1")

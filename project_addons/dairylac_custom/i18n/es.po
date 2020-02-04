@@ -166,3 +166,16 @@ msgstr "vehículo"
 #: model:ir.model,name:dairylac_custom.model_vehicle_type
 msgid "vehicle.type"
 msgstr "vehicle.type"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_qc_trigger_line__before_move_done
+#: model:ir.model.fields,field_description:dairylac_custom.field_qc_trigger_product_category_line__before_move_done
+#: model:ir.model.fields,field_description:dairylac_custom.field_qc_trigger_product_line__before_move_done
+#: model:ir.model.fields,field_description:dairylac_custom.field_qc_trigger_product_template_line__before_move_done
+msgid "Before Move Done"
+msgstr "Antes de realizar el movimiento"
+
+#. module: dairylac_custom
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.view_picking_form
+msgid "Launch quality test"
+msgstr "Lanzar test de calidad"

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_contract_document" inherit_id="contract.report_contract_document">
+        <div class="page" position="replace">
+            <div class="page">
+                <div class="oe_structure"/>
+                <div class="row" id="partner_info">
+                    <div class="col-xs-5 col-xs-offset-7">
+                        <p id="partner_info"><strong>Partner:</strong></p>
+                        <div t-field="o.partner_id" t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile", "fax", "email"], "no_marker": true, "phone_icons": true}'/>
+                        <p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <h5 class="col-12" style="background-color: #F2F2F2;">CONDICIONES DE LA OFERTA</h5>
+                </div>
+                <h6 class="col-12" style="border-bottom: 1px solid black">Producto:</h6>
+                <p class="offset-1 col-11" t-esc="o.get_product_report_line()"/>
+                <h6 class="col-12" style="border-bottom: 1px solid black">Posición:</h6>
+                <p class="offset-1 col-11" t-field="o.position"/>
+                <h6 class="col-12" style="border-bottom: 1px solid black">Entrega:</h6>
+                <t t-foreach="o.delivery_agreement_ids" t-as="delivery">
+                    <p class="offset-1 col-11">
+                        <span t-esc="delivery.delivery_date.strftime('%A %d de %%B')"/> +/- <span t-field="delivery.quantity_document"/> litros
+                    </p>
+                </t>
+                <h6 class="col-12" style="border-bottom: 1px solid black">Precio:</h6>
+                <t t-if="o.price_agreement_ids">
+                    <t t-set="line" t-value="o.price_agreement_ids[0]"/>
+                    <p>
+                        <span class="offset-1 col-11" t-field="line.price_unit"/> €/1000 litros
+                    </p>
+                </t>
+                <h6 class="col-12" style="border-bottom: 1px solid black">Exigencia de calidad:</h6>
+                <p class="offset-1 col-11" t-field="o.quality_demand"/>
+                <h6 class="col-12" style="border-bottom: 1px solid black">Facturación:</h6>
+                <p class="offset-1 col-11" t-field="o.billing"/>
+                <h6 class="col-12" style="border-bottom: 1px solid black">Forma de pago:</h6>
+                <p class="offset-1 col-11" t-field="o.payment_mode_id.note"/>
+                <h6 class="col-12" style="border-bottom: 1px solid black">Aceptación:</h6>
+                <div class="row">
+                    <div class="col-4 offset-1">
+                       <span >Firmado proveedor:</span>
+                    </div>
+                    <div class="col-7">
+                        <span>La aceptación de esta oferta supone la contratación en estos términos y condiciones y los previstos en la legislación mercantil y sectorial de leche de vaca. Sin respuesta de vuestra parte después de 48 h, las modalidades del contrato serán consideradas por aceptadas.</span>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px">
+                    <p class="offset-5 col-7">Nombre y sello del cliente:</p>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

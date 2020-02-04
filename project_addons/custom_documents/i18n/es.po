@@ -1,0 +1,295 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* custom_documents
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-04 17:23+0000\n"
+"PO-Revision-Date: 2020-02-04 17:23+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "&amp;bull;"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "&amp;nbsp;<span>on</span>&amp;nbsp;"
+msgstr "&amp;nbsp;<span>en</span>&amp;nbsp;"
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "<span>Firmado proveedor:</span>"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "<span>La aceptación de esta oferta supone la contratación en estos términos y condiciones y los previstos en la legislación mercantil y sectorial de leche de vaca. Sin respuesta de vuestra parte después de 48 h, las modalidades del contrato serán consideradas por aceptadas.</span>"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "<strong>CLIENTE</strong>"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "<strong>FACTURA</strong>"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "<strong>FORMA DE PAGO</strong>"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "<strong>IMPORTE</strong>"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "<strong>Partner:</strong>"
+msgstr "<strong>Empresa:</strong>"
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "<strong>Subtotal</strong>"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "<strong>VTO.</strong>"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "ARTÍCULO"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "Aceptación:"
+msgstr ""
+
+#. module: custom_documents
+#: model:ir.model.fields,field_description:custom_documents.field_contract_contract__analytic
+msgid "Analytic"
+msgstr "Analítica"
+
+#. module: custom_documents
+#: model:ir.model.fields,field_description:custom_documents.field_contract_contract__billing
+msgid "Billing"
+msgstr "Facturación"
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "C. PROVEEDOR"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "CANTIDAD"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "CIF"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "CIF:"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "CLIENTE"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "CONDICIONES DE LA OFERTA"
+msgstr ""
+
+#. module: custom_documents
+#: model:ir.model,name:custom_documents.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: custom_documents
+#: model:ir.model,name:custom_documents.model_contract_contract
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "DAIRYLAC S.L. con domicilio social en el Poligono Empresarial A Madalena, Parcelas 44-48, 15800 Melide, A Coruña (España), en cumplimiento de la actual normativa\n"
+"            sobre Proteccion de Datos (RGPD UE 2016/679 de 27 de Abril), le notifica que la información facilitada en este formulario tiene carácter confidencial, siendo su única finalidad\n"
+"            la creacion de un fichero autorizado o no, a fin de elaborar los documentos relacionados con los servicios y/o productos solicitados por Usted (presupuesto, pedido,\n"
+"            albarán, factura, etc...). Si desea acceder a este fichero, rectificar, cancelar u oponerse al tratamiento de sus datos, puede hacerlo por escrito a la direccion antes\n"
+"            mencionada, acompañado de fotocopia del D.N.I. Ref. \"Datos Personales\"."
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "DESCRIPCIÓN"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "DTO."
+msgstr ""
+
+#. module: custom_documents
+#: selection:contract.contract,billing:0
+msgid "End of month"
+msgstr "Fin de mes"
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "Entrega:"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "Exigencia de calidad:"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "FACTURA Nº"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "FECHA"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "Facturación:"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "Forma de pago:"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "IBAN -"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "IMPORTE"
+msgstr ""
+
+#. module: custom_documents
+#: model:ir.model.fields,field_description:custom_documents.field_res_company__nr_letraq
+msgid "NR Letra Q"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "NR Letra Q:"
+msgstr ""
+
+#. module: custom_documents
+#: model:ir.model.fields,field_description:custom_documents.field_res_company__nrc
+msgid "NRC"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "NRC:"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "Nombre y sello del cliente:"
+msgstr ""
+
+#. module: custom_documents
+#: model:ir.model.fields,help:custom_documents.field_res_company__nrc
+msgid "Número de Referencia Completo"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "PRECIO"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "Posición:"
+msgstr ""
+
+#. module: custom_documents
+#: model:ir.model.fields,field_description:custom_documents.field_contract_contract__position
+msgid "Position"
+msgstr "Posición"
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "Precio:"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "Producto:"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "PÁGINA <span class=\"page\"/> of <span class=\"topage\"/>"
+msgstr ""
+
+#. module: custom_documents
+#: model:ir.model.fields,field_description:custom_documents.field_contract_contract__quality_demand
+msgid "Quality Demand"
+msgstr "Exigencia de calidad"
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "S/REFERENCIA"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "SWIFT -"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_invoice_document
+msgid "Sociedad Inscrita en el Registro Mercantil de A Coruña, Tomo 2444, Folio 144, Hoja C-26256, Inscripción 1ª"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "VAT:"
+msgstr "NIF:"
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "litros"
+msgstr ""
+
+#. module: custom_documents
+#: model_terms:ir.ui.view,arch_db:custom_documents.report_contract_document
+msgid "€/1000 litros"
+msgstr ""

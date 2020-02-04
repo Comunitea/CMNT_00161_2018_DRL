@@ -7,6 +7,6 @@ class VehicleType(models.Model):
 
     _name = "vehicle.type"
 
-    name = fields.Char('Name')
-    code = fields.Char('Code')
-    master = fields.Boolean('Master')
+    name = fields.Char("Name")
+    code = fields.Char("Code")
+    master = fields.Boolean("Master")

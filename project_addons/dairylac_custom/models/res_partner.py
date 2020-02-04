@@ -7,4 +7,4 @@ class ResPartner(models.Model):
 
     _inherit = "res.partner"
 
-    driver = fields.Boolean('Driver')
+    driver = fields.Boolean("Driver")

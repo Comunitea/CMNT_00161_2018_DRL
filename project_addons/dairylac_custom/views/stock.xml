@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.inherit.view.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <button name="do_print_picking" position="after">
+                <field name="created_tests" invisible="1"/>
+                <button name="launch_tests_before_move" type="object" string="Launch quality test" attrs="{'invisible': ['|', ('state', '=', 'done'), ('created_tests', '=', True)]}"/>
+            </button>
+        </field>
+    </record>
+</odoo>

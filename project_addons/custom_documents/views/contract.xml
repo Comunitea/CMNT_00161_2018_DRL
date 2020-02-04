@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="contract_contract_form_view" model="ir.ui.view">
+        <field name="name">contract.contract.inherit.view.form</field>
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_form_view"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="position"/>
+                <field name="analytic"/>
+                <field name="quality_demand"/>
+                <field name="billing"/>
+            </field>
+
+        </field>
+    </record>
+</odoo>
