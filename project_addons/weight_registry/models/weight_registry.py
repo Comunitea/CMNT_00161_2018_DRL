@@ -83,7 +83,7 @@ class WeightRegistry(models.Model):
     @api.depends('picking_ids')
     def compute_linked(self):
         for wc in self:
-            wc.write({'linked': len(wc.picking_ids) != 0})
+            wc.linked = (len(wc.picking_ids) != 0)
 
 
     # def apply_net_to_qty_done(self):
