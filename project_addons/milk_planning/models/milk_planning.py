@@ -26,11 +26,11 @@ class MilkPlanning(models.Model):
 
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True)
-    milk_stock = fields.Float()
-    milk_do_stock = fields.Float()
-    milk_100_stock = fields.Float()
-    cream_stock = fields.Float()
-    skimmed_milk_stock = fields.Float()
+    milk_stock = fields.Float(readonly=True)
+    milk_do_stock = fields.Float(readonly=True)
+    milk_100_stock = fields.Float(readonly=True)
+    cream_stock = fields.Float(readonly=True)
+    skimmed_milk_stock = fields.Float(readonly=True)
     milk_purchase_ids = fields.One2many(
         "milk.planning.purchase",
         "planning_id",
@@ -414,6 +414,39 @@ class MilkPlanning(models.Model):
             last_day_cream_stock = remaining_cream_stock
             last_day_skimmed_milk_stock = remaining_skimmed_milk_stock
 
+    def initial_stocks(self):
+        product_id = (
+                    self.env["product.product"]
+                    .get_milk_product_by_name('raw_milk')
+                    .id
+                )
+        self.milk_stock = self.env["product.product"].with_context(to_date=self.date_start).browse(product_id)[0].qty_available
+        product_id = (
+                    self.env["product.product"]
+                    .get_milk_product_by_name('raw_milk_do')
+                    .id
+                )
+        self.milk_do_stock = self.env["product.product"].with_context(to_date=self.date_start).browse(product_id)[0].qty_available
+        product_id = (
+                    self.env["product.product"]
+                    .get_milk_product_by_name('raw_milk_100')
+                    .id
+                )
+        self.milk_100_stock = self.env["product.product"].with_context(to_date=self.date_start).browse(product_id)[0].qty_available
+        product_id = (
+                    self.env["product.product"]
+                    .get_milk_product_by_name('skimmed_milk')
+                    .id
+                )
+        self.skimmed_milk_stock = self.env["product.product"].with_context(to_date=self.date_start).browse(product_id)[0].qty_available
+        product_id = (
+                    self.env["product.product"]
+                    .get_milk_product_by_name('cream')
+                    .id
+                )
+        self.cream_stock = self.env["product.product"].with_context(to_date=self.date_start).browse(product_id)[0].qty_available
+
+
     def calculate(self):
         self.env["milk.planning.stock"].search(
             [("planning_id", "=", self.id)]
@@ -421,6 +454,7 @@ class MilkPlanning(models.Model):
         self.env["milk.planning.sale"].search(
             [("planning_id", "=", self.id)]
         ).unlink()
+        self.initial_stocks()
         self.find_sales()
         self.generate_stocks()
 

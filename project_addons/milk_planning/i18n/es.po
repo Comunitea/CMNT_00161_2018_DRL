@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-17 16:44+0000\n"
-"PO-Revision-Date: 2019-10-17 16:44+0000\n"
+"POT-Creation-Date: 2020-02-05 05:40+0000\n"
+"PO-Revision-Date: 2020-02-05 05:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,47 +16,52 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 msgid "Calculate"
 msgstr "Calcular"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_confirmed_quantity
+#: model:ir.model,name:milk_planning.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__confirmed_quantity
 msgid "Confirmed Quantity"
 msgstr "Cantidad confirmada"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_contract_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__contract_ids
 msgid "Contract"
-msgstr "Entregas en negociación"
+msgstr "Contrato"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_contract_quantity
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__contract_quantity
 msgid "Contract Quantity"
-msgstr "Cantidad en negociación"
+msgstr "Cantidad contrato"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 #: selection:milk.planning.purchase,purchase_type:0
 #: selection:milk.planning.stock,stock_type:0
 msgid "Cream"
 msgstr "Nata"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_cream_purchase_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__cream_purchase_ids
 msgid "Cream Purchase"
-msgstr "Compra de nata"
+msgstr "Compras Nata"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_cream_sale_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__cream_sale_ids
 msgid "Cream Sale"
-msgstr "Ventas nata"
+msgstr "Ventas Nata"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_cream_stock
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_cream_stock_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__cream_stock
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__cream_stock_ids
 msgid "Cream Stock"
-msgstr "Existencias de nata"
+msgstr "Stock Nata"
 
 #. module: milk_planning
 #: selection:milk.planning.sale,sale_type:0
@@ -64,103 +69,108 @@ msgid "Cream milk"
 msgstr "Nata"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_purchase_view_tree
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_purchase_view_tree
 msgid "Create purchase"
 msgstr "Crear compra"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_create_uid
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_create_uid
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_create_uid
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_create_uid
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__create_uid
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__create_uid
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__create_uid
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_create_date
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_create_date
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_create_date
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_create_date
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__create_date
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__create_date
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__create_date
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock__create_date
 msgid "Created on"
-msgstr "Creado en"
+msgstr "Creado el"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_date_end
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__date_end
 msgid "Date End"
 msgstr "Fecha fin"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_date_start
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__date_start
 msgid "Date Start"
 msgstr "Fecha inicio"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_day
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_day
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_day
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__day
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__day
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock__day
 msgid "Day"
 msgstr "Día"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
 msgid "Define the milk products for the planmning"
-msgstr "Defina los products lacteos para la planificación"
+msgstr "DEfine los productos lácteos para planificación"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
 msgid "Define the products that will be used to make the planning"
-msgstr "Defina los productos que serán usados para la planificación"
+msgstr "Define los prodductos a usar para hacer la planificación"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_display_name
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_display_name
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_display_name
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_display_name
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__display_name
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__display_name
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__display_name
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_has_contract_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__has_contract_ids
 msgid "Has Contract"
-msgstr "Has Contract"
+msgstr "Tiene contrato"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_has_order_ids
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_has_order_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__has_order_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__has_order_ids
 msgid "Has Order"
-msgstr "Has Order"
+msgstr "Tiene pedido"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_id
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_id
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_id
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_id
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__has_production_ids
+msgid "Has Production"
+msgstr "Tiene producción"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__id
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__id
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__id
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock__id
 msgid "ID"
-msgstr "ID (identificación)"
+msgstr ""
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning___last_update
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase___last_update
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale___last_update
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock___last_update
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning____last_update
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase____last_update
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale____last_update
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_write_uid
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_write_uid
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_write_uid
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_write_uid
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__write_uid
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__write_uid
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__write_uid
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock__write_uid
 msgid "Last Updated by"
-msgstr "Última actualización de"
+msgstr "Última actualización por"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_write_date
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_write_date
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_write_date
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_write_date
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__write_date
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__write_date
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__write_date
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock__write_date
 msgid "Last Updated on"
-msgstr "Última actualización en"
+msgstr "Última actualización el"
 
 #. module: milk_planning
 #: selection:milk.planning.purchase,purchase_type:0
@@ -169,15 +179,15 @@ msgid "Milk"
 msgstr "Leche"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_100_purchase_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__milk_100_purchase_ids
 msgid "Milk 100 Purchase"
-msgstr "Compra de leche 100%"
+msgstr "Compras Leche 100%"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_100_stock
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_100_stock_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__milk_100_stock
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__milk_100_stock_ids
 msgid "Milk 100 Stock"
-msgstr "Stock de leche 100%"
+msgstr "Stock Leche 100%"
 
 #. module: milk_planning
 #: selection:milk.planning.purchase,purchase_type:0
@@ -192,31 +202,31 @@ msgid "Milk D.O."
 msgstr "Leche D.O."
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_do_purchase_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__milk_do_purchase_ids
 msgid "Milk Do Purchase"
-msgstr "Compra de leche D.O"
+msgstr "Compras Leche D.O."
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_do_stock
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_do_stock_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__milk_do_stock
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__milk_do_stock_ids
 msgid "Milk Do Stock"
-msgstr "Stock de leche D.O"
+msgstr "Stock Leche D.O."
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_purchase_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__milk_purchase_ids
 msgid "Milk Purchase"
-msgstr "Compra de leche"
+msgstr "Compras Leche"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_stock
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_milk_stock_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__milk_stock
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__milk_stock_ids
 msgid "Milk Stock"
-msgstr "Existencias de leche"
+msgstr "Stock Leche"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
 msgid "Milk cream product"
-msgstr "Producto nata"
+msgstr "Producto para Nata"
 
 #. module: milk_planning
 #: model:ir.actions.act_window,name:milk_planning.milk_planning_action
@@ -225,21 +235,21 @@ msgid "Milk planning"
 msgstr "Planificación de leche"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
 msgid "Milk products"
-msgstr "Productos lacteos"
+msgstr "Productos para Leche"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_order_ids
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_order_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__order_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__order_ids
 msgid "Order"
-msgstr "Pedido"
+msgstr "Orden"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_planning_id
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_planning_id
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_planning_id
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__planning_id
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__planning_id
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock__planning_id
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 msgid "Planning"
 msgstr "Planificación"
 
@@ -249,75 +259,85 @@ msgid "Product"
 msgstr "Producto"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings_product_cream
+#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings__product_cream
 msgid "Product Cream"
-msgstr "Producto nata"
+msgstr "Producto para Nata"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings_product_raw_milk
+#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings__product_raw_milk
 msgid "Product Raw Milk"
-msgstr "Producto leche cruda"
+msgstr "Producto para Leche cruda"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings_product_raw_milk_100
+#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings__product_raw_milk_100
 msgid "Product Raw Milk 100"
-msgstr "Producto leche cruda 100%"
+msgstr "Producto para Leche cruda 100%"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings_product_raw_milk_do
+#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings__product_raw_milk_do
 msgid "Product Raw Milk Do"
-msgstr "Producto leche cruda D.O."
+msgstr "Producto para Leche cruda D.O."
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings_product_skimmed_milk
+#: model:ir.model.fields,field_description:milk_planning.field_res_config_settings__product_skimmed_milk
 msgid "Product Skimmed Milk"
-msgstr "Producto leche desnatada"
+msgstr "Producto para Leche desnatada"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_purchase_type
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__production_ids
+msgid "Production"
+msgstr "Producción"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__production_quantity
+msgid "Production Quantity"
+msgstr "Cantidad producción"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__purchase_type
 msgid "Purchase Type"
-msgstr "Tipo de compra"
+msgstr "Tipo compra"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 msgid "Purchases & Stock"
-msgstr "Compras e Inventario"
+msgstr "Compras y Stock"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_quantity
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_quantity
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__quantity
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__quantity
 msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 msgid "Raw Milk"
 msgstr "Leche cruda"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_raw_milk_100_sale_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__raw_milk_100_sale_ids
 msgid "Raw Milk 100 Sale"
-msgstr "Ventas de leche 100%"
+msgstr "Ventas Leche cruda 100%"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 msgid "Raw Milk 100%"
 msgstr "Leche cruda 100%"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 msgid "Raw Milk D.O."
 msgstr "Leche cruda D.O."
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_raw_milk_do_sale_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__raw_milk_do_sale_ids
 msgid "Raw Milk Do Sale"
-msgstr "Ventas de leche D.O."
+msgstr "Ventas Leche cruda D.O."
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_raw_milk_sale_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__raw_milk_sale_ids
 msgid "Raw Milk Sale"
-msgstr "Ventas leche cruda"
+msgstr "Ventas Leche cruda"
 
 #. module: milk_planning
 #: selection:milk.planning.sale,sale_type:0
@@ -335,120 +355,127 @@ msgid "Raw milk D.O."
 msgstr "Leche cruda D.O."
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
 msgid "Raw milk product"
-msgstr "Producto leche cruda"
+msgstr "Producto para Leche cruda"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
 msgid "Raw milk product 100%"
-msgstr "Producto leche cruda 100%"
+msgstr "Producto para Leche cruda 100%"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
 msgid "Raw milk product D.O."
-msgstr "Producto leche cruda D.O."
+msgstr "Producto para Leche cruda D.O."
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_remaining_stock
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock__remaining_stock
 msgid "Remaining Stock"
-msgstr "Existencias"
+msgstr "Stock restante"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale_sale_type
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_sale__sale_type
 msgid "Sale Type"
-msgstr "Sale Type"
+msgstr "Tipo venta"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 msgid "Sales"
 msgstr "Ventas"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_form_view
 msgid "Skimmed Milk"
 msgstr "Leche desnatada"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_skimmed_milk_sale_ids
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__skimmed_milk_sale_ids
 msgid "Skimmed Milk Sale"
-msgstr "Ventas leche desnatada"
+msgstr "Ventas Leche desnatada"
+
+#. module: milk_planning
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__skimmed_milk_stock
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning__skimmed_milk_stock_ids
+msgid "Skimmed Milk Stock"
+msgstr "Stock Leche desnatada"
 
 #. module: milk_planning
 #: selection:milk.planning.sale,sale_type:0
+#: selection:milk.planning.stock,stock_type:0
 msgid "Skimmed milk"
 msgstr "Leche desnatada"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:milk_planning.res_config_settings_view_form
 msgid "Skimmed milk product"
-msgstr "Producto leche desnatada"
+msgstr "Producto para Leche desnatada"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock_stock_type
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_stock__stock_type
 msgid "Stock Type"
-msgstr "Stock Type"
+msgstr "Tipo stock"
 
 #. module: milk_planning
-#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase_partner_id
+#: model:ir.model.fields,field_description:milk_planning.field_milk_planning_purchase__partner_id
 msgid "Supplier"
 msgstr "Proveedor"
 
 #. module: milk_planning
-#: code:addons/milk_planning/models/milk_planning.py:260
+#: code:addons/milk_planning/models/milk_planning.py:480
 #, python-format
 msgid "The order can not be created without establishing a supplier"
 msgstr "La orden no puede ser creada si no se ha establecido un proveedor"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_purchase_view_tree
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_purchase_view_tree
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
 msgid "Total"
 msgstr "Total"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
 msgid "Total Confirmed"
 msgstr "Total confirmado"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
 msgid "Total Draft"
-msgstr "Total en negociación"
+msgstr "Total borrador"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
 msgid "View Contract Deliveries"
-msgstr "Ver entregas en negociación"
+msgstr "Ver enregas en contrato"
 
 #. module: milk_planning
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_purchase_view_tree
-#: model:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
+msgid "View Production consumptions"
+msgstr "Ver consumos producciones"
+
+#. module: milk_planning
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_purchase_view_tree
+#: model_terms:ir.ui.view,arch_db:milk_planning.milk_planning_sale_view_tree
 msgid "View orders"
 msgstr "Ver pedidos"
 
 #. module: milk_planning
 #: model:ir.model,name:milk_planning.model_milk_planning
 msgid "milk.planning"
-msgstr "milk.planning"
+msgstr ""
 
 #. module: milk_planning
 #: model:ir.model,name:milk_planning.model_milk_planning_purchase
 msgid "milk.planning.purchase"
-msgstr "milk.planning.purchase"
+msgstr ""
 
 #. module: milk_planning
 #: model:ir.model,name:milk_planning.model_milk_planning_sale
 msgid "milk.planning.sale"
-msgstr "milk.planning.sale"
+msgstr ""
 
 #. module: milk_planning
 #: model:ir.model,name:milk_planning.model_milk_planning_stock
 msgid "milk.planning.stock"
-msgstr "milk.planning.stock"
-
-#. module: milk_planning
-#: model:ir.model,name:milk_planning.model_res_config_settings
-msgid "res.config.settings"
-msgstr "res.config.settings"
+msgstr ""
 
