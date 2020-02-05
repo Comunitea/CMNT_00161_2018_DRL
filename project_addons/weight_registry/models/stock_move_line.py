@@ -34,7 +34,9 @@ class StockMoveLine(models.Model):
 
 
     def _action_done(self):
+        return super()._action_done()
 
+        res = super(StockMoveLine, self)._action_done()
         for ml in self:
             # Check here if `ml.qty_done` respects the rounding of `ml.product_uom_id`.
             uom_qty = float_round(ml.qty_done, precision_rounding=ml.product_uom_id.rounding, rounding_method='HALF-UP')
@@ -63,7 +65,7 @@ class StockMoveLine(models.Model):
                                             {'name': ml.lot_name, 'product_id': ml.product_id.id}
                                         )
                                     ml.write({'lot_id': lot.id})
-
+        return res
 
 
 class StockMove(models.Model):
