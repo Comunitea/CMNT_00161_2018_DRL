@@ -26,6 +26,7 @@ class ProductTemplate(models.Model):
 
     _inherit = "product.template"
 
+    uom_po_id_category_id = fields.Many2one(related='uom_po_id.category_id')
     weight_control = fields.Boolean('Requires weight control', help="For filter in weight control links", default=False)
     kgr_to_uom_factor_ids = fields.One2many(
         comodel_name='uom.uom',

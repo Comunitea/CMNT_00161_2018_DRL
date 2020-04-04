@@ -13,7 +13,8 @@ class WeightPickLinkLineWzd(models.TransientModel):
 
     wzd_id = fields.Many2one('weight.pick.link.wzd')
     weight_registry_id = fields.Many2one('weight.registry', string="Pesada")
-    picking_ids = fields.Many2many(related="weight_registry_id.picking_ids")
+    state = fields.Selection(related="weight_registry_id.state")
+    picking_id = fields.Many2one(related="weight_registry_id.picking_id")
 
     def action_link_picking_id(self):
         picking_id = self.wzd_id.picking_id
@@ -25,4 +26,4 @@ class WeightPickLinkWzd(models.TransientModel):
     _name = 'weight.pick.link.wzd'
 
     picking_id = fields.Many2one('stock.picking', 'Albarán' )
-    weight_registry_ids = fields.One2many('weight.pick.link.line.wzd', 'wzd_id', string='Pesadas disponibles')
+    weight_registry_ids = fields.One2many('weight.pick.link.line.wzd', 'wzd_id', string='Pesadas disponibles', domain=[('weight_registry_id.state', 'in', ('2', '0'))])

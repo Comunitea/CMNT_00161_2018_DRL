@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-19 16:57+0000\n"
-"PO-Revision-Date: 2019-11-19 16:57+0000\n"
+"POT-Creation-Date: 2020-04-03 16:04+0000\n"
+"PO-Revision-Date: 2020-04-03 16:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,15 +16,68 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: weight_registry
-#: code:addons/weight_registry/models/weight_registry.py:98
+#: code:addons/weight_registry/models/weight_registry.py:157
 #, python-format
 msgid "%(empl_name)s [%(check_in)s] : %(weight)s Kg"
 msgstr ""
 
 #. module: weight_registry
-#: code:addons/weight_registry/models/weight_registry.py:106
+#: code:addons/weight_registry/models/weight_registry.py:165
 #, python-format
 msgid "%(empl_name)s [%(check_in)s] : %(weight_in)s Kg --> [%(check_out)s] : %(weight_out)s Kg"
+msgstr ""
+
+#. module: weight_registry
+#: selection:weight.registry,state:0
+msgid "1º Control"
+msgstr ""
+
+#. module: weight_registry
+#: selection:weight.registry,state:0
+msgid "1º Control. Pick"
+msgstr "1º Control. Albarán"
+
+#. module: weight_registry
+#: selection:weight.registry,state:0
+msgid "2º Control. No albarán"
+msgstr ""
+
+#. module: weight_registry
+#: selection:stock.picking.weight.control.wzd,state:0
+msgid "Albaranes"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking__picking_ids
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd__picking_ids
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__picking_ids
+msgid "Albaranes asociados"
+msgstr ""
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_moves_wzd
+msgid "Albaranes disponibles"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_wzd__picking_id
+msgid "Albarán"
+msgstr ""
+
+#. module: weight_registry
+#: selection:weight.registry,state:0
+msgid "Asignado"
+msgstr ""
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_moves_wzd
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_to_pick_wzd
+msgid "Asignar"
+msgstr ""
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_moves_wzd
+msgid "Asignar movimiento"
 msgstr ""
 
 #. module: weight_registry
@@ -33,24 +86,57 @@ msgid "Asistente para añadir registros de pesaje al albarán"
 msgstr ""
 
 #. module: weight_registry
+#: model:ir.model,name:weight_registry.model_stock_picking_weight_control_wzd
+msgid "Asistente para empaquetar"
+msgstr ""
+
+#. module: weight_registry
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_filter
 msgid "Assigned"
 msgstr "Asignado"
 
 #. module: weight_registry
-#: model:ir.model.fields,field_description:weight_registry.field_vehicle__barcode
-msgid "Badge ID"
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_moves_wzd
+msgid "Atrás"
 msgstr ""
 
 #. module: weight_registry
-#: code:addons/weight_registry/models/weight_registry.py:184
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__available_moves
+msgid "Available lines"
+msgstr "Líneas disponibles"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__available_pickings
+msgid "Available pickings"
+msgstr "Albaranes disponibles"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_vehicle__barcode
+msgid "Badge ID"
+msgstr "ID de credencial"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:23
+#, python-format
+msgid "Buscar"
+msgstr ""
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_moves_wzd
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_to_pick_wzd
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/weight_registry.py:246
 #, python-format
 msgid "Cannot create new registry record for %(empl_name)s, the vehicle hasn't checked out since %(datetime)s"
 msgstr "No se puede crear un registro para %(empl_name)s, la matrícula no hizo check out desde %(datetime)s"
 
 #. module: weight_registry
-#: code:addons/weight_registry/models/weight_registry.py:168
-#: code:addons/weight_registry/models/weight_registry.py:201
+#: code:addons/weight_registry/models/weight_registry.py:230
+#: code:addons/weight_registry/models/weight_registry.py:263
 #, python-format
 msgid "Cannot create new registry record for %(empl_name)s, the vehicle was already checked in on %(datetime)s"
 msgstr "No se puede crear un nuevo registro para %(empl_name)s, la matrícula ya hizo check in en %(datetime)s"
@@ -68,15 +154,13 @@ msgid "Cannot perform check out on %(empl_name)s, could not find corresponding c
 msgstr "No se puede hacer check out on %(empl_name)s, no se encontro el correspondiente check in"
 
 #. module: weight_registry
-#: code:addons/weight_registry/models/stock_move_line.py:22
-#: sql_constraint:stock.move.line:0
-#, python-format
-msgid "Cant associate the same weight registry line to diferent move              lines"
-msgstr "No se puede asociar la mísma línea de registro de pesada a líneas de movimientos diferentes"
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_moves_wzd
+msgid "Cantidad a trasladar"
+msgstr ""
 
 #. module: weight_registry
 #. openerp-web
-#: code:addons/weight_registry/static/src/xml/weight_control.xml:43
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:117
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__capacity
 #, python-format
 msgid "Capacity"
@@ -85,32 +169,32 @@ msgstr "Capacidad"
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__check_in
 msgid "Check In"
-msgstr ""
+msgstr "Entrada"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__check_out
 msgid "Check Out"
-msgstr ""
+msgstr "Salida"
 
 #. module: weight_registry
 #: selection:vehicle,weight_registry_state:0
 msgid "Check in"
-msgstr ""
+msgstr "Entrada"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__check_out_weight
 msgid "Check in weight"
-msgstr "Peso al Check In"
+msgstr "Peso en la entrada"
 
 #. module: weight_registry
 #: selection:vehicle,weight_registry_state:0
 msgid "Check out"
-msgstr ""
+msgstr "Salida"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__check_in_weight
 msgid "Check out weight"
-msgstr "Peso al Check Out"
+msgstr "Peso a la salida"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__code
@@ -118,6 +202,38 @@ msgid "Code"
 msgstr "Código"
 
 #. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_pickingtype_filter_wr
+msgid "Con pesaje"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_uom_uom__kgr_to_uom_factor_ids
+msgid "Convert Kgrs -> Litre Unit"
+msgstr "Conversión Peso -> Volumen"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_product_product__kgr_to_uom_factor_ids
+#: model:ir.model.fields,field_description:weight_registry.field_product_template__kgr_to_uom_factor_ids
+msgid "Convert Kgrs -> Stock Unit"
+msgstr "Conversión Peso -> Unidad de stock"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_moves_wzd
+msgid "Crear y asignar lotes"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__create_uid
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_picks_wzd__create_uid
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__create_uid
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__create_uid
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd__create_uid
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_wzd__create_uid
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__create_uid
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__create_uid
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__create_uid
@@ -125,6 +241,12 @@ msgid "Created by"
 msgstr "Creado por"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__create_date
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_picks_wzd__create_date
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__create_date
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__create_date
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd__create_date
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_wzd__create_date
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__create_date
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__create_date
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__create_date
@@ -137,10 +259,26 @@ msgid "Current Month"
 msgstr "Mes actual"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_res_config_settings__flow_control_default_uom_id
+msgid "Default flow control unit"
+msgstr "Unidad de volumen del caudalímetro"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_res_config_settings__weight_control_default_uom_id
+msgid "Default weight control unit"
+msgstr "Unidad de peso de la báscula"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__deposit_id
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__deposit_id
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_filter
 msgid "Deposit"
 msgstr "Depósito"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_moves_wzd
+msgid "Depositos"
+msgstr ""
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__description
@@ -148,11 +286,37 @@ msgid "Description"
 msgstr "Descripción"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move_line__deposit_dest_id
+msgid "Destiantion deposit"
+msgstr "Depósito de destino"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__deposit_dest_id
+msgid "Destination deposit"
+msgstr "Depósito de destino"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__location_dest_id
+msgid "Destination location"
+msgstr "Ubicación destino"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__display_name
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_picks_wzd__display_name
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__display_name
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__display_name
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd__display_name
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_wzd__display_name
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__display_name
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__display_name
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
+
+#. module: weight_registry
+#: selection:stock.picking,weight_state:0
+msgid "Done"
+msgstr "Relizado"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__empty
@@ -165,21 +329,36 @@ msgid "Emptying"
 msgstr "Vaciado"
 
 #. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:43
+#, python-format
+msgid "En báscula:"
+msgstr ""
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:29
+#, python-format
+msgid "Entrada de"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__state
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd__state
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__state
+msgid "Estado"
+msgstr ""
+
+#. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__qty
 msgid "Estimated Qty"
 msgstr "Cantidad estimada"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__fill
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__fill
 msgid "Fill"
 msgstr "Es LLenado"
-
-#. module: weight_registry
-#. openerp-web
-#: code:addons/weight_registry/static/src/xml/weight_control.xml:44
-#, python-format
-msgid "Fill/Empty"
-msgstr "Llenado / Vaciado"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__filled
@@ -197,12 +376,57 @@ msgid "First Weight"
 msgstr "Primera pesada"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move__flow_control_uom_id
+msgid "Flow Control Uom"
+msgstr "Unidad"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__qty_flowmeter
+msgid "Flow meter Qty"
+msgstr "Cant. Caudalímetro"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__registry_line_id_qty_flow
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move__registry_line_id_qty_flow
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move_line__registry_line_id_qty_flow
+msgid "Flow qty"
+msgstr "Cant. Caudalímetro"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__qty_flowmeter
+msgid "Flowmeter qty"
+msgstr "Cant. Caudalímetro"
+
+#. module: weight_registry
+#: model:ir.model.fields,help:weight_registry.field_product_product__weight_control
+#: model:ir.model.fields,help:weight_registry.field_product_template__weight_control
+#: model:ir.model.fields,help:weight_registry.field_stock_location__weight_control
+msgid "For filter in weight control links"
+msgstr "Para filtrar en los registros de pesadas"
+
+#. module: weight_registry
+#: selection:stock.picking.weight.control.wzd,select_qty:0
+msgid "From flowmeter"
+msgstr "Del caudalímetro"
+
+#. module: weight_registry
+#: selection:stock.picking.weight.control.wzd,select_qty:0
+msgid "From weight"
+msgstr "De la báscula"
+
+#. module: weight_registry
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_filter
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
 msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__id
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_picks_wzd__id
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__id
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__id
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd__id
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_wzd__id
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__id
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__id
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__id
@@ -215,9 +439,17 @@ msgid "ID used for vehicle identification."
 msgstr "ID usado para la identificación"
 
 #. module: weight_registry
+#: selection:stock.picking.type,weight_control:0
+#: selection:stock.picking.weight.control.wzd,type:0
 #: selection:weight.registry,registry_type:0
 msgid "Incoming"
 msgstr "Entrada"
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/weight_registry.py:528
+#, python-format
+msgid "Incorrect number of products in picking: {}"
+msgstr "N"
 
 #. module: weight_registry
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_form
@@ -226,9 +458,38 @@ msgid "Info"
 msgstr "Información"
 
 #. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:38
+#, python-format
+msgid "Inicial:"
+msgstr ""
+
+#. module: weight_registry
+#: selection:stock.picking.type,weight_control:0
+#: selection:stock.picking.weight.control.wzd,type:0
 #: selection:weight.registry,registry_type:0
 msgid "Internal"
 msgstr "Interno"
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_stock_location
+msgid "Inventory Locations"
+msgstr "Ubicaciones de inventario"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:39
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:50
+#, python-format
+msgid "Kgrs."
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,help:weight_registry.field_product_product__kgr_to_uom_factor_ids
+#: model:ir.model.fields,help:weight_registry.field_product_template__kgr_to_uom_factor_ids
+#: model:ir.model.fields,help:weight_registry.field_uom_uom__kgr_to_uom_factor_ids
+msgid "L = Kgr * factor"
+msgstr ""
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_vehicle__last_driver_id
@@ -236,6 +497,12 @@ msgid "Last Driver"
 msgstr "Último asistente"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd____last_update
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_picks_wzd____last_update
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd____last_update
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd____last_update
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd____last_update
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_wzd____last_update
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry____last_update
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line____last_update
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type____last_update
@@ -243,6 +510,12 @@ msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__write_uid
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_picks_wzd__write_uid
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__write_uid
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__write_uid
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd__write_uid
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_wzd__write_uid
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__write_uid
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__write_uid
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__write_uid
@@ -250,6 +523,12 @@ msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__write_date
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_picks_wzd__write_date
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__write_date
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__write_date
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd__write_date
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_wzd__write_date
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__write_date
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__write_date
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__write_date
@@ -262,6 +541,84 @@ msgid "Last Weight Control"
 msgstr "ültimo registro de pesada"
 
 #. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_moves_wzd
+msgid "Lineas de movimientos"
+msgstr ""
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_registry_tree
+msgid "Link to stock picking"
+msgstr "Enlace al albarán"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__picking_ids
+msgid "Linked pickings"
+msgstr "Albaranes relacionados"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__product
+msgid "Linked product"
+msgstr "Producto relacionado"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_uom_uom__kgr_uom_id
+msgid "Linked vol. unit"
+msgstr "Ud. de vol. relacionada"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking__weight_registry_ids
+msgid "Linked weight registry"
+msgstr "Registro de pesada"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:57
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__vehicle_ids
+#, python-format
+msgid "Listado de matrículas"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__location_id
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__location_dest_id
+msgid "Location Dest"
+msgstr "Ubicación de destino"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__lot_id
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__lot_ids
+msgid "Lot"
+msgstr "Lote"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__unique_lot_id
+msgid "Lote único"
+msgstr ""
+
+#. module: weight_registry
+#: selection:stock.picking.weight.control.wzd,state:0
+msgid "Lotes"
+msgstr ""
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:70
+#, python-format
+msgid "Matricula:"
+msgstr ""
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:125
+#, python-format
+msgid "Matrícula:"
+msgstr ""
+
+#. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__partner_id
 msgid "Measured by"
 msgstr "Medido por"
@@ -272,6 +629,7 @@ msgid "Month"
 msgstr "Mes"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__move_id
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__move_line_ids
 msgid "Move"
 msgstr "Asiento"
@@ -282,11 +640,17 @@ msgid "Move type"
 msgstr "Tipo movimiento"
 
 #. module: weight_registry
+#: selection:stock.picking.weight.control.wzd,state:0
+msgid "Movimientos"
+msgstr ""
+
+#. module: weight_registry
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
 msgid "My registrys"
 msgstr "Mis registros"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__net
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__net
 msgid "Net weight"
 msgstr "Peso Neto"
@@ -297,15 +661,43 @@ msgid "No Check Out"
 msgstr "Sin Check Out"
 
 #. module: weight_registry
+#: code:addons/weight_registry/wizard/link_weight_moves_wzd.py:260
+#, python-format
+msgid "No se encontrado stock en la ubicación {} para estos movimientos"
+msgstr ""
+
+#. module: weight_registry
 #: code:addons/weight_registry/models/vehicle.py:98
 #, python-format
 msgid "No vehicle corresponding to barcode %(barcode)s"
 msgstr "No hay matrícula correspondiete a  %(barcode)s"
 
 #. module: weight_registry
+#: selection:stock.picking,weight_state:0
+msgid "No weight"
+msgstr "Sin báscula"
+
+#. module: weight_registry
 #: model_terms:ir.actions.act_window,help:weight_registry.weight_registry_action_vehicle
 msgid "No weight records to display."
 msgstr "No hay registros de pesadas que mostrar"
+
+#. module: weight_registry
+#: model:ir.model.fields,help:weight_registry.field_stock_picking__weight_state
+msgid "No weight: No need weight control.\n"
+"Waiting Control: Need control, watiting fot it.\n"
+"Waiting assigment: Control done, need moves.\\Moves done. Weight done"
+msgstr "Sin báscula: No requiere báscula.\n"
+"Esperando báscula: Esperando datos de la báscula.\n"
+"Esperando asignación: Datos de báscula. En espera de asignación de movimientos.\n Asignación completa. Pesada completa"
+
+#. module: weight_registry
+#: selection:stock.picking.type,weight_control:0
+#: selection:stock.picking.weight.control.wzd,select_qty:0
+#: selection:stock.picking.weight.control.wzd,type:0
+#: selection:weight.registry,registry_type:0
+msgid "None"
+msgstr "Ninguno"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__note
@@ -314,20 +706,51 @@ msgstr "Notas"
 
 #. module: weight_registry
 #. openerp-web
-#: code:addons/weight_registry/static/src/xml/weight_control.xml:42
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:116
 #, python-format
 msgid "Nº"
 msgstr ""
 
 #. module: weight_registry
+#: selection:stock.picking.type,weight_control:0
+#: selection:stock.picking.weight.control.wzd,type:0
 #: selection:weight.registry,registry_type:0
 msgid "Other"
 msgstr "Otro"
 
 #. module: weight_registry
+#: selection:stock.picking.type,weight_control:0
+#: selection:stock.picking.weight.control.wzd,type:0
 #: selection:weight.registry,registry_type:0
 msgid "Outgoing"
 msgstr "Salida"
+
+#. module: weight_registry
+#: selection:stock.picking.weight.control.wzd,state:0
+msgid "Parcial"
+msgstr ""
+
+#. module: weight_registry
+#: selection:weight.registry,state:0
+msgid "Pendiente de asignar"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd__weight_registry_id
+msgid "Pesada"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_wzd__weight_registry_ids
+msgid "Pesadas disponibles"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__picking_id
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_picks_wzd__picking_id
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__picking_id
+msgid "Picking"
+msgstr "Albarán"
 
 #. module: weight_registry
 #: model:ir.model,name:weight_registry.model_stock_picking_type
@@ -341,12 +764,15 @@ msgstr "Asegurate de que estás usando el filtro correcto si esperabas ver algo"
 
 #. module: weight_registry
 #. openerp-web
-#: code:addons/weight_registry/static/src/xml/weight_control.xml:11
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:13
 #, python-format
 msgid "Please set the vehicle number"
 msgstr "Indica en número de matrícula"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__product_id
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_picks_wzd__product_id
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__product_id
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__product_id
 msgid "Product"
 msgstr "Producto"
@@ -357,14 +783,60 @@ msgid "Product Moves (Stock Move Line)"
 msgstr "Movimientos de Producto (Stock Move Line)"
 
 #. module: weight_registry
+#: model:ir.model,name:weight_registry.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_uom_uom
+msgid "Product Unit of Measure"
+msgstr "Unidad de medida del producto"
+
+#. module: weight_registry
+#: selection:stock.picking.type,weight_control:0
+#: selection:stock.picking.weight.control.wzd,type:0
 #: selection:weight.registry,registry_type:0
 msgid "Production"
 msgstr "Producción"
 
 #. module: weight_registry
-#: model:ir.model.fields,field_description:weight_registry.field_stock_move_line__weight_registry_id
-msgid "Weight Registry"
-msgstr "Registro de pesada"
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_stock_move_operations_wr
+msgid "Qties Weight"
+msgstr "Cant en peso"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__qty
+msgid "Qty"
+msgstr "Cantidad"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__select_qty
+msgid "Qty from ..."
+msgstr "Cant. desde ..."
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:96
+#, python-format
+msgid "Registrar entrada (1º Paso)"
+msgstr ""
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:152
+#, python-format
+msgid "Registrar salida (2º Paso)"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__registry_id
+msgid "Registry"
+msgstr "Registro de báscula"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__registry_line_id
+msgid "Registry Line"
+msgstr "Línea de báscula"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__line_ids
@@ -378,15 +850,60 @@ msgid "Registy type"
 msgstr "Tipo registro"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__linked
+msgid "Relacionado"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_product_product__weight_control
+#: model:ir.model.fields,field_description:weight_registry.field_product_template__weight_control
+#: model:ir.model.fields,field_description:weight_registry.field_stock_location__weight_control
+msgid "Requires weight control"
+msgstr "Requiere báscula"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:32
+#, python-format
+msgid "Salida de"
+msgstr ""
+
+#. module: weight_registry
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_form
 msgid "Second Weight"
-msgstr "Seccunda pesada"
+msgstr "Segunda pesada"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__select_pick
+msgid "Select Pick"
+msgstr "Selecciona albarán"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.res_config_settings_view_form_wr
+msgid "Select unit"
+msgstr "Selecciona unidad"
 
 #. module: weight_registry
 #: model:ir.actions.client,name:weight_registry.action_set_weight
 #: model:ir.ui.menu,name:weight_registry.menu_do_weight
 msgid "Set Weight"
 msgstr "Establece el peso"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_pickingtype_filter_wr
+msgid "Sin pesaje"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__deposit_id
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move_line__deposit_id
+msgid "Source deposit"
+msgstr "Depósito de origen"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__location_id
+msgid "Source location"
+msgstr "Ubicación de origen"
 
 #. module: weight_registry
 #: model:ir.model,name:weight_registry.model_stock_move
@@ -399,9 +916,21 @@ msgid "Summary"
 msgstr "Resumen"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_uom_uom__template_id
+msgid "Template"
+msgstr "Plantilla"
+
+#. module: weight_registry
 #: model_terms:ir.actions.act_window,help:weight_registry.weight_registry_action
 msgid "The weight registry records of your vehicles will be displayed here."
 msgstr "Los registros de pesada de tus vehículos se mostrarán aquí"
+
+#. module: weight_registry
+#: model:ir.model.fields,help:weight_registry.field_stock_move__weight_control
+#: model:ir.model.fields,help:weight_registry.field_stock_picking__weight_control
+#: model:ir.model.fields,help:weight_registry.field_stock_picking_type__weight_control
+msgid "This types may be linked to weight registry"
+msgstr "Tipos de registros "
 
 #. module: weight_registry
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
@@ -414,20 +943,58 @@ msgid "Transfer"
 msgstr "Albarán"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: weight_registry
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_link_weight_moves_wzd
+msgid "Ubicaciones"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__unique_location_dest_id
+msgid "Ubicación destino"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__unique_location_id
+msgid "Ubicación origen"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.actions.server,name:weight_registry.act_qties_in_used_deposit
+msgid "Update qties"
+msgstr "Actualizar cantidades"
+
+#. module: weight_registry
+#. openerp-web
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:118
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__used
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__used
-msgid "Used"
-msgstr "USADO"
-
-#. module: weight_registry
-#. openerp-web
-#: code:addons/weight_registry/static/src/xml/weight_control.xml:25
 #, python-format
-msgid "VEHICLE"
-msgstr "MATRÍCULA"
+msgid "Used"
+msgstr "Usado"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__registry_line_ids
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__used_line_ids
+msgid "Used Registry Lines"
+msgstr "Depósitos utilizados"
+
+#. module: weight_registry
+#: model:ir.model.fields,help:weight_registry.field_stock_picking_weight_control_wzd__full_empty
+msgid "Vacia toda la cantidad de las ubicaciones origen por defecto"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_weight_control_wzd__full_empty
+msgid "Vaciado completo"
+msgstr ""
 
 #. module: weight_registry
 #. openerp-web
-#: code:addons/weight_registry/static/src/xml/weight_control.xml:15
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:17
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__vehicle_id
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_view_filter
 #, python-format
@@ -445,28 +1012,48 @@ msgid "Vehicle weight registry"
 msgstr "Registro pesada matrícula"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_weight_registry__vehicle_str
+msgid "Vehicles string"
+msgstr "Vehículo"
+
+#. module: weight_registry
 #: model_terms:ir.ui.view,arch_db:weight_registry.vehicle_form_view_registry
 msgid "W. registry"
 msgstr "Registro pesada"
 
 #. module: weight_registry
-#. openerp-web
-#: code:addons/weight_registry/static/src/xml/weight_control.xml:29
-#, python-format
-msgid "WEIGHT:"
-msgstr "PESO:"
+#: selection:stock.picking,weight_state:0
+msgid "Waiting assigment"
+msgstr "Esperando asignación"
 
 #. module: weight_registry
+#: selection:stock.picking,weight_state:0
+msgid "Waiting control"
+msgstr "Esperando báscula"
+
+#. module: weight_registry
+#: selection:stock.picking.type,weight_control:0
+#: selection:stock.picking.weight.control.wzd,type:0
 #: selection:weight.registry,registry_type:0
 msgid "Wash"
 msgstr "Lavado"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move__weight_control
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking__weight_control
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking_type__weight_control
 #: model:ir.model.fields,field_description:weight_registry.field_vehicle__weight_control_ids
 msgid "Weight Control"
 msgstr "Control Peso"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move__weight_control_uom_id
+msgid "Weight Control Uom"
+msgstr "U. peso de la báscula"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__weight_line
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move_line__registry_line_id
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_form
 msgid "Weight Line"
 msgstr "Línea de pesada"
@@ -477,6 +1064,7 @@ msgid "Weight Lines"
 msgstr "Líneas de pesadas"
 
 #. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move_line__weight_registry_id
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_line__registry_id
 #: model_terms:ir.ui.view,arch_db:weight_registry.weight_registry_line_view_filter
 msgid "Weight Registry"
@@ -493,9 +1081,14 @@ msgid "Weight Registry Manager"
 msgstr "COntrol de psadas responsable"
 
 #. module: weight_registry
-#: model:ir.actions.act_window,name:weight_registry.weight_registry_line_action
-msgid "Weight registry Lines"
-msgstr "Líneas de registro de pesada"
+#: model_terms:ir.ui.view,arch_db:weight_registry.view_stock_picking_wr
+msgid "Weight control"
+msgstr "Báscula"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__qty_weight
+msgid "Weight qty"
+msgstr "Peso"
 
 #. module: weight_registry
 #: model:ir.actions.act_window,name:weight_registry.weight_registry_action
@@ -512,19 +1105,66 @@ msgid "Weight registry"
 msgstr "Registro de pesadas"
 
 #. module: weight_registry
+#: model:ir.actions.act_window,name:weight_registry.weight_registry_line_action
+msgid "Weight registry Lines"
+msgstr "Líneas de registro de pesada"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_stock_picking__weight_state
+msgid "Weight state"
+msgstr "Estado báscula"
+
+#. module: weight_registry
 #: model:ir.ui.menu,name:weight_registry.menu_weights
 msgid "Weights Control"
 msgstr "Control de pesadas"
 
 #. module: weight_registry
-#: model:ir.model.fields,field_description:weight_registry.field_stock_move_line__registry_line_id
-msgid "Wheigt Line"
-msgstr "Línea pesada"
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__registry_line_id_qty
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move__registry_line_id_qty
+#: model:ir.model.fields,field_description:weight_registry.field_stock_move_line__registry_line_id_qty
+msgid "Weigth qty"
+msgstr "Peso"
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/weight_registry.py:524
+#, python-format
+msgid "Weigth registry must be linked to a product: {}"
+msgstr "El registro debe estar relacionado ocn un producto: {}"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__worked_hours
 msgid "Worked Hours"
 msgstr "Horas trabajadas"
+
+#. module: weight_registry
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__wzd_id
+#: model:ir.model.fields,field_description:weight_registry.field_available_line_picks_wzd__wzd_id
+#: model:ir.model.fields,field_description:weight_registry.field_move_line_weight_control_wzd__wzd_id
+#: model:ir.model.fields,field_description:weight_registry.field_weight_pick_link_line_wzd__wzd_id
+msgid "Wzd"
+msgstr "Asistente"
+
+#. module: weight_registry
+#: code:addons/weight_registry/models/stock_move_line.py:110
+#, python-format
+msgid "You need to check the assigned weight control for this move"
+msgstr "Necesitar revisar la asignación de las pesadas para este(os) albaranes"
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_available_line_moves_wzd
+msgid "available.line.moves.wzd"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_available_line_picks_wzd
+msgid "available.line.picks.wzd"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_deposit
+msgid "deposit"
+msgstr "Depósito"
 
 #. module: weight_registry
 #: model_terms:ir.ui.view,arch_db:weight_registry.view_weight_registry_kanban
@@ -537,8 +1177,13 @@ msgid "list of weight.registry for this vehicle"
 msgstr "lista de registros de pesada para este vehículo"
 
 #. module: weight_registry
+#: model:ir.model,name:weight_registry.model_move_line_weight_control_wzd
+msgid "move.line.weight.control.wzd"
+msgstr ""
+
+#. module: weight_registry
 #. openerp-web
-#: code:addons/weight_registry/static/src/xml/weight_control.xml:15
+#: code:addons/weight_registry/static/src/xml/weight_control.xml:17
 #, python-format
 msgid "not found, try again"
 msgstr "no encontrada, prueba otra vez"
@@ -546,16 +1191,26 @@ msgstr "no encontrada, prueba otra vez"
 #. module: weight_registry
 #: model:ir.model,name:weight_registry.model_vehicle
 msgid "vehicle"
-msgstr "matrícula"
+msgstr "vehículo"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__scale_weight
 msgid "weight"
-msgstr ""
+msgstr "peso"
 
 #. module: weight_registry
 #: model:ir.model,name:weight_registry.model_weight_pick_line_wzd
 msgid "weight.pick.line.wzd"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_weight_pick_link_line_wzd
+msgid "weight.pick.link.line.wzd"
+msgstr ""
+
+#. module: weight_registry
+#: model:ir.model,name:weight_registry.model_weight_pick_link_wzd
+msgid "weight.pick.link.wzd"
 msgstr ""
 
 #. module: weight_registry

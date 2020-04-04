@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="view_stock_move_operations_wr" model="ir.ui.view">
+        <field name="name">stock.move.inherit.view.form_wr</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_stock_move_operations"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <header>
+                    <field name="weight_control" widget="statusbar" statusbar_visible="111"/>
+                </header>
+            </field>
+            <xpath expr="//label[@for='quantity_done']" position="before" >
+                <label for="registry_line_id_qty" string="Qties Weight" attrs="{'invisible': [('weight_control', '=', 'none')]}"/>
+                <div class="o_row" attrs="{'invisible': [('weight_control', '=', 'none')]}">
+                    <span><field name="registry_line_id_qty" readonly="1" nolabel="1"/></span>
+                    <span><field name="weight_control_uom_id" readonly="1" nolabel="1"/></span>
+                    <span> / </span>
+                    <span><field name="registry_line_id_qty_flow" readonly="1" nolabel="1"/></span>
+                    <span><field name="flow_control_uom_id" readonly="1" nolabel="1"/></span>
+                </div>
+            </xpath>
+            <!--field name="move_line_ids" position="before">
+                    <group>
+                        <field name="weight_control"/>
+                    </group>
+            </field-->
+        </field>
+    </record>
+
     <!-- Asocio la operación detallada con una línea de pesada -->
     <record id="view_stock_move_line_operation_tree_custom" model="ir.ui.view">
         <field name="name">view_stock_move_line_operation_tree_custom</field>
@@ -9,6 +37,13 @@
         <field name="arch" type="xml">
             <field name="product_id" position="after">
                 <field name="registry_line_id"/>
+            </field>
+
+            <field name="product_uom_qty" position="before">
+                <field name="registry_line_id_qty" attrs="{'column_invisible': [('parent.weight_control', '=', 'none')]}"/>
+                <!--field name="weight_control_uom_id" attrs="{'column_invisible': [('parent.weight_control', '=', 'none')]}"/-->
+                <field name="registry_line_id_qty_flow" attrs="{'column_invisible': [('parent.weight_control', '=', 'none')]}"/>
+                <!--field name="flow_control_uom_id" attrs="{'column_invisible': [('parent.weight_control', '=', 'none')]}"/-->
             </field>
         </field>
     </record>

@@ -26,7 +26,6 @@ class AvailableLinePickingsWzd(models.TransientModel):
 
     @api.multi
     def action_link_picking_id(self):
-
         self.ensure_one()
         self.wzd_id.state='lots'
         self.wzd_id.picking_id = self.picking_id
@@ -52,6 +51,8 @@ class AvailableLineMovesWzd(models.TransientModel):
     lot_id = fields.Many2one('stock.production.lot')
     registry_line_id = fields.Many2one('weight.registry.line')
     used = fields.Boolean('Used')
+    registry_line_id_qty = fields.Float('Weigth qty')
+    registry_line_id_qty_flow = fields.Float('Flow qty')
 
     @api.onchange('location_id')
     def onchange_location_id(self):
@@ -86,7 +87,7 @@ class StockPickwightControlWzd(models.TransientModel):
     product = fields.Many2many ('product.product', string="Linked product")#, domain=[('weight_control', '=', True)])
     fill = fields.Boolean('Fill')
     net = fields.Integer('Net weight')
-    select_qty = fields.Selection(selection=[('weight', 'From weight'), ('flowmeter', 'From flowmeter')], string="Qty from ...", default='flowmeter')
+    select_qty = fields.Selection(selection=[('none', 'None'), ('weight', 'From weight'), ('flowmeter', 'From flowmeter')], string="Qty from ...", default='weight')
     location_id = fields.Many2one('stock.location', string="Source location")
     location_dest_id = fields.Many2one('stock.location', string="Destination location")
 
@@ -130,19 +131,28 @@ class StockPickwightControlWzd(models.TransientModel):
             self.unique_location_dest_id = self.location_dest_id
 
         for line in self.registry_line_ids:
-            if self.select_qty == 'weight':
-                #PRIMERO LO PASO A LA UNIDAD
-                ## qty = line.qty * move_id.product_id.product_tmpl_id.get_weight_factor(move_id.product_uom)
-                domain = [('template_id', '=', move_id.product_id.product_tmpl_id.id), ('category_id', '=', move_id.product_id.uom_id.category_id.id)]
-                uom_id = self.env['uom.uom'].search(domain, limit=1)
+
+            #PRIMERO LO PASO A LA UNIDAD
+            ## qty = line.qty * move_id.product_id.product_tmpl_id.get_weight_factor(move_id.product_uom)
+            domain = [('template_id', '=', move_id.product_id.product_tmpl_id.id), ('category_id', '=', move_id.product_id.uom_id.category_id.id)]
+            uom_id = self.env['uom.uom'].search(domain, limit=1)
+            if not line.move_line_id:
+                qty_kgrs = line.qty
                 ## CONVIERTO LOS KGRS DE LV A LITROS
-                qty = uom_id._compute_quantity(line.qty,
+                qty_litros = uom_id._compute_quantity(line.qty,
                                                    move_id.product_id.uom_id,
                                                    rounding_method='HALF-UP')
                 ##CONVIERTO LOS LITROS A MILES DE LITROS
-                qty = move_id.product_id.uom_id._compute_quantity(qty, move_id.product_uom)
+                qty_mlitros = move_id.product_id.uom_id._compute_quantity(qty_litros, move_id.product_uom)
+                ## Propongo Cantidad como
 
-                print ("\n------------------------------Qty en pesada: {}, qty en mov : {}\n------------------------------".format(line.qty, qty))
+            if line.move_line_id:
+                qty_mlitros = line.move_line_id.registry_line_id_qty_flow
+                qty = line.move_line_id.qty_done
+                lot_id = line.lot_id
+            elif self.select_qty == 'weight' and not line.move_line_id:
+                qty = qty_mlitros
+
             else:
                 qty = 0.0
 
@@ -153,8 +163,11 @@ class StockPickwightControlWzd(models.TransientModel):
                    'location_dest_id': default_dest_location_id,
                    'deposit_id': line.deposit_id.id,
                    'lot_id': lot_id,
+                   'registry_line_id_qty': line.qty,
+                   'registry_line_id_qty_flow': qty_mlitros,
                    'qty': qty,
-                   'registry_line_id': line.id
+                   'registry_line_id': line.id,
+                   'used': True
                    }
             self.env['available.line.moves.wzd'].create(val)
         return True
@@ -178,9 +191,6 @@ class StockPickwightControlWzd(models.TransientModel):
             raise ValidationError('Tienes movimientos sin destino')
         if self.unique_location_id == False and (any(not line.location_id for line in self.available_moves)):
             raise ValidationError('Tienes movimientos sin origen')
-
-
-
 
         self.picking_id.move_lines._do_unreserve()
         reserved_availability = {move: move.reserved_availability for move in self.picking_id.move_lines}
@@ -210,7 +220,9 @@ class StockPickwightControlWzd(models.TransientModel):
                 'registry_line_id': line.registry_line_id.id,
                 'location_dest_id': location_dest_id,
                 'location_id': location_id,
-                'qty_done': line_need
+                'qty_done': line_need,
+                'registry_line_id_qty': line.registry_line_id_qty,
+                'registry_line_id_qty_flow': line.registry_line_id_qty_flow
             }
             if lot_id:
                 from_wc.update(lot_name = lot_id.name)
@@ -219,7 +231,7 @@ class StockPickwightControlWzd(models.TransientModel):
                 new_move_line = self.env['stock.move.line'].create(move.with_context(ctx)._prepare_move_line_vals(quantity=line_need))
                 new_move_lines |= new_move_line
                 assigned_moves |= move
-                line.write({'move_line_ids': [(4, new_move_line.id)]})
+                line.write({'move_line_id': new_move_line.id})
 
             else:
                 if move.procure_method == 'make_to_order':

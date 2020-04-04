@@ -20,6 +20,9 @@ class StockMoveLine(models.Model):
 
     deposit_id = fields.Many2one('deposit', string="Source deposit")
     deposit_dest_id = fields.Many2one('deposit', string="Destiantion deposit")
+    registry_line_id_qty = fields.Float('Weigth qty')
+    registry_line_id_qty_flow = fields.Float('Flow qty')
+
 
     # _sql_constraints = [
     #     ('weight_registry_line_unique', 'unique(registry_line_id, move_id)',
@@ -30,13 +33,13 @@ class StockMoveLine(models.Model):
     @api.onchange('registry_line_id')
     def onchange_registry_line(self):
         if self.registry_line_id:
-            self.qty_done = self.registry_line_id.qty
+            self.registry_line_id_qty_flow = self.registry_line_id.qty_flowmeter
+            self.registry_line_id_qty = self.registry_line_id.qty
+
+
 
 
     def _action_done(self):
-        return super()._action_done()
-
-        res = super(StockMoveLine, self)._action_done()
         for ml in self:
             # Check here if `ml.qty_done` respects the rounding of `ml.product_uom_id`.
             uom_qty = float_round(ml.qty_done, precision_rounding=ml.product_uom_id.rounding, rounding_method='HALF-UP')
@@ -65,12 +68,32 @@ class StockMoveLine(models.Model):
                                             {'name': ml.lot_name, 'product_id': ml.product_id.id}
                                         )
                                     ml.write({'lot_id': lot.id})
-        return res
+        return super(StockMoveLine, self)._action_done()
 
 
 class StockMove(models.Model):
 
     _inherit = "stock.move"
+
+    @api.multi
+    def default_control_uom_id(self):
+        self.write({'weight_control_uom_id': self.env["ir.config_parameter"].sudo().get_param("weight_registry.weight_control_default_uom_id"),
+                    'flow_control_uom_id': self.env["ir.config_parameter"].sudo().get_param("weight_registry.flow_control_default_uom_id")})
+        return True
+
+
+    registry_line_id_qty = fields.Float('Weigth qty', compute="compute_wc_qties")
+    registry_line_id_qty_flow = fields.Float('Flow qty', compute="compute_wc_qties")
+    weight_control = fields.Selection(related='picking_type_id.weight_control')
+    weight_control_uom_id = fields.Many2one('uom.uom', default=lambda self: self.default_control_uom_id())
+    flow_control_uom_id = fields.Many2one('uom.uom', default=lambda self: self.default_control_uom_id())
+
+    @api.multi
+    def compute_wc_qties(self):
+        for move in self:
+            move.registry_line_id_qty = sum(x.registry_line_id_qty for x in move.move_line_ids)
+            move.registry_line_id_qty_flow = sum(x.registry_line_id_qty_flow for x in move.move_line_ids)
+
 
     def _prepare_move_line_vals(self, quantity=None, reserved_quant=None):
         """Auto-assign as done the quantity proposed for the lots"""
@@ -81,3 +104,8 @@ class StockMove(models.Model):
         if self._context.get('from_wc', False):
             res.update(self._context.get('from_wc'))
         return res
+
+    def _action_done(self):
+        if self.picking_type_id.weight_control != 'none' and any(x.registry_line_id == False for x in self.move_line_ids):
+                raise ValidationError (_('You need to check the assigned weight control for this move'))
+        return super()._action_done()

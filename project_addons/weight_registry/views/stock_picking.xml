@@ -1,5 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+     <record id="res_config_settings_view_form_wr" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.stock.wc</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="stock.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='production_lot_info']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box">
+
+                        <div class="o_setting_right_pane">
+                            <label for="weight_control_default_uom_id"/>
+                            <div class="text-muted">
+                                Select unit
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="weight_control_default_uom_id" class="o_light_label" widget="selection"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+
+                        <div class="o_setting_right_pane">
+                            <label for="flow_control_default_uom_id"/>
+                            <div class="text-muted">
+                                Select unit
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="flow_control_default_uom_id" class="o_light_label" widget="selection"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </xpath>
+            </field>
+     </record>
+    <record id="view_pickingtype_filter_wr" model="ir.ui.view">
+            <field name="name">stock.picking.type.filter.wr</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_pickingtype_filter"/>
+            <field name="arch" type="xml">
+                <field name="warehouse_id" position="after">
+                    <field name="weight_control"/>
+                </field>
+                <xpath expr="//filter[@name='inactive']" position="before">
+                    <filter string="Sin pesaje" name="weight_control_is_none" domain="[('weight_control','=','none')]"/>
+                    <filter string="Con pesaje" name="weight_control_not_none" domain="[('weight_control','!=','none')]"/>
+                </xpath>
+            </field>
+        </record>
     <record id="view_picking_type_form_inherit_wc" model="ir.ui.view">
         <field name="name">Operation Types</field>
         <field name="model">stock.picking.type</field>
@@ -18,22 +72,27 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='origin']" position="after">
-                 <field name="weight_registry_ids"/>
-                <button name="link_weight_wzd"
-                        string="Seleccionar un pesaje para este albarán"
+                <field name="weight_registry_ids" invisible="1"/>
+                <field name="weight_control" invisible="1"/>
+                <field name="weight_state"/>
+                <button name="link_and_fill_from_weight_wzd"
                         type="object"
-                        icon="fa-balance-scale"
-                        attrs="{'invisible': [('weight_registry_ids', '!=', [])]}"
-                    />
-                <button name="fill_from_weight_wzd"
-                        string="Rellenar datos desde el pesaje"
-                        type="object"
-                        icon="fa-pencil-square-o"
-
+                        context="{&quot;icon&quot;:&quot;fa-balance-scale: weight_state == &apos;waiting&apos;;fa-pencil: weight_state == &apos;to_assign&apos;;fa-check-circle: weight_state == &apos;done&apos;&quot;}"
                     />
             </xpath>
         </field>
     </record>
+
+    <!--record id="view_stock_picking_tree_wr2" model="ir.ui.view">
+        <field name="name">stock.picking.wr2.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="weight_registry.view_stock_picking_tree_wr"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='link_and_fill_from_weight_wzd']" position="attributes">
+                <attribute name="tag">{fa-balance-scale: weight_registry_ids == [];fa-pencil: weight_registry_ids != []}</attribute>
+            </xpath>
+        </field>
+    </record-->
 
     <record id="view_stock_picking_wr" model="ir.ui.view">
         <field name="name">stock.picking.wr.form</field>
@@ -41,6 +100,34 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
+            <field name="move_ids_without_package" position="before">
+                 <div class="oe_button_box" attrs="{'invisible':['|', ('state', '=', 'done'), ('weight_state','=','none')]}">
+                    <field name="weight_state" widget="statusbar" statusbar_visible="waiting,to_assign,done"/>
+                      <button
+                            class="oe_stat_button"
+                            name="link_and_fill_from_weight_wzd"
+                            type="object"
+                            icon="fa-pencil"
+                            attrs="{'invisible': [('weight_state', '!=', 'to_assign')]}"
+                            string="Weight control"/>
+                      <button
+                            class="oe_stat_button"
+                            name="link_and_fill_from_weight_wzd"
+                            type="object"
+                            icon="fa-pencil"
+                            attrs="{'invisible': [('weight_state', '!=', 'done')]}"
+                            string="Weight control"/>
+                        <button
+                            class="oe_stat_button"
+                            name="link_and_fill_from_weight_wzd"
+                            type="object"
+                            icon="fa-balance-scale"
+                            attrs="{'invisible': [('weight_state', '!=', 'waiting')]}"
+                            string="Weight control"/>
+
+                </div>
+
+            </field>
             <xpath expr="//field[@name='group_id']" position="after">
                 <field name="weight_registry_ids">
                     <tree editable="0" create="0" delete="1">

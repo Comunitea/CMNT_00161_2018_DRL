@@ -22,7 +22,13 @@ REGISTRY_TYPE = [
     ('other', 'Other'),
     ('none', 'None')]
 
-
+WEIGHT_REGISTRY_STATES = [
+    ('0', '1º Control'),
+    ('1', '1º Control. Pick'),
+    ('2', '2º Control. No albarán'),
+    ('3', 'Pendiente de asignar'),
+    ('4', 'Asignado')
+]
 
 
 class WeightRegistryType(models.Model):
@@ -77,14 +83,26 @@ class WeightRegistry(models.Model):
                                'Registry Lines')
 
     used_line_ids = fields.One2many('weight.registry.line', 'registry_id', domain=[('used','=', True)], string='Used Registry Lines')
-    picking_ids = fields.Many2many('stock.picking', "pick_weight_rel", column1="picking_id" , column2="weight_id", string="Albaranes asociados")
-    linked = fields.Boolean('Relacionado', compute="compute_linked", store=True)
+    picking_id = fields.Many2one('stock.picking', string="Albarán asociado")
+    state = fields.Selection(selection=WEIGHT_REGISTRY_STATES, string='Estado', compute ="compute_state", store=True, help="")
 
-    @api.depends('picking_ids')
-    def compute_linked(self):
+
+    @api.depends('check_in_weight', 'check_out_weight', 'picking_id', 'used_line_ids.move_line_id')
+    def compute_state(self):
         for wc in self:
-            wc.linked = (len(wc.picking_ids) != 0)
-
+            if wc.check_out_weight:
+                if wc.picking_id:
+                    if wc.used_line_ids.mapped('move_line_id'):
+                        wc.state = '4'
+                    else:
+                        wc.state = '3'
+                else:
+                    wc.state = '2'
+            elif wc.check_in_weight:
+                if wc.picking_id:
+                    wc.state = '1'
+                else:
+                    wc.state = '0'
 
     # def apply_net_to_qty_done(self):
     #     for w_r in self.filtered(lambda x: x.check_out):
@@ -322,7 +340,7 @@ class WeightRegistry(models.Model):
             else:
                 ## En este caso las lineas se crean antes del pesaje
                 ## por lo tanto ya tengo un albarán y unos movimientos asovciados a la línea
-                move_id = reg.line_ids.move_line_ids[0].move_id
+                move_id = reg.picking_id.move_lines
                 if move_id.quantity_done == 0:
                     update_move_line = True
                 product_id = move_id.product_id
@@ -334,12 +352,12 @@ class WeightRegistry(models.Model):
                     available_total_qty -= qty
                     line.qty = qty
                     if update_move_line:
-                        line.move_line_ids.write({'qty_done': qty/len(line.move_line_ids)})
+                        line.move_line_id.write({'qty_done': qty})
 
                 ## lo que sobra/falte lo meto en el último deposito
                 line.qty += available_total_qty
                 if update_move_line:
-                    line.move_line_ids.write({'qty_done': line.qty / len(line.move_line_ids)})
+                    line.move_line_id.write({'qty_done': line.qty})
                     ## Escribo la cantidad total
 
 
@@ -378,7 +396,11 @@ class WeightRegistry(models.Model):
         return res
 
     @api.multi
-    def create_new_wzd(self, picking_id=False, product_id=False):
+    def create_new_wzd(self):
+        return self._create_new_wzd()
+
+    @api.multi
+    def _create_new_wzd(self, picking_id=False, product_id=False):
         self.ensure_one()
         domain = [
             #('picking_type_id.weight_control', '=', self.registry_type),
@@ -439,12 +461,13 @@ class WeightRegistryLine(models.Model):
     deposit_id = fields.Many2one('deposit', 'Deposit')
     capacity = fields.Float('Capacity', related='deposit_id.capacity')
     # One2many para que al asignarlo al stock.move.line, se asigne solo
-    move_line_ids = fields.One2many('stock.move.line', 'registry_line_id', 'Move')
+    move_line_id = fields.Many2one('stock.move.line', 'Move')
     used = fields.Boolean('Used')
     empty = fields.Boolean('Empty', default=True)
     filled = fields.Boolean('Filled', related="registry_id.fill")
     qty = fields.Float('Estimated Qty')
     qty_flowmeter = fields.Float('Flow meter Qty')
+    picking_id = fields.Many2one('stock.picking', string="Albarán asociado")
 
     def name_get(self):
         result = []
