@@ -13,7 +13,8 @@
         'stock',
         'dairylac_custom',
         'delivery',
-        'web'
+        'web',
+        'web_tree_dynamic_icon'
     ],
     'data': [
         'security/ir.model.access.csv',
