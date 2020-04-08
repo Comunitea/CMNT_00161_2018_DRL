@@ -18,7 +18,35 @@ class StockLocation(models.Model):
          ('8', 'agente nacional')],
         'Type of Location', required=False)
     code_q = fields.Char(string='Código Letra Q')
-
+    product_id = fields.Many2one(
+        string='Product',
+        comodel_name='product.product',
+        ondelete='restrict',
+        compute="_compute_information"
+    )
+    quantity = fields.Float(
+        string='Quantity',
+        compute="_compute_information"
+    )
+    lot_id = fields.Many2one(
+        string='Internal lot',
+        comodel_name='stock.production.lot',
+        ondelete='restrict',
+        compute="_compute_information"
+    )
+    
+    def _compute_information(self):
+        for location in self:
+            if location.location_type_q not in ('1','2','3'):
+                location.product_id = False
+                location.quantity = 0
+                location.lot_id = False
+            else:
+                quants = self.env['stock.quant'].read_group([('location_id', '=', location.id)], ['product_id', 'lot_id', 'quantity:sum'],  ['product_id', 'lot_id'], lazy=False)
+                if quants:
+                    location.product_id = quants[0]['product_id'][0]
+                    location.quantity = quants[0]['quantity']
+                    location.lot_id = quants[0]['lot_id'][0]
 
 class StockMove(models.Model):
 

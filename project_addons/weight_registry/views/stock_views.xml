@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <field name="state" position="before">
                 <header>
-                    <field name="weight_control" widget="statusbar" statusbar_visible="111"/>
+                    <field name="weight_control" widget="statusbar" statusbar_visible="False"/>
                 </header>
             </field>
             <xpath expr="//label[@for='quantity_done']" position="before" >
@@ -21,11 +21,7 @@
                     <span><field name="flow_control_uom_id" readonly="1" nolabel="1"/></span>
                 </div>
             </xpath>
-            <!--field name="move_line_ids" position="before">
-                    <group>
-                        <field name="weight_control"/>
-                    </group>
-            </field-->
+           
         </field>
     </record>
 
@@ -41,9 +37,7 @@
 
             <field name="product_uom_qty" position="before">
                 <field name="registry_line_id_qty" attrs="{'column_invisible': [('parent.weight_control', '=', 'none')]}"/>
-                <!--field name="weight_control_uom_id" attrs="{'column_invisible': [('parent.weight_control', '=', 'none')]}"/-->
                 <field name="registry_line_id_qty_flow" attrs="{'column_invisible': [('parent.weight_control', '=', 'none')]}"/>
-                <!--field name="flow_control_uom_id" attrs="{'column_invisible': [('parent.weight_control', '=', 'none')]}"/-->
             </field>
         </field>
     </record>

@@ -62,8 +62,8 @@ class WeightRegistry(models.Model):
     worked_hours = fields.Float(
         string='Worked Hours', compute='_compute_worked_hours',
         store=True, readonly=True)
-    check_in_weight = fields.Integer('Check out weight')
-    check_out_weight = fields.Integer('Check in weight')
+    check_in_weight = fields.Integer('Check in weight')
+    check_out_weight = fields.Integer('Check out weight')
     net = fields.Integer(
         'Net weight', compute='_compute_worked_hours',
         store=True, readonly=True)
@@ -83,15 +83,15 @@ class WeightRegistry(models.Model):
                                'Registry Lines')
 
     used_line_ids = fields.One2many('weight.registry.line', 'registry_id', domain=[('used','=', True)], string='Used Registry Lines')
-    picking_id = fields.Many2one('stock.picking', string="Albarán asociado")
+    picking_ids = fields.Many2many('stock.picking',  "stock_picking_weight_rel", string="Albaranes asociados")
     state = fields.Selection(selection=WEIGHT_REGISTRY_STATES, string='Estado', compute ="compute_state", store=True, help="")
 
 
-    @api.depends('check_in_weight', 'check_out_weight', 'picking_id', 'used_line_ids.move_line_id')
+    @api.depends('check_in_weight', 'check_out_weight', 'picking_ids', 'used_line_ids.move_line_id')
     def compute_state(self):
         for wc in self:
             if wc.check_out_weight:
-                if wc.picking_id:
+                if wc.picking_ids:
                     if wc.used_line_ids.mapped('move_line_id'):
                         wc.state = '4'
                     else:
@@ -99,7 +99,7 @@ class WeightRegistry(models.Model):
                 else:
                     wc.state = '2'
             elif wc.check_in_weight:
-                if wc.picking_id:
+                if wc.picking_ids:
                     wc.state = '1'
                 else:
                     wc.state = '0'
@@ -197,7 +197,7 @@ class WeightRegistry(models.Model):
         vals = {'check_out': date,
                 'weight_check_out': weight,
                 'net': net,
-                'registry_type': 'incoming' if net >= 0 else 'outgoing'
+                'registry_type': 'incoming' if self.check_in_weight > weight else 'outgoing'
                 }
         return vals
 
@@ -311,7 +311,7 @@ class WeightRegistry(models.Model):
     def set_weight_registry(self, vehicle_id, weight, deposits, vehicles):
         res = True
         vehicle = self.env['vehicle'].browse(vehicle_id)
-        reg = vehicle.vehicle_action_change()
+        reg = vehicle.vehicle_action_change(weight)
         if reg:
             vehicle_ids = [x['id'] for x in vehicles]
             reg.vehicle_ids = [(6, 0, vehicle_ids)]

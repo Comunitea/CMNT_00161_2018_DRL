@@ -38,9 +38,9 @@ class StockPicking(models.Model):
 
     _inherit = "stock.picking"
 
-    picking_ids = fields.Many2many('stock.picking', "pick_weight_rel", column1="picking_id", column2="weight_id",
-                                   string="Albaranes asociados")
-    weight_registry_ids = fields.Many2many('weight.registry', "picking_id", string="Linked weight registry")
+    #picking_ids = fields.Many2many('stock.picking', "pick_weight_rel", column1="picking_id", column2="weight_id",
+    #                               string="Albaranes asociados")
+    weight_registry_ids = fields.Many2many('weight.registry', "stock_picking_weight_rel", string="Linked weight registry")
     weight_control = fields.Selection(related='picking_type_id.weight_control', store=True)
     weight_state = fields.Selection (selection=PICK_WEIGHT_STATES, string="Weight state",
                                      compute="compute_weight_state",
@@ -87,7 +87,7 @@ class StockPicking(models.Model):
     @api.multi
     def link_weight_wzd(self):
         self.ensure_one()
-        domain = [('picking_id', '=', False)]
+        domain = [('picking_ids', '=', False)]
         wc_ids = self.env['weight.registry'].search(domain)
         val = {'picking_id': self.id}
         new_wzd = self.env['weight.pick.link.wzd'].create(val)

@@ -102,6 +102,10 @@ class StockPickwightControlWzd(models.TransientModel):
     unique_location_id = fields.Many2one('stock.location', 'Ubicación origen')
     unique_location_dest_id = fields.Many2one('stock.location', 'Ubicación destino')
 
+    @api.onchange('unique_location_id')
+    def onchange_location_id(self):
+        self.unique_lot_id = self.unique_location_id.lot_id.id
+
 
     @api.multi
     def button_back(self):
@@ -214,6 +218,12 @@ class StockPickwightControlWzd(models.TransientModel):
             lot_id = self.unique_lot_id or line.lot_id  or False
             location_dest_id = self.unique_location_dest_id and self.unique_location_dest_id.id or line.location_dest_id.id
             location_id = self.unique_location_id and self.unique_location_id.id or line.location_id.id
+            if line.registry_line_id.registry_id.registry_type == 'incoming':
+                deposit_dest_id = line.deposit_id.id
+                deposit_id = False
+            else:
+                deposit_dest_id = False
+                deposit_id = line.deposit_id.id
             from_wc = {
                 'lot_id': lot_id.id,
                 'emptied': self.full_empty,
@@ -222,7 +232,9 @@ class StockPickwightControlWzd(models.TransientModel):
                 'location_id': location_id,
                 'qty_done': line_need,
                 'registry_line_id_qty': line.registry_line_id_qty,
-                'registry_line_id_qty_flow': line.registry_line_id_qty_flow
+                'registry_line_id_qty_flow': line.registry_line_id_qty_flow,
+                'deposit_dest_id': deposit_dest_id,
+                'deposit_id' : deposit_id
             }
             if lot_id:
                 from_wc.update(lot_name = lot_id.name)
@@ -236,20 +248,23 @@ class StockPickwightControlWzd(models.TransientModel):
             else:
                 if move.procure_method == 'make_to_order':
                     continue
-                # If we don't need any quantity, consider the move assigned.
+                # If we don't need any quantity, consider the move assigned.ssss
 
                 if float_is_zero(line_need, precision_rounding=rounding):
                     assigned_moves |= move
                     continue
                 forced_package_id = move.package_level_id.package_id or None
-
+                forced_package_id = self.env['stock.quant.package'].create({'name':'{}-{}'.format(line.deposit_id.display_name, line.lot_id.name)})
                 available_quantity = self.env['stock.quant']._get_available_quantity(move.product_id, move.location_id, line.lot_id or None,
                                                                                      package_id=forced_package_id)
                 if available_quantity <= 0:
                     continue
 
-                taken_quantity = move.with_context(ctx)._update_reserved_quantity(line_need, available_quantity, line.location_id, lot_id=line.lot_id or None,
-                                                                package_id=forced_package_id, strict=False)
+                taken_quantity = move.with_context(ctx)._update_reserved_quantity(line_need,
+                                                                                available_quantity,
+                                                                                line.location_id or self.unique_location_id,
+                                                                                lot_id=line.lot_id or self.unique_lot_id or None,
+                                                                                package_id=forced_package_id, strict=False)
 
                 new_move_line = move.move_line_ids.filtered(lambda x: not x.qty_done)
                 new_move_line.update({'qty_done': line_need})
