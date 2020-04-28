@@ -67,11 +67,17 @@
                     <group string="Ubicaciones" cols="2">
                         <field name="location_id" readonly="1"/>
                         <field name="location_dest_id" readonly="1"/>
-                        <field name="full_empty" />
+                        
                     </group>
                     <!--                               options="{'no_create_edit': True, 'no_quick_create': True}"-->
                     <group>
                         <field name="type" readonly='True'/>
+                        <field name="unique_location_id"
+                               options="{'no_create_edit': True, 'no_quick_create': True}"
+                               attrs="{'invisible': [('type', '!=', 'outgoing')]}"
+                               domain="[('id', 'child_of', location_id), ('weight_control','=', True)]"
+                        />
+                        <!--field name="full_empty" /-->
                         <field name="unique_lot_id"
                                domain="[('product_id', '=', product_id)]"
                                context="{'default_product_id': product_id}"/>
@@ -80,11 +86,7 @@
                                attrs="{'invisible': [('type', '!=', 'incoming')]}"
                                domain="[('id', 'child_of', location_dest_id), ('weight_control','=', True)]"
                         />
-                        <field name="unique_location_id"
-                               options="{'no_create_edit': True, 'no_quick_create': True}"
-                               attrs="{'invisible': [('type', '!=', 'outgoing')]}"
-                               domain="[('id', 'child_of', location_id), ('weight_control','=', True)]"
-                        />
+                        
                     </group>
                     <group string="Lineas de movimientos" cols="2">
                         <field name="available_moves" nolabel="1">
@@ -95,6 +97,8 @@
                                        options="{'no_create_edit': True, 'no_quick_create': True}"
                                        domain="[('id', 'child_of', parent.location_id),('weight_control','=', True)]"
                                        attrs="{'column_invisible': ['|', ('parent.unique_location_id', '!=', False), ('parent.type', 'in', ('incoming', 'all'))]}"/>
+                                <field name="full_empty" 
+                                       attrs="{'column_invisible': [('parent.type', 'in', ('incoming'))]}"/>
                                 <field name="deposit_id" readonly="1"/>
                                 <field name="used"/>
                                 <field name="registry_line_id_qty_flow"/>

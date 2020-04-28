@@ -8,15 +8,17 @@ class StockLocation(models.Model):
     _inherit = 'stock.location'
 
     location_type_q = fields.Selection(
-        [('1', 'tanque'),
-         ('2', 'silo'),
-         ('3', 'cisterna'),
-         ('4', 'línea de Producción'),
-         ('5', 'agente no nacional'),
-         ('6', 'rechazo'),
-         ('7', 'intermediario'),
-         ('8', 'agente nacional')],
+        [('1', 'Tanque'),
+         ('2', 'Silo'),
+         ('3', 'Cisterna'),
+         ('4', 'Línea de producción'),
+         ('5', 'Agente no nacional'),
+         ('6', 'Rechazo'),
+         ('7', 'Intermediario'),
+         ('8', 'Agente nacional')],
         'Type of Location', required=False)
+
+    
     code_q = fields.Char(string='Código Letra Q')
     product_id = fields.Many2one(
         string='Product',
@@ -42,7 +44,7 @@ class StockLocation(models.Model):
                 location.quantity = 0
                 location.lot_id = False
             else:
-                quants = self.env['stock.quant'].read_group([('location_id', '=', location.id)], ['product_id', 'lot_id', 'quantity:sum'],  ['product_id', 'lot_id'], lazy=False)
+                quants = self.env['stock.quant'].read_group([('location_id', '=', location.id), ('quantity', '>', 0)], ['product_id', 'lot_id', 'quantity:sum'],  ['product_id', 'lot_id'], lazy=False)
                 if quants:
                     location.product_id = quants[0]['product_id'][0]
                     location.quantity = quants[0]['quantity']
@@ -70,6 +72,27 @@ class StockMove(models.Model):
                                 store=True)
     location_type_q = fields.Selection(
         related='location_id.location_type_q', readonly=True)
+    location_dest_type_q = fields.Selection(
+        related='location_dest_id.location_type_q', readonly=True)
+    
+    destination_q = fields.Selection(
+        [('1', 'Leche concentrada'),
+         ('2', 'Leche en polvo'),
+         ('3', 'Leche fermentada'),
+         ('4', 'Leche líquida'),
+         ('5', 'Leches infantiles'),
+         ('6', 'Natas y mantequillas'),
+         ('7', 'Preparados lácteos'),
+         ('8', 'Queso, cuajada y requesón'),
+         ('9', 'Combustible'),
+         ('10', 'Esparcimineto en tierra'),
+         ('11', 'Fábrica de alimento de animales de compañía'),
+         ('12', 'Fabricación de abonos y enmiendas del suelo'),
+         ('13', 'Planta de biogás'),
+         ('14', 'Planta de compostaje'),
+         ('15', 'Planta de transformación de subproductos'),
+         ('16', 'Planta incineradora/coinciniradora'),],
+        'Destination', required=False)
 
 
 class StockMoveLine(models.Model):

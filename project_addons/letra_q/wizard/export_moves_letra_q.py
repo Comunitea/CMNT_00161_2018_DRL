@@ -30,14 +30,14 @@ class ExportMovesLetraQ(models.TransientModel):
                 origin_center = move_line.picking_id.partner_id
             else:
                 origin_letra_q = move_line.location_id.code_q
-                origin_center = move_line.company_id
+                origin_center = move_line.picking_id.company_id.partner_id
             if move_line.location_dest_id.location_type_q == '3':
                 dest_letra_q = move_line.vehicle_id.letter_code_q
                 dest_center = move_line.picking_id.partner_id
             else:
                 dest_letra_q = move_line.location_dest_id.code_q
                 dest_center = move_line.picking_id.partner_id
-            self.env['letra.q.exporter.move'].create({
+            vals = {
                 'group_id': use_group.id,
                 'move_id': move_line.id,
                 'product_id': move_line.product_id.id,
@@ -45,16 +45,17 @@ class ExportMovesLetraQ(models.TransientModel):
                 'liters': int(move_line.qty_done),
                 'origin_location': move_line.location_id.location_type_q,
                 'origin_q_code': origin_letra_q,
-                'origin_deposit': move_line.deposit_id.quantity,
+                'origin_deposit': move_line.deposit_id and move_line.deposit_id.number or '',
                 'origin_center': origin_center.vat,
-                'origin_country': origin_center.country_id,
+                'origin_country': origin_center.country_id.id,
                 'origin_empty': move_line.emptied,
                 'dest_q_code': dest_letra_q,
                 'dest_location': move_line.location_dest_id.location_type_q,
                 'dest_center': dest_center.vat,
-                'dest_country': dest_center.country_id,
+                'dest_country': dest_center.country_id.id,
                 'picking': move_line.picking_id.name,
-            })
+            }
+            self.env['letra.q.exporter.move'].create(vals)
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'letra.q.exporter',

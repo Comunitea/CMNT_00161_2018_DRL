@@ -6,6 +6,8 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.addons.weight_registry.models.weight_registry import REGISTRY_TYPE
 from odoo.tools.float_utils import float_compare, float_round, float_is_zero
+from odoo.exceptions import UserError, ValidationError
+
 
 class MoveLineWeightControlWzd(models.TransientModel):
     _name = 'move.line.weight.control.wzd'
@@ -53,6 +55,8 @@ class AvailableLineMovesWzd(models.TransientModel):
     used = fields.Boolean('Used')
     registry_line_id_qty = fields.Float('Weigth qty')
     registry_line_id_qty_flow = fields.Float('Flow qty')
+    full_empty = fields.Boolean('Vaciado completo', help="Vacia toda la cantidad de la ubicación origen ", default=False)
+
 
     @api.onchange('location_id')
     def onchange_location_id(self):
@@ -96,7 +100,7 @@ class StockPickwightControlWzd(models.TransientModel):
     available_moves = fields.One2many('available.line.moves.wzd', 'wzd_id', string="Available lines")
     picking_id = fields.Many2one('stock.picking')
     lot_ids = fields.Many2many('stock.production.lot')
-    full_empty = fields.Boolean('Vaciado completo', help="Vacia toda la cantidad de las ubicaciones origen por defecto", default=True)
+    full_empty = fields.Boolean('Vaciado completo', help="Vacia toda la cantidad de las ubicaciones origen por defecto", default=False)
 
     unique_lot_id = fields.Many2one('stock.production.lot', 'Lote único')
     unique_location_id = fields.Many2one('stock.location', 'Ubicación origen')
@@ -104,7 +108,22 @@ class StockPickwightControlWzd(models.TransientModel):
 
     @api.onchange('unique_location_id')
     def onchange_location_id(self):
+        if self.unique_location_id.product_id != self.product_id:
+            raise UserError(_('En el silo  %s no existe stock del producto %s solicitado en este movimiento.') % (self.unique_location_id.name, self.product_id.name))
+
         self.unique_lot_id = self.unique_location_id.lot_id.id
+        total_qty = 0
+        for line in self.available_moves.filtered(lambda x: x.used):
+            move = line.move_id
+            line_need = move.product_uom._compute_quantity(line.qty, move.product_id.uom_id, rounding_method='HALF-UP')
+            total_qty = total_qty + line_need
+            self.unique_location_id
+            # Hacemos que si es menor que q la cantidad (en miles de litros lo marque como vaciado
+            # Lo ideal serañ tener la capácidad de los silos y hacerlo por %
+            if self.unique_location_id.quantity - total_qty <= 1:
+                line.full_empty = True
+            else:
+                line.full_empty = False
 
 
     @api.multi
@@ -203,7 +222,7 @@ class StockPickwightControlWzd(models.TransientModel):
         partially_available_moves = self.env['stock.move']
         new_move_lines = self.env['stock.move.line']
 
-
+        total_qty = 0
         for line in self.available_moves.filtered(lambda x: x.used):
             move = line.move_id
             rounding = roundings[move]
@@ -219,14 +238,14 @@ class StockPickwightControlWzd(models.TransientModel):
             location_dest_id = self.unique_location_dest_id and self.unique_location_dest_id.id or line.location_dest_id.id
             location_id = self.unique_location_id and self.unique_location_id.id or line.location_id.id
             if line.registry_line_id.registry_id.registry_type == 'incoming':
-                deposit_dest_id = line.deposit_id.id
-                deposit_id = False
-            else:
                 deposit_dest_id = False
                 deposit_id = line.deposit_id.id
+            else:
+                deposit_dest_id = line.deposit_id.id
+                deposit_id = False
             from_wc = {
                 'lot_id': lot_id.id,
-                'emptied': self.full_empty,
+                'emptied': line.full_empty,
                 'registry_line_id': line.registry_line_id.id,
                 'location_dest_id': location_dest_id,
                 'location_id': location_id,
@@ -254,20 +273,44 @@ class StockPickwightControlWzd(models.TransientModel):
                     assigned_moves |= move
                     continue
                 forced_package_id = move.package_level_id.package_id or None
-                forced_package_id = self.env['stock.quant.package'].create({'name':'{}-{}'.format(line.deposit_id.display_name, line.lot_id.name)})
                 available_quantity = self.env['stock.quant']._get_available_quantity(move.product_id, move.location_id, line.lot_id or None,
                                                                                      package_id=forced_package_id)
                 if available_quantity <= 0:
                     continue
 
-                taken_quantity = move.with_context(ctx)._update_reserved_quantity(line_need,
-                                                                                available_quantity,
-                                                                                line.location_id or self.unique_location_id,
-                                                                                lot_id=line.lot_id or self.unique_lot_id or None,
-                                                                                package_id=forced_package_id, strict=False)
+                # taken_quantity = move.with_context(ctx)._update_reserved_quantity(line_need,
+                #                                                                 available_quantity,
+                #                                                                 line.location_id or self.unique_location_id,
+                #                                                                 lot_id=line.lot_id or self.unique_lot_id or None,
+                #                                                                 package_id=forced_package_id, strict=False)
 
-                new_move_line = move.move_line_ids.filtered(lambda x: not x.qty_done)
-                new_move_line.update({'qty_done': line_need})
+                # Simplificado desde _update_reserved_quantity de stockmove
+                taken_quantity = min(available_quantity, line_need)
+                taken_quantity_move_uom = move.product_id.uom_id._compute_quantity(taken_quantity, move.product_uom, rounding_method='DOWN')
+                taken_quantity = move.product_uom._compute_quantity(taken_quantity_move_uom, move.product_id.uom_id, rounding_method='HALF-UP')
+                quants = []
+                location_id = line.location_id or self.unique_location_id
+                try:
+                    if not float_is_zero(taken_quantity, precision_rounding=move.product_id.uom_id.rounding):
+                        quants = self.env['stock.quant']._update_reserved_quantity(
+                            move.product_id, location_id,taken_quantity, lot_id=line.lot_id or self.unique_lot_id or None,
+                            package_id=forced_package_id, owner_id=None, strict=False
+                        )
+                except UserError:
+                    taken_quantity = 0
+
+                for reserved_quant, quantity in quants:
+                    new_move_line = self.env['stock.move.line'].create(move._prepare_move_line_vals(quantity=quantity, reserved_quant=reserved_quant))
+
+                new_move_line.update({
+                    'emptied': line.full_empty,
+                    'registry_line_id': line.registry_line_id.id,
+                    'qty_done': line_need,
+                    'registry_line_id_qty': line.registry_line_id_qty,
+                    'registry_line_id_qty_flow': line.registry_line_id_qty_flow,
+                    'deposit_dest_id': deposit_dest_id,
+                    'deposit_id' : deposit_id
+                    })
                 new_move_lines |= new_move_line
                 if float_is_zero(taken_quantity, precision_rounding=rounding):
                     continue

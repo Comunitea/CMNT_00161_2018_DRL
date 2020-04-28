@@ -68,7 +68,10 @@ class StockMoveLine(models.Model):
                                             {'name': ml.lot_name, 'product_id': ml.product_id.id}
                                         )
                                     ml.write({'lot_id': lot.id})
-        return super(StockMoveLine, self)._action_done()
+        res =  super(StockMoveLine, self)._action_done()
+        if ml.emptied:
+            ml.location_id.empty()
+        return res
 
 
 class StockMove(models.Model):

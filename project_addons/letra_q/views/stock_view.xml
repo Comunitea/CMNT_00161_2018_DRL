@@ -39,7 +39,10 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="after">
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom']" position="after">
+                <field name ="location_id"/>
+                <field name ="location_dest_type_q" readonly = "True"/>
+                <field name="destination_q" attrs="{'invisible':[('location_dest_type_q', 'not in', ('4', '6'))]}"/>
                 <field name="emptied"/>
             </xpath>
         </field>
@@ -121,4 +124,15 @@
             </field>
         </field>
     </record>
+
+    <record id="locations_for_moves" model="ir.actions.act_window">
+        <field name="name">Silos y Tanques</field>
+        <field name="res_model">stock.location</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('location_type_q', 'in',[1,2])]</field>
+    </record>
+
+    <menuitem name="Silos y Tanques" parent="stock.menu_stock_warehouse_mgmt" action="locations_for_moves" id="locations_for_moves_menu"/>
+
 </odoo>

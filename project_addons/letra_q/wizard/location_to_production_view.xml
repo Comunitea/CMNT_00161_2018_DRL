@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="location_to_production_view" model="ir.ui.view">
+        <field name="name">location.to.production.form</field>
+        <field name="model">location.to.production</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Send product to production lines">
+                <group>
+                    <field name="location_id" required="True" readonly="True"/>
+                    <field name="date_done" required="True"/>
+                    <field name="product_id" required="True"/>
+                    <field name="location_quantity" />
+                    <field name="quantity" required="True"/>
+                    <field name="emptied" required="False"/>
+
+                </group>
+                <group>
+                    <field name="move_type" required="True"/>
+                </group>
+                <group attrs="{'invisible':[('move_type', '!=', 'production')]}">
+                    <field name="destination_q"  attrs="{'required':[('move_type', '=', 'production')]}"/>
+                </group>
+                <group attrs="{'invisible':[('move_type', '!=', 'move')]}">
+                    <field name="location_dest_id" attrs="{'required':[('move_type', '=', 'move')]}"/>
+                </group>
+                <group>
+                    <h2>
+                        <field name="message" nolabel="1" readonly="True"/>
+                    </h2>
+                </group>
+                <footer>
+                    <button name="create_picking" string="Generate picking" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Send product to production"
+        res_model="location.to.production"
+        src_model="stock.location"
+        view_id="location_to_production_view"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"
+        id="action_location_to_production"/>
+
+</odoo>
