@@ -48,7 +48,7 @@ class StockLocation(models.Model):
                 if quants:
                     location.product_id = quants[0]['product_id'][0]
                     location.quantity = quants[0]['quantity']
-                    location.lot_id = quants[0]['lot_id'][0]
+                    location.lot_id = quants[0]['lot_id'] and quants[0]['lot_id'][0] or False
 
 class StockMove(models.Model):
 
