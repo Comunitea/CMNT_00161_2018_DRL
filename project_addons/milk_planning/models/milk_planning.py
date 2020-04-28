@@ -527,7 +527,7 @@ establishing a supplier"
         purchase = self.env["purchase.order"].create(vals)
         line_vals = {
             "product_id": product.id,
-            "date_planned": self.day,
+            "date_planned": fields.Datetime.from_string(self.day),
             "product_qty": self.quantity,
             "order_id": purchase.id,
             "price_unit": 0.0,

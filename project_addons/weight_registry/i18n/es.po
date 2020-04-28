@@ -184,7 +184,7 @@ msgstr "Entrada"
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__check_out_weight
 msgid "Check in weight"
-msgstr "Peso en la entrada"
+msgstr "Peso en la salida"
 
 #. module: weight_registry
 #: selection:vehicle,weight_registry_state:0
@@ -194,7 +194,7 @@ msgstr "Salida"
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry__check_in_weight
 msgid "Check out weight"
-msgstr "Peso a la salida"
+msgstr "Peso en la entrada"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_weight_registry_type__code
@@ -767,7 +767,7 @@ msgstr "Asegurate de que estás usando el filtro correcto si esperabas ver algo"
 #: code:addons/weight_registry/static/src/xml/weight_control.xml:13
 #, python-format
 msgid "Please set the vehicle number"
-msgstr "Indica en número de matrícula"
+msgstr "Indica el número de matrícula"
 
 #. module: weight_registry
 #: model:ir.model.fields,field_description:weight_registry.field_available_line_moves_wzd__product_id
