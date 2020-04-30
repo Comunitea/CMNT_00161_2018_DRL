@@ -15,6 +15,7 @@
     'data': [
         'data/stock_data.xml',
         'views/mrp_production.xml',
+        'wizard/qualify_lot_view.xml'
     ],
     'installable': True,
 }

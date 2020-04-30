@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="qualify_lot_view" model="ir.ui.view">
+        <field name="name">qualify.lot.form</field>
+        <field name="model">qualify.lot</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Qualify_product">
+                <group>
+                    <field name="lot_id" required="True" readonly="True"/>
+                    <field name="date_done" required="True"/>
+                    <field name="product_id" required="True"/>
+                    <field name="quantity" required="True"/>
+                    <field name="location_dest_id" required="True"/>
+                </group>
+                
+                <footer>
+                    <button name="qualify_product" string="Qualify product" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Qualify Lot"
+        res_model="qualify.lot"
+        src_model="stock.production.lot"
+        view_id="qualify_lot_view"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"
+        id="action_qaulify_product"/>
+
+</odoo>
