@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* custom_contract
+#	* letra_q
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-22 13:46+0000\n"
-"PO-Revision-Date: 2019-04-22 13:46+0000\n"
+"POT-Creation-Date: 2020-05-13 07:29+0000\n"
+"PO-Revision-Date: 2020-05-13 07:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,86 +15,712 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: custom_contract
-#: model:ir.model,name:custom_contract.model_account_analytic_account
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_analytic_account_id
-msgid "Analytic Account"
-msgstr "Cuenta analítica"
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
 
-#. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_create_uid
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: letra_q
+#: selection:stock.location,location_type_q:0
+msgid "Agente nacional"
+msgstr ""
+
+#. module: letra_q
+#: selection:stock.location,location_type_q:0
+msgid "Agente no nacional"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de adjuntos"
+
+#. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.export_moves_letra_q_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: letra_q
+#: selection:stock.location,location_type_q:0
+msgid "Cisterna"
+msgstr ""
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Combustible"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_res_country
+msgid "Country"
+msgstr "País"
+
+#. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.export_moves_letra_q_form
+msgid "Create"
+msgstr "Crear"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_export_moves_letra_q__create_uid
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__create_uid
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__create_uid
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
-#. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_create_date
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_export_moves_letra_q__create_date
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__create_date
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__create_date
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__create_date
 msgid "Created on"
 msgstr "Creado el"
 
-#. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_display_name
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_location__code_q
+msgid "Código Letra Q"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__dest_center
+msgid "Dest Center"
+msgstr "Centro dest."
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__dest_country
+msgid "Dest Country"
+msgstr "País Dest."
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__dest_location
+msgid "Dest Location"
+msgstr "Ubicación dest."
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__dest_q_code
+msgid "Dest Q Code"
+msgstr "Código dest Q"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_move__destination_q
+msgid "Destination"
+msgstr "Destino"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_export_moves_letra_q__display_name
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__display_name
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__display_name
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
-#. module: custom_contract
-#: code:addons/custom_contract/models/sale.py:25
-#, python-format
-msgid "El producto no se encuentra en el contrato."
-msgstr "El producto no se encuentra en el contrato."
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_move__emptied
+#: model:ir.model.fields,field_description:letra_q.field_stock_move_line__emptied
+msgid "Emptied"
+msgstr "Vaciado"
 
-#. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_id
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Esparcimineto en tierra"
+msgstr ""
+
+#. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.export_moves_letra_q_form
+msgid "Export the moves to letra Q"
+msgstr "Esportar movimientos a letra Q"
+
+#. module: letra_q
+#: model:ir.actions.act_window,name:letra_q.action_export_moves_letra_q
+msgid "Export to letra Q"
+msgstr "Exportar a letra Q"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_export_moves_letra_q__exportation_id
+#: model:ir.model.fields,field_description:letra_q.field_stock_move_line__exportation_ids
+msgid "Exportation"
+msgstr "Exportación"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__exporter_id
+msgid "Exporter"
+msgstr "Exportador"
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Fabricación de abonos y enmiendas del suelo"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (canales)"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (empresas)"
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Fábrica de alimento de animales de compañía"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__move_id
+msgid "Generated from move"
+msgstr "Generado desde movimiento"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__group_id
+msgid "Group"
+msgstr "Agrupar"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_export_moves_letra_q__id
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__id
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__id
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
-#. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement___last_update
+#. module: letra_q
+#: model:ir.model.fields,help:letra_q.field_letra_q_exporter__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
+
+#. module: letra_q
+#: model:ir.model.fields,help:letra_q.field_letra_q_exporter__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: letra_q
+#: model:ir.model.fields,help:letra_q.field_letra_q_exporter__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: letra_q
+#: selection:stock.location,location_type_q:0
+msgid "Intermediario"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_location__lot_id
+msgid "Internal lot"
+msgstr "Lote interno"
+
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_stock_location
+msgid "Inventory Locations"
+msgstr "Ubicaciones de inventario"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_export_moves_letra_q____last_update
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter____last_update
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group____last_update
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move____last_update
 msgid "Last Modified on"
-msgstr "Última Modificación en"
+msgstr "Última modificación en"
 
-#. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_write_uid
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_export_moves_letra_q__write_uid
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__write_uid
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__write_uid
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__write_uid
 msgid "Last Updated by"
-msgstr "Última actualización de"
+msgstr "Última actualización por"
 
-#. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_write_date
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_export_moves_letra_q__write_date
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__write_date
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__write_date
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__write_date
 msgid "Last Updated on"
-msgstr "Última Actualización el"
+msgstr "Última actualización el"
 
-#. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_price_unit
-msgid "Price Unit"
-msgstr "Precio unitario"
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Leche concentrada"
+msgstr ""
 
-#. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_ids
-#: model:ir.model.fields,field_description:custom_contract.field_project_project_price_agreement_ids
-msgid "Price agreements"
-msgstr "Price agreements"
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Leche en polvo"
+msgstr ""
 
-#. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_product_id
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Leche fermentada"
+msgstr ""
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Leche líquida"
+msgstr ""
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Leches infantiles"
+msgstr ""
+
+#. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.view_stock_move_letra_q_view_filter
+#: model_terms:ir.ui.view,arch_db:letra_q.view_stock_move_line_letra_q_view_filter
+msgid "Letra Q"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_res_country__letra_q_code
+msgid "Letra Q Code"
+msgstr "Código Letra Q"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_move_line__letra_q_group
+msgid "Letra Q Group"
+msgstr "Grupo Letra Q"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__letra_q_groups
+msgid "Letra Q Groups"
+msgstr "Grupos Letra Q"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_move__is_letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_move_line__is_letra_q
+msgid "Letra Q Move"
+msgstr "Movimiento Letra Q"
+
+#. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.letra_q_exporter_view_form
+msgid "Letra Q exportationn"
+msgstr "Exportación Letra Q"
+
+#. module: letra_q
+#: model:ir.actions.act_window,name:letra_q.letra_q_exporter_action
+#: model:ir.ui.menu,name:letra_q.letra_q_exporter_menu
+msgid "Letra Q exportations"
+msgstr "Exportaciones Letra Q"
+
+#. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.view_stock_move_line_letra_q_view_filter
+msgid "Letra Q group"
+msgstr "Grupo Letra Q"
+
+#. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.view_stock_move_line_letra_q_view_filter
+msgid "Letra Q not exported"
+msgstr "Letra Q no exportada"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__liters
+msgid "Liters"
+msgstr "Litros"
+
+#. module: letra_q
+#: selection:stock.location,location_type_q:0
+msgid "Línea de producción"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_product_product__species_q
+#: model:ir.model.fields,field_description:letra_q.field_product_template__species_q
+msgid "Milk Species"
+msgstr "Especies"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__move_date
+msgid "Move Date"
+msgstr "Fecha del asiento"
+
+#. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.view_stock_move_letra_q_view_filter
+#: model_terms:ir.ui.view,arch_db:letra_q.view_stock_move_line_letra_q_view_filter
+msgid "Movements Letra Q"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__move_ids
+msgid "Moves"
+msgstr "Movimientos"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__name
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Natas y mantequillas"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha Límite de Actividad Siguiente"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de Actividad Siguiente"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente Tipo de Actividad"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__notes
+msgid "Notes"
+msgstr "Notas"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de error"
+
+#. module: letra_q
+#: model:ir.model.fields,help:letra_q.field_letra_q_exporter__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: letra_q
+#: model:ir.model.fields,help:letra_q.field_letra_q_exporter__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: letra_q
+#: model:ir.model.fields,help:letra_q.field_letra_q_exporter__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__origin_center
+msgid "Origin Center"
+msgstr "Centro Origen"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__origin_country
+msgid "Origin Country"
+msgstr "País origen"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__origin_deposit
+msgid "Origin Deposit"
+msgstr "Depósito origen"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__origin_empty
+msgid "Origin Empty"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__origin_location
+msgid "Origin Location"
+msgstr "Ubicación origen"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__origin_q_code
+msgid "Origin Q Code"
+msgstr "Código Q origen"
+
+#. module: letra_q
+#: selection:letra.q.exporter,activity_state:0
+msgid "Overdue"
+msgstr "Vencimiento"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__picking
+msgid "Picking"
+msgstr "Albarán"
+
+#. module: letra_q
+#: selection:letra.q.exporter,activity_state:0
+msgid "Planned"
+msgstr "Planificado"
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Planta de biogás"
+msgstr ""
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Planta de compostaje"
+msgstr ""
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Planta de transformación de subproductos"
+msgstr ""
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Planta incineradora/coinciniradora"
+msgstr ""
+
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Preparados lácteos"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__product_id
+#: model:ir.model.fields,field_description:letra_q.field_stock_location__product_id
 msgid "Product"
 msgstr "Producto"
 
-#. module: custom_contract
-#: model:ir.ui.view,arch_db:custom_contract.account_analytic_account_sale_form
-msgid "Sales"
-msgstr "Ventas"
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
 
-#. module: custom_contract
-#: model:ir.model,name:custom_contract.model_sale_order_line
-msgid "Sales Order Line"
-msgstr "Línea de pedido de ventas"
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
 
-#. module: custom_contract
-#: model:ir.model,name:custom_contract.model_account_analytic_account_price_agreement
-msgid "account.analytic.account.price.agreement"
-msgstr "account.analytic.account.price.agreement"
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_location__quantity
+msgid "Quantity"
+msgstr "Cantidad"
 
-#. module: custom_contract
-#: model:ir.model,name:custom_contract.model_account_analytic_invoice_line
-msgid "account.analytic.invoice.line"
-msgstr "account.analytic.invoice.line"
+#. module: letra_q
+#: selection:stock.move,destination_q:0
+msgid "Queso, cuajada y requesón"
+msgstr ""
+
+#. module: letra_q
+#: selection:stock.location,location_type_q:0
+msgid "Rechazo"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: letra_q
+#: selection:stock.location,location_type_q:0
+msgid "Silo"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.actions.act_window,name:letra_q.locations_for_moves
+#: model:ir.ui.menu,name:letra_q.locations_for_moves_menu
+msgid "Silos y Tanques"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_move_line__deposit_id
+msgid "Source deposit"
+msgstr "Depósito de origen"
+
+#. module: letra_q
+#: model:ir.model.fields,help:letra_q.field_letra_q_exporter__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de existencias"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_product_product__subject_q
+#: model:ir.model.fields,field_description:letra_q.field_product_template__subject_q
+msgid "Subject to Letra Q"
+msgstr "Sujeto a Letra Q"
+
+#. module: letra_q
+#: selection:stock.location,location_type_q:0
+msgid "Tanque"
+msgstr ""
+
+#. module: letra_q
+#: selection:letra.q.exporter,activity_state:0
+msgid "Today"
+msgstr "Hoy"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_location__location_type_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_move__location_dest_type_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_move__location_type_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_move_line__dest_location_type_q
+msgid "Type of Location"
+msgstr "Tipo de ubicación"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes no leídos"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Total de mensajes no leídos"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_stock_move_line__vehicle_id
+msgid "Vehicle"
+msgstr "Mátricula"
+
+#. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: letra_q
+#: model:ir.model.fields,help:letra_q.field_letra_q_exporter__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: letra_q
+#: selection:letra.q.exporter.move,dest_location:0
+#: selection:letra.q.exporter.move,origin_location:0
+msgid "agente nacional"
+msgstr ""
+
+#. module: letra_q
+#: selection:letra.q.exporter.move,dest_location:0
+#: selection:letra.q.exporter.move,origin_location:0
+msgid "agente no nacional"
+msgstr ""
+
+#. module: letra_q
+#: selection:product.template,species_q:0
+msgid "caprino"
+msgstr ""
+
+#. module: letra_q
+#: selection:letra.q.exporter.move,dest_location:0
+#: selection:letra.q.exporter.move,origin_location:0
+msgid "cisterna"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_export_moves_letra_q
+msgid "export.moves.letra.q"
+msgstr ""
+
+#. module: letra_q
+#: selection:letra.q.exporter.move,dest_location:0
+#: selection:letra.q.exporter.move,origin_location:0
+msgid "intermediario"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_letra_q_exporter
+msgid "letra.q.exporter"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_letra_q_exporter_group
+msgid "letra.q.exporter.group"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_letra_q_exporter_move
+msgid "letra.q.exporter.move"
+msgstr ""
+
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_location_to_production
+msgid "location.to.production"
+msgstr ""
+
+#. module: letra_q
+#: selection:letra.q.exporter.move,dest_location:0
+#: selection:letra.q.exporter.move,origin_location:0
+msgid "línea de Producción"
+msgstr ""
+
+#. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.export_moves_letra_q_form
+msgid "or"
+msgstr "o"
+
+#. module: letra_q
+#: selection:product.template,species_q:0
+msgid "ovino"
+msgstr ""
+
+#. module: letra_q
+#: selection:letra.q.exporter.move,dest_location:0
+#: selection:letra.q.exporter.move,origin_location:0
+msgid "rechazo"
+msgstr ""
+
+#. module: letra_q
+#: selection:letra.q.exporter.move,dest_location:0
+#: selection:letra.q.exporter.move,origin_location:0
+msgid "silo"
+msgstr ""
+
+#. module: letra_q
+#: selection:letra.q.exporter.move,dest_location:0
+#: selection:letra.q.exporter.move,origin_location:0
+msgid "tanque"
+msgstr ""
+
+#. module: letra_q
+#: selection:product.template,species_q:0
+msgid "vacuno"
+msgstr ""
 
