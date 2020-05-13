@@ -75,12 +75,12 @@ class StockProductionLot(models.Model):
                 'product_uom_id': prod.product_uom_id.id,
                 'lot_id': lot.id
             }
-            #wzd_prod = self.env['mrp.product.produce'].sudo().new(vals)
-            #wzd_prod._onchange_product_qty()
-            #wzd_prod.do_produce()
+            wzd_prod = self.env['mrp.product.produce'].sudo().new(vals)
+            wzd_prod._onchange_product_qty()
+            wzd_prod.do_produce()
 
             # Finalizo la producción, este método hace el post_inventory
             # que finaliza los movimientos asociados
-            #prod.button_mark_done()
+            prod.button_mark_done()
    
         return created_productions

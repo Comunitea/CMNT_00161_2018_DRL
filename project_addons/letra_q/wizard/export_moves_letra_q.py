@@ -27,16 +27,16 @@ class ExportMovesLetraQ(models.TransientModel):
                 })
             if move_line.location_id.location_type_q == '3':
                 origin_letra_q = move_line.vehicle_id.letter_code_q
-                origin_center = move_line.picking_id.partner_id
+                origin_center = move_line.picking_id.partner_id or move_line.picking_id.company_id.partner_id
             else:
                 origin_letra_q = move_line.location_id.code_q
                 origin_center = move_line.picking_id.company_id.partner_id
             if move_line.location_dest_id.location_type_q == '3':
                 dest_letra_q = move_line.vehicle_id.letter_code_q
-                dest_center = move_line.picking_id.partner_id
+                dest_center = move_line.picking_id.partner_id or move_line.picking_id.company_id.partner_id
             else:
                 dest_letra_q = move_line.location_dest_id.code_q
-                dest_center = move_line.picking_id.partner_id
+                dest_center = move_line.picking_id.partner_id or move_line.picking_id.company_id.partner_id
             vals = {
                 'group_id': use_group.id,
                 'move_id': move_line.id,

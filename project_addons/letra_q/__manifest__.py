@@ -12,13 +12,11 @@
         'weight_registry',
     ],
     'data': [
-        'data/stock_data.xml',
         'views/product_view.xml',
         'views/stock_view.xml',
         'views/letra_q_exporter.xml',
         'views/res_country.xml',
         'wizard/export_moves_letra_q.xml',
-        'wizard/location_to_production_view.xml',
         'security/ir.model.access.csv'
         ],
     'installable': True,

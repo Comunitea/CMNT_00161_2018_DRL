@@ -3,6 +3,30 @@
 
     <data >
 
+         <!-- TO production  sequence -->
+        <record id="seq_send_to_production" model="ir.sequence">
+            <field name="name">Send to production Picking</field>
+            <field name="prefix">PROD</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="send_to_production_type" model="stock.picking.type">
+            <field name="name">Send to Production</field>
+            <field name="code">internal</field>
+            <field name="use_existing_lots">True</field>
+            <field name="sequence_id" ref="seq_send_to_production"/>
+            <field name="default_location_src_id" ref="stock.stock_location_stock"/>
+            <field name="default_location_dest_id" ref="stock.location_production"/>
+        </record>
+        <record id="send_from_production_type" model="stock.picking.type">
+            <field name="name">Send from Production</field>
+            <field name="code">internal</field>
+            <field name="use_existing_lots">False</field>
+            <field name="sequence_id" ref="seq_send_to_production"/>
+            <field name="default_location_src_id" ref="stock.location_production"/>
+            <field name="default_location_dest_id" ref="stock.stock_location_stock"/>
+        </record>
+
         <!-- Merge location -->
         <record id="lot_merge_production" model="stock.location">
             <field name="name">Lot Merges</field>

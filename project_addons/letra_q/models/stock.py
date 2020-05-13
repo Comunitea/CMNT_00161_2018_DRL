@@ -62,7 +62,8 @@ class StockMove(models.Model):
         for move in self:
             if move.product_id.subject_q:
                 if move.location_id.location_type_q and \
-                        move.location_dest_id.location_type_q:
+                        (move.location_dest_id.location_type_q
+                        or move.destination_q):
                     move.is_letra_q = True
             else:
                 move.is_letra_q = False
@@ -107,7 +108,8 @@ class StockMoveLine(models.Model):
         for move in self:
             if move.product_id.subject_q:
                 if move.location_id.location_type_q and \
-                        move.location_dest_id.location_type_q:
+                        (move.location_dest_id.location_type_q
+                        or move.move_id.destination_q):
                     move.is_letra_q = True
             else:
                 move.is_letra_q = False

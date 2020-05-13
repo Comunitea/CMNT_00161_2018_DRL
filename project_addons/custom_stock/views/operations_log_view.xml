@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="looperations_log_view" model="ir.ui.view">
+        <field name="name">operations_log_form</field>
+        <field name="model">operations.log</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Log operations">
+                <header>
+                    <button name="create_picking" string="Generate picking" type="object" class="oe_highlight" states="draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm" />
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" required="True" readonly="True"/>
+                    </h1>
+                    <field name="user_id" required="True"/>
+                    <notebook>
+                        <page string="Log moves">
+                            <field name="move_ids" string="Log moves"  mode="tree,kanban" attrs="{'readonly':[('state','=','confirmed')]}">
+                                <tree string="Log moves" editable="bottom" >
+                                    <field name="date_done" required="True"/>
+                                    <field name="move_type" required="True"/>
+                                    <field name="location_id" domain="[('location_type_q', 'in',[1,2])]"
+                                    attrs="{'required':[('move_type', 'in', ['to_production', 'scrap', 'move'])], 'invisible':[('move_type', 'not in', ['to_production', 'scrap', 'move'])]}"/>
+                                    <field name="product_id" required="True" />
+                                    <field name="location_quantity" />
+                                    <field name="quantity" required="True"/>
+                                    <field name="emptied" required="False"
+                                    attrs="{'invisible':[('move_type', 'not in', ['to_production', 'scrap', 'move'])]}"/>
+                                    <field name="destination_q_prod"  attrs="{'required':[('move_type', '=', 'to_production')], 'invisible':[('move_type', '!=', 'to_production')]}"/>
+                                    <field name="destination_q_scrap"  attrs="{'required':[('move_type', '=', 'scrap')], 'invisible':[('move_type', '!=', 'scrap')]}"/>
+                                    <field name="location_dest_id" attrs="{'required':[('move_type', 'in', ['move', 'from_production'])], 'invisible':[('move_type', 'not in', ['move', 'from_production'])]}"/>
+                                    <field name="new_lot_id" attrs="{'required':[('move_type', 'in', ['move', 'from_production'])], 'invisible':[('move_type', 'not in', ['move', 'from_production'])]}"/>
+                                    <field name="message" nolabel="1" readonly="True"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="operations_log_act" model="ir.actions.act_window">
+        <field name="name">Operations Logs</field>
+        <field name="res_model">operations.log</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain"></field>
+    </record>
+
+    <menuitem name="Operations Logs" parent="stock.menu_stock_warehouse_mgmt" action="operations_log_act" id="operations_log_menu"/>
+
+
+</odoo>
