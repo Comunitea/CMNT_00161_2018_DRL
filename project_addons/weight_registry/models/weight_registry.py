@@ -340,7 +340,7 @@ class WeightRegistry(models.Model):
             else:
                 ## En este caso las lineas se crean antes del pesaje
                 ## por lo tanto ya tengo un albarán y unos movimientos asovciados a la línea
-                move_id = reg.picking_id.move_lines
+                move_id = reg.picking_ids[0].move_lines
                 if move_id.quantity_done == 0:
                     update_move_line = True
                 product_id = move_id.product_id
