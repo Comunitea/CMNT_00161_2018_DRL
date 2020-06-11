@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.dac.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='extra']" position="after">
+                <page string="Especificaciones" name="specifications">
+                    <group>
+                        <field name="specifications"/>
+                        <field name="conform"/>
+                        <field name="not_conform_note" attrs="{'invisible': [('conform', '=', True)]}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

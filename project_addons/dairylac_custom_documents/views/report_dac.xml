@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_dac">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                        <div class="row text-center">
+                            <div class="col-3 border border-dark border-right-0">
+                                <span t-field="o.company_id.logo"/>
+                            </div>
+                            <div class="col-6 border border-dark border-right-0">
+                                <span>DOCUMENTO DE ACOMPAÑAMIENTO COMERCIAL (DAC)</span>
+                            </div>
+                            <div class="col-3 border border-dark">
+                                <div class="row border border-bottom border-dark border-top-0 border-right-0 border-left-0">
+                                    <span t-esc="o.scheduled_date.strftime('%m-%Y')"/>
+                                </div>
+                                <div class="row border border-bottom border-dark border-top-0 border-right-0 border-left-0">
+                                    <span>Revisión: 1</span>
+                                </div>
+                                <div class="row">
+                                    <span t-field="o.partner_id.code_dac"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <table class="table-sm border border-dark">
+                            <tr>
+                                <td style="background-color: #D1D4D6">FECHA DE EMISIÓN</td>
+                                <td class="border border-left border-bottom border-dark"><span t-esc="o.scheduled_date.strftime('%d-%m-%Y')"/></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #D1D4D6">Nº DAC</td>
+                                <td class="border border-left border-dark"><span t-esc="o.name[-4:]"/></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <span>ESTABLECIMIENTO EMISOR</span>
+                        <table class="table border border-dark">
+                            <tr>
+                                <td class="border-top border-dark" style="background-color: #D1D4D6">Nombre/Razón social:</td>
+                                <td  class="border-top border-dark"><span t-field="o.company_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #D1D4D6">CIF:</td>
+                                <td><span t-field="o.company_id.vat"/></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #D1D4D6">Dirección:</td>
+                                <td><span t-field="o.company_id.street"/></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #D1D4D6">RGSEEA:</td>
+                                <td><span t-field="o.company_id.partner_id.rgseea"/></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <span>IDENTIFICACIÓN DE LA PARTIDA</span>
+                        <table class="table border border-black">
+                            <tr  style="background-color: #D1D4D6">
+                                <td  class="border-left border-dark">Producto</td>
+                                <td>Nº de Lote</td>
+                                <td>Cantidad</td>
+                                <td class="border-right border-dark">Unidades de medida</td>
+                            </tr>
+                            <t t-foreach="o.move_line_ids" t-as="move_id">
+                                <tr class="border-bottom border-dark">
+                                    <td class="border-left border-dark"><span t-field="move_id.product_id"/></td>
+                                    <td><span t-field="move_id.lot_id"/></td>
+                                    <td><span t-field="move_id.qty_done"/></td>
+                                    <td class="border-right border-dark"><span t-field="move_id.product_uom_id"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                        <br/>
+                        <span>Dairylac garantiza que:</span>
+                        <br/>
+                        <t t-if="o.conform">
+                            <span t-esc="'Esta partida SE AJUSTA a la ficha de especificaciones %s' % (o.specifications)"/>
+                        </t>
+                        <t t-else="">
+                            <span t-esc="'Esta partida NO SE AJUSTA a la ficha de especificaciones %s' % (o.specifications)"/>
+                            <br/>
+                            <span>Motivo por el que no se ajusta: </span>
+                            <span t-field="o.not_conform_note"/>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+                string="DAC"
+                id="action_report_dac"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                name="dairylac_custom_documents.report_dac"
+                file="dairylac_custom_documents.report_dac"
+        />
+
+    </data>
+</odoo>
+
