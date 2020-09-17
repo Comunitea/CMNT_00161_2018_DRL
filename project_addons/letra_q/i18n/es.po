@@ -724,3 +724,37 @@ msgstr ""
 msgid "vacuno"
 msgstr ""
 
+#. module: letra_q
+#: code:addons/letra_q/models/letra_q_exporter.py:40
+#, python-format
+msgid "There was a problem creating the file {}"
+msgstr "Ocurrió un problema creando el archivo {}"
+
+#. module: letra_q
+#: code:addons/letra_q/models/letra_q_exporter.py:57
+#, python-format
+msgid "We could not create the file because:\n"
+"%s."
+msgstr "No se ha podido crear el archivo debido a:\n"
+"%s."
+
+#. module: letra_q
+#: code:addons/letra_q/models/letra_q_exporter.py:163
+#, python-format
+msgid "We could not create the line for one move in %s because:\n"
+"%s."
+msgstr "No se ha podido crear la línea para uno de los movimientos en %s debido a:\n"
+"%s."
+
+#. module: letra_q
+#: code:addons/letra_q/models/letra_q_exporter.py:79
+#, python-format
+msgid "We could not create the line for the group %s because:\n"
+"%s."
+msgstr "No se ha podido crear la línea para el grupo %s debido a:\n"
+"%s."
+
+#. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.letra_q_exporter_view_form
+msgid "Letra Q File"
+msgstr "Generar"
