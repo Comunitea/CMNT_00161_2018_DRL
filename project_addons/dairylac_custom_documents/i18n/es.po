@@ -6,14 +6,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-21 08:36+0000\n"
-"PO-Revision-Date: 2020-09-21 08:36+0000\n"
+"POT-Creation-Date: 2020-09-21 14:55+0000\n"
+"PO-Revision-Date: 2020-09-21 14:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "22:50"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "5137KYT R7503BB"
+msgstr ""
 
 #. module: dairylac_custom_documents
 #: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
@@ -66,8 +76,18 @@ msgid "<span>SIST. DE GESTIÓN DE CALIDAD Y SEGURIDAD ALIMENTARIA</span>"
 msgstr ""
 
 #. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "<strong>14/09/2020-12</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
 #: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
 msgid "<strong>CAMIÓN:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "<strong>CENTRO DE LAVADO AUTORIZADO LETRA Q: 0001543</strong>"
 msgstr ""
 
 #. module: dairylac_custom_documents
@@ -171,13 +191,33 @@ msgid "CENTRO LQ:"
 msgstr ""
 
 #. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "CERTIFICADO DE LAVADO DE CISTERNAS"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_weight_letter
+msgid "CERTIFICADO DE PESO DE ARTÍCULOS"
+msgstr ""
+
+#. module: dairylac_custom_documents
 #: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
 msgid "CIF:"
 msgstr ""
 
 #. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "CISTERNAS"
+msgstr ""
+
+#. module: dairylac_custom_documents
 #: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
 msgid "CLIENTE"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "CONDUCTOR"
 msgstr ""
 
 #. module: dairylac_custom_documents
@@ -204,6 +244,11 @@ msgstr ""
 #. module: dairylac_custom_documents
 #: model:ir.actions.report,name:dairylac_custom_documents.action_report_dac
 msgid "DAC"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "DATOS DE LAVADO DE LA CISTERNA"
 msgstr ""
 
 #. module: dairylac_custom_documents
@@ -238,6 +283,11 @@ msgid "FECHA:"
 msgstr ""
 
 #. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "FECHA: l"
+msgstr ""
+
+#. module: dairylac_custom_documents
 #: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
 msgid "FIRMA Y SELLO DEL CLIENTE"
 msgstr ""
@@ -263,6 +313,11 @@ msgid "Ficha de especificaciones"
 msgstr ""
 
 #. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "HORA:"
+msgstr ""
+
+#. module: dairylac_custom_documents
 #: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
 msgid "LOTES"
 msgstr ""
@@ -275,6 +330,11 @@ msgstr ""
 #. module: dairylac_custom_documents
 #: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_analitic_certificate
 msgid "Lote"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "MATRICULAS"
 msgstr ""
 
 #. module: dairylac_custom_documents
@@ -385,6 +445,11 @@ msgid "TRANSPORTE"
 msgstr ""
 
 #. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "TRANSPORTES GONZALO EXPOSITO SL"
+msgstr ""
+
+#. module: dairylac_custom_documents
 #: model:ir.model,name:dairylac_custom_documents.model_stock_picking
 msgid "Transfer"
 msgstr "Albarán"
@@ -392,5 +457,20 @@ msgstr "Albarán"
 #. module: dairylac_custom_documents
 #: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
 msgid "Unidades de medida"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.actions.report,name:dairylac_custom_documents.action_report_wash_model
+msgid "Wash model"
+msgstr "Certificado de lavado"
+
+#. module: dairylac_custom_documents
+#: model:ir.actions.report,name:dairylac_custom_documents.action_report_weight_letter
+msgid "Weight letter"
+msgstr "Certificado de peso"
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_wash_model
+msgid "lunes, 14 de septiembre de 2020"
 msgstr ""
 

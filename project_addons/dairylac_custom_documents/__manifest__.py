@@ -23,6 +23,8 @@
         "views/report_dac.xml",
         "views/report_templates.xml",
         "views/port_letter.xml",
+        "views/wash_letter.xml",
+        "views/weight_letter.xml",
         "views/stock_view.xml",
         "views/report_analityc_certificate.xml",
     ],
