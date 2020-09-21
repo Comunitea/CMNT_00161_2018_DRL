@@ -65,15 +65,43 @@ class StockPicking(models.Model):
             if ml.registry_line_id_qty:
                 res['kg'] = ml.registry_line_id_qty
             
+            i = 0
             if self.qc_inspections_ids:
                 qc = self.qc_inspections_ids[0]  # TODO elegir cual
                 qc_str = ''
+                res['qc_par'] = []
+                res['qc_impar'] = []
+                
+                # Metodo string
                 for line in qc.inspection_lines:
                     value = str(line.qualitative_value and 
                         line.qualitative_value.name or 
                         line.quantitative_value)
                     qc_str += line.name + ' (' + value + ') - '+ '\n'
+
+                # Método tabla
+                res['qc_par'] = []
+                res['qc_impar'] = []
+                i = 0
+                tot = len(qc.inspection_lines)
+                limit = 14
+                if tot < limit:
+                    limit = tot
+                for line in qc.inspection_lines[:limit]:
+                    if i % 2 == 0:
+                        res['qc_par'] += line
+                    else:
+                        res['qc_impar'] += line
+                    i += 1
+                if i % 2 != 0:
+                    res['qc_impar'].append(False)
+
+
                 res['inspection_lines'] = qc_str
+            
+               
+
+                
 
             # TICKET BÁSCULA
             if wr.check_in_weight:

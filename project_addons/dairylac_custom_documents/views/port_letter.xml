@@ -196,11 +196,36 @@
                                             <span t-esc="rep['kg']"/>
                                         </div>
                                     </div>
-                                    <div class="row row-table">
-                                       
-                                            
-                                            <span t-esc="rep['inspection_lines']"/>
-                                    </div>
+
+                                    <!-- MÉTODO STRING -->
+                                    <!-- <div class="row row-table">    
+                                        <span t-esc="rep['inspection_lines']"/>
+                                    </div> -->
+
+                                    <!-- MÉTODO TABLA -->
+                                    <t t-set="idx" t-value="0"/>
+                                    <t t-foreach="rep['qc_par']" t-as="qc">
+                                        <t t-set="qc2" t-value="rep['qc_impar'][idx]"/>
+                                        <t t-set="idx" t-value="idx+1"/>
+                                        <div class="row qc-table">
+                                            <div class="col-4">
+                                                 <span t-field="qc.name"/>
+                                            </div>
+                                            <div class="col-2">
+                                                <span t-esc="str(qc.qualitative_value and 
+                                                                    qc.qualitative_value.name or 
+                                                                    qc.quantitative_value)"/>
+                                            </div>
+                                            <div t-if="qc2" class="col-4">
+                                                 <span t-field="qc2.name"/>
+                                            </div>
+                                            <div t-if="qc2" class="col-2">
+                                                <span t-esc="str(qc2.qualitative_value and 
+                                                                    qc2.qualitative_value.name or 
+                                                                    qc2.quantitative_value)"/>
+                                            </div>
+                                        </div>
+                                     </t>
                                 </div>
                                 <div  class="custom-customer-cell" style="width:40%;border: 1px solid rgb(121, 121, 121);">
                                     <div class="row row-table">
