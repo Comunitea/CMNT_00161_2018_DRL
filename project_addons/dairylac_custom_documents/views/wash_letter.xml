@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_wash_model">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <t t-foreach="['COPIA PARA LA EMPRESA','COPIA PARA EL TRANSPORTISTA']" t-as="COPY_TEXT">
+                            <div class="page"  style="page-break-before:always;">
+                                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                                <t t-set="rep" t-value="o.get_letter_values()"/>
+
+                                <table class="custom-table-bordered"  width="100%"> 
+                                    <tr> 
+                                        <th width="100%"><strong>CERTIFICADO DE LAVADO DE CISTERNAS</strong> </th>
+                                    </tr> 
+                                </table>  
+                                
+                                <br/>
+                                <table class="custom-table-no-bordered" width="100%"> 
+                                    <tr> 
+                                        <td width="80%">CENTRO DE LAVADO AUTORIZADO LETRA Q: 0001543</td>
+                                        <th width="20%">14/09/2020-12</th>
+                                    </tr> 
+                                </table>  
+
+                                <br/>
+                                <table class="custom-table-bordered"  width="100%"> 
+                                    <tr> 
+                                        <td width="20%">FECHA:</td>
+                                        <td width="40%">lunes, 14 de septiembre de 2020</td>
+                                        <td width="20%">HORA:</td>
+                                        <td width="20%">22:50</td>
+                                    </tr> 
+                                </table>  
+
+
+                                <br/>
+                                <table class="custom-table-bordered"  width="100%"> 
+                                    <tr style="text-align:center;"> 
+                                        <td colspan="2"> DATOS DE LAVADO DE LA CISTERNA </td>
+                                    </tr> 
+                                    <tr> 
+                                        <td width="30%">MATRICULAS </td>
+                                        <td width="70%">5137KYT R7503BB</td>
+                                    </tr> 
+                                    <tr> 
+                                        <td width="30%">CISTERNAS </td>
+                                        <td width="70%"></td>
+                                    </tr> 
+                                    <tr > 
+                                        <td width="30%">CONDUCTOR </td>
+                                        <td width="70%">TRANSPORTES GONZALO EXPOSITO SL </td>
+                                    </tr> 
+                                </table>  
+
+
+                                <br/>
+                                <table class="custom-table-bordered"  width="100%"> 
+                                    <tr style="text-align:center;"> 
+                                        <td colspan="2"> NATURALEZA DE LA CARGA ANTERIOR </td>
+                                    </tr> 
+                                    <tr style="text-align:center;"> 
+                                        <td colspan="2"> LACTOSUERO CONCENTRADO DESNATADO </td>
+                                    </tr> 
+                                    <tr> 
+                                        <td width="20%">LAVADO</td>
+                                        <td width="80%">CICLO CIP - CORTO</td>
+                                    </tr> 
+                                    <tr> 
+                                        <td colspan="2" style="height:200px !important; vertical-align: top;">
+                                        1º Aclarado con agua recuperada<br/>
+                                        1º Aclarado con agua recuperada<br/>
+                                        1º Aclarado con agua recuperada<br/>
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td width="30%">OPERARIO DE CONTROL DE LIMPIEZA</td>
+                                        <td width="70%">SANTIAGO COTON REY</td>
+                                    </tr> 
+                                </table>  
+                                <br/>
+                                <br/>
+
+                                <table class="custom-table-bordered"  width="100%"> 
+                                
+                                    <tr> 
+                                        <th width="50%">DAIRYLAC, S.L.</th>
+                                        <th width="50%">TRANSPORTISTA</th>
+                                    </tr> 
+                                    <tr style="height:100px !important"> 
+                                        <td width="50%"></td>
+                                        <td width="50%" style="vertical-align:bottom; padding-bottom:10px; font-size:11px">fdo: VAZQUEZ FERNANDEZ JOSE ENRIQUE nif:3425136E</td>
+                                    </tr> 
+                                
+                                </table>
+                                <div class="copy-text">
+                                        <span t-esc="COPY_TEXT"></span>
+                                </div>  
+
+                            </div>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+                string="Wash model"
+                id="action_report_wash_model"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                name="dairylac_custom_documents.report_wash_model"
+                file="dairylac_custom_documents.report_wash_model"
+        />
+
+    </data>
+</odoo>
+

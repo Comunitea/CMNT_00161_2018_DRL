@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_weight_letter">
+                        <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <t t-foreach="['COPIA PARA LA EMPRESA','COPIA PARA EL TRANSPORTISTA']" t-as="COPY_TEXT">
+                            <div class="page"  style="page-break-before:always;">
+                                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                                <t t-set="rep" t-value="o.get_letter_values()"/>
+
+                                <table class="custom-table-bordered"  width="100%"> 
+                                    <tr> 
+                                        <th width="100%"><strong>CERTIFICADO DE PESO DE ARTÍCULOS</strong> </th>
+                                    </tr> 
+                                </table>  
+                                
+                                <br/>
+                                <table class="custom-table-no-bordered" width="100%"> 
+                                    <tr> 
+                                        <td width="80%">CENTRO DE LAVADO AUTORIZADO LETRA Q: 0001543</td>
+                                        <th width="20%">14/09/2020-03</th>
+                                    </tr> 
+                                </table>  
+
+                                <br/>
+                                <table class="custom-table-bordered"  width="100%"> 
+                                    <tr> 
+                                        <td width="20%">FECHA:</td>
+                                        <td width="40%">lunes, 14 de septiembre de 2020</td>
+                                        <td width="20%">HORA:</td>
+                                        <td width="20%">22:50</td>
+                                    </tr> 
+                                </table>  
+
+
+                                <br/>
+                                <table class="custom-table-bordered"  width="100%"> 
+                                    <tr style="text-align:center;"> 
+                                        <td colspan="2"> DATOS DEL VEHÍCULO </td>
+                                    </tr> 
+                                    <tr> 
+                                        <td width="30%">TRANSPORTO </td>
+                                        <td width="70%">5137KYT R7503BB</td>
+                                    </tr> 
+                                    <tr> 
+                                        <td width="30%">MATRICULA </td>
+                                        <td width="70%">9406JHR R5172BCH</td>
+                                    </tr> 
+                                    <tr> 
+                                        <td width="30%">CISTERNAS </td>
+                                        <td width="70%"></td>
+                                    </tr> 
+                                    <tr > 
+                                        <td width="30%">CONDUCTOR </td>
+                                        <td width="70%">JUAN DANIEL</td>
+                                    </tr> 
+                                </table>  
+
+
+                                <br/>
+                                <table class="custom-table-bordered"  width="100%"> 
+                                    <tr style="text-align:center;"> 
+                                        <td colspan="2">ARTÍCULO PESADO </td>
+                                    </tr> 
+                                    <tr style="text-align:center;"> 
+                                        <td colspan="2"> LODOS DEPURADORA </td>
+                                    </tr> 
+                                    <tr> 
+                                        <td colspan="2" style="height:200px !important; vertical-align: top;">
+                                        EL VEHÍCULO ARRIBA INDICADO, HA SIDO PESADO EN NUESTRAS INSTALACIONES
+                                        REGISTRANDO LOS PESOS SIGUIENTES :<br/>
+                                        PESO INICIAL : 18.700 Kg.<br/>
+                                        PESO FINAL : 18.700 Kg.<br/>
+                                        PESO NETO : 18.700 Kg.<br/>
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td width="30%">OPERARIO</td>
+                                        <td width="70%">MARCOS</td>
+                                    </tr> 
+                                </table>  
+                                <br/>
+                                <br/>
+
+                                <table class="custom-table-bordered"  width="100%"> 
+                                
+                                    <tr> 
+                                        <th width="50%">DAIRYLAC, S.L.</th>
+                                        <th width="50%">TRANSPORTISTA</th>
+                                    </tr> 
+                                    <tr style="height:100px !important"> 
+                                        <td width="50%" style="vertical-align:bottom; padding-bottom:10px; font-size:11px">fdo: MARCOS</td>
+                                        <td width="50%" style="vertical-align:bottom; padding-bottom:10px; font-size:11px">fdo:  JUAN DANIEL</td>
+                                    </tr> 
+                                
+                                </table>
+                                <div class="copy-text">
+                                    <span t-esc="COPY_TEXT"></span>
+                                </div>  
+
+                            </div>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+                string="Weight letter"
+                id="action_report_weight_letter"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                name="dairylac_custom_documents.report_weight_letter"
+                file="dairylac_custom_documents.report_weight_letter"
+        />
+
+    </data>
+</odoo>
+
