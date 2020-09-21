@@ -17,6 +17,14 @@
         <field name="arch" type="xml">
             <form string="Letra Q exportationn">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="create_letra_q_file"
+                            string="Letra Q File"
+                            icon="fa-file"
+                            class="oe_stat_button"
+                            type="object"/>
+                    </div>
                     <group>
                         <field name="name"/>
                         <field name="user_id"/>
