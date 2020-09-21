@@ -37,11 +37,12 @@ class StockPicking(models.Model):
             'net': '',
             'date': '',
 
-            'precint': '',
+            'precint': '*',
             'lots': '',
             'production': '*',
         }
 
+        # TRANSPORTE
         if self.move_lines and self.move_lines[0].move_line_ids and \
                 self.move_lines[0].move_line_ids[0].registry_line_id:
             ml = self.move_lines[0]
@@ -52,6 +53,7 @@ class StockPicking(models.Model):
                 res['registration'] = wr.vehicle_id.register
                 res['lq_truck'] = wr.vehicle_id.letter_code_q
             
+            # ORIGEN MERCANCÍA
             if ml.product_id:
                 res['product'] = ml.product_id.name
             
@@ -63,6 +65,17 @@ class StockPicking(models.Model):
             if ml.registry_line_id_qty:
                 res['kg'] = ml.registry_line_id_qty
             
+            if self.qc_inspections_ids:
+                qc = self.qc_inspections_ids[0]  # TODO elegir cual
+                qc_str = ''
+                for line in qc.inspection_lines:
+                    value = str(line.qualitative_value and 
+                        line.qualitative_value.name or 
+                        line.quantitative_value)
+                    qc_str += line.name + ' ' + value + '<br/>'
+                res['inspection_lines'] = qc_str
+
+            # TICKET BÁSCULA
             if wr.check_in_weight:
                 res['in'] = wr.check_in_weight
             if wr.check_out_weight:
@@ -70,7 +83,7 @@ class StockPicking(models.Model):
             if wr.net:
                 res['net'] = wr.net
             if wr.check_out:
-                res['date'] = wr.check_out.strftime('%d-%m-%Y %HH:%MM')
+                res['date'] = wr.check_out.strftime('%d-%m-%Y %H:%M')
             
             lots = ml.move_line_ids.mapped('lot_id')
             if lots:

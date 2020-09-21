@@ -197,10 +197,9 @@
                                         </div>
                                     </div>
                                     <div class="row row-table">
-                                        <div class="col-">
+                                       
                                             
-                                            <p><span t-esc="rep['inspection_lines']"/></p> 
-                                        </div>
+                                            <span t-esc="rep['inspection_lines']"/>
                                     </div>
                                 </div>
                                 <div  class="custom-customer-cell" style="width:40%">
