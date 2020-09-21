@@ -145,13 +145,13 @@
                                 </div>
                             </div> 
                             <div class="custom-row">
-                                <div  class="custom-customer-cell" style="width:50%">
+                                <div  class="custom-customer-cell" style="width:50%;border: 1px solid rgb(121, 121, 121);">
                                     <p t-if="o.partner_id.name">     <span t-field="o.partner_id.name"/></p>
                                     <p t-if="o.partner_id.street">   <span t-field="o.partner_id.street"/></p>
                                     <p> <span t-if="o.partner_id.zip" t-field="o.partner_id.zip"/> <span t-if="o.partner_id.city" t-field="o.partner_id.city"/>  <span t-if="o.partner_id.state_id.name" t-field="o.partner_id.state_id.name"/></p>
                                     <p t-if="o.partner_id.vat">      <span>NIF:   </span> <span t-esc="o.partner_id.vat"/></p>
                                 </div>
-                                <div  class="custom-customer-cell" style="width:50%">
+                                <div  class="custom-customer-cell" style="width:50%;border: 1px solid rgb(121, 121, 121);">
                                     <p t-if="o.partner_id.name">     <span t-field="o.partner_id.name"/></p>
                                     <p t-if="o.partner_id.street">   <span t-field="o.partner_id.street"/></p>
                                     <p> <span t-if="o.partner_id.zip" t-field="o.partner_id.zip"/> <span t-if="o.partner_id.city" t-field="o.partner_id.city"/>  <span t-if="o.partner_id.state_id.name" t-field="o.partner_id.state_id.name"/></p>
@@ -171,7 +171,7 @@
                                 </div>
                             </div> 
                             <div class="custom-row">
-                                <div  class="custom-customer-cell" style="width:60%">
+                                <div  class="custom-customer-cell" style="width:60%;border: 1px solid rgb(121, 121, 121);">
                                     <div class="row row-table">
                                         <div class="col-5">
                                             <strong>MERCANCÍA:</strong>
@@ -202,7 +202,7 @@
                                             <span t-esc="rep['inspection_lines']"/>
                                     </div>
                                 </div>
-                                <div  class="custom-customer-cell" style="width:40%">
+                                <div  class="custom-customer-cell" style="width:40%;border: 1px solid rgb(121, 121, 121);">
                                     <div class="row row-table">
                                         <div class="col-5">
                                             <strong>MATRÍCULA(S) :</strong>

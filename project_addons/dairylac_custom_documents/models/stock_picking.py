@@ -72,7 +72,7 @@ class StockPicking(models.Model):
                     value = str(line.qualitative_value and 
                         line.qualitative_value.name or 
                         line.quantitative_value)
-                    qc_str += line.name + ' ' + value + '<br/>'
+                    qc_str += line.name + ' (' + value + ') - '+ '\n'
                 res['inspection_lines'] = qc_str
 
             # TICKET BÁSCULA
