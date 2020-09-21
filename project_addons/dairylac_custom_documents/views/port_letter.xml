@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_port_letter">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                        <t t-set="rep" t-value="o.get_letter_values()"/>
+                            
+                        <h3>CARTA DE PORTE (C.M.)</h3>
+                        <!-- <br/> -->
+                        <div class="row">
+                            <div class="col-3">
+                                <strong>Nº: <span t-field="o.name"/> </strong>
+                            </div>
+                            <div class="col-3">
+                                <strong>FECHA: <span t-esc="o.scheduled_date.strftime('%d-%m-%Y')"/> </strong>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="custom-table">
+                            <div class="custom-th">
+                                    REMITENTE
+                            </div>
+                        </div>
+            
+                            <div class="row row-table">
+                            <div class="col-2">
+                                <strong>NOMBRE:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-field="o.company_id.name"/>
+                            </div>
+                            <div class="col-2">
+                                <strong>NIF:</strong>
+                            </div>
+                            <div class="col-2 text-center">
+                                <span t-field="o.company_id.vat"/>
+                            </div>
+                        </div>
+                            <div class="row row-table">
+                            <div class="col-2">
+                                <strong>DIRECCIÓN:</strong>
+                            </div>
+                            <div class="col-6">
+                                <p><span t-if="o.company_id.street" t-field="o.company_id.street"/>  <span t-if="o.company_id.city" t-field="o.company_id.city"/> <span t-if="o.company_id.state_id.name" t-field="o.partner_id.state_id.name"/></p>
+                            </div>
+                            <div class="col-2">
+                                <strong>TFO.:</strong>
+                            </div>
+                            <div class="col-2 text-center">
+                                <span t-if="o.company_id.phone" t-field="o.company_id.phone"/>
+                            </div>
+                        </div>
+                        <br/>
+
+
+                        <div class="custom-table">
+                            <div class="custom-th">
+                                    TRANSPORTE
+                            </div>
+                        </div>
+            
+                            <div class="row row-table">
+                            <div class="col-2">
+                                <strong>OPERADOR:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-esc="rep['operator']"/>
+                            </div>
+                            <div class="col-2">
+                                
+                            </div>
+                            <div class="col-2 text-center">
+                            </div>
+                        </div>
+                            <div class="row row-table">
+                            <div class="col-2">
+                                <strong>TRANSPORTE:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-esc="rep['transport']"/>
+                            </div>
+                            <div class="col-2">
+                                <strong>NIF:</strong>
+                            </div>
+                            <div class="col-2 text-center">
+                                <span t-esc="rep['nif_transport']"/>
+                            </div>
+                        </div>
+                            <div class="row row-table">
+                            <div class="col-2">
+                                <strong>CONDUCTOR:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-esc="rep['driver']"/>
+                            </div>
+                            <div class="col-2">
+                                <strong>NIF:</strong>
+                            </div>
+                            <div class="col-2 text-center">
+                                <span t-esc="rep['nif_driver']"/>
+                            </div>
+                        </div>
+                            <div class="row row-table">
+                            <div class="col-2">
+                                <strong>CAMIÓN:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-esc="rep['truck']"/>
+                            </div>
+                            <div class="col-2">
+                                <strong>CISTERNA LQ: </strong>
+                            </div>
+                            <div class="col-2 text-center">
+                                <span t-esc="rep['lq_truck']"/>
+                            </div>
+                        </div>
+                            <div class="row row-table">
+                            <div class="col-2">
+                                <strong>REMOLQUE:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-esc="rep['trailer']"/>
+                            </div>
+                            <div class="col-2">
+                                <strong>CISTERNA LQ: </strong>
+                            </div>
+                            <div class="col-2 text-center">
+                                <span t-esc="rep['lq_trailer']"/>
+                            </div>
+                        </div>
+                        <br/>
+                        
+            
+                        <div class="custom-table">
+                            <div class="custom-row">
+                                <div class="custom-th">
+                                        CLIENTE
+                                </div>
+                                <div class="custom-th">
+                                        DIRECCIÓN DE ENTREGA
+                                </div>
+                            </div> 
+                            <div class="custom-row">
+                                <div  class="custom-customer-cell" style="width:50%">
+                                    <p t-if="o.partner_id.name">     <span t-field="o.partner_id.name"/></p>
+                                    <p t-if="o.partner_id.street">   <span t-field="o.partner_id.street"/></p>
+                                    <p> <span t-if="o.partner_id.zip" t-field="o.partner_id.zip"/> <span t-if="o.partner_id.city" t-field="o.partner_id.city"/>  <span t-if="o.partner_id.state_id.name" t-field="o.partner_id.state_id.name"/></p>
+                                    <p t-if="o.partner_id.vat">      <span>NIF:   </span> <span t-esc="o.partner_id.vat"/></p>
+                                </div>
+                                <div  class="custom-customer-cell" style="width:50%">
+                                    <p t-if="o.partner_id.name">     <span t-field="o.partner_id.name"/></p>
+                                    <p t-if="o.partner_id.street">   <span t-field="o.partner_id.street"/></p>
+                                    <p> <span t-if="o.partner_id.zip" t-field="o.partner_id.zip"/> <span t-if="o.partner_id.city" t-field="o.partner_id.city"/>  <span t-if="o.partner_id.state_id.name" t-field="o.partner_id.state_id.name"/></p>
+                                    <p t-if="o.partner_id.vat">      <span>NIF:   </span> <span t-field="o.partner_id.vat"/>            CENTRO LQ: <span t-esc="rep['lq_center']"/></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br/>
+                        <div class="custom-table">
+                            <div class="custom-row">
+                                <div class="custom-th">
+                                        ORIGEN MERCANCIA
+                                </div>
+                                <div class="custom-th">
+                                        TICKET BASCULA
+                                </div>
+                            </div> 
+                            <div class="custom-row">
+                                <div  class="custom-customer-cell" style="width:60%">
+                                    <div class="row row-table">
+                                        <div class="col-5">
+                                            <strong>MERCANCÍA:</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <span t-esc="rep['product']"/>
+                                        </div>
+                                    </div>
+                                    <div class="row row-table">
+                                        <div class="col-5">
+                                            <strong>SILOS ORIGEN:</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <span t-esc="rep['orig_silo']"/>
+                                        </div>
+                                    </div>
+                                    <div class="row row-table">
+                                        <div class="col-5">
+                                            <strong>KILOS:</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <span t-esc="rep['kg']"/>
+                                        </div>
+                                    </div>
+                                    <div class="row row-table">
+                                        <div class="col-">
+                                            
+                                            <p><span t-esc="rep['inspection_lines']"/></p> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  class="custom-customer-cell" style="width:40%">
+                                    <div class="row row-table">
+                                        <div class="col-5">
+                                            <strong>MATRÍCULA(S) :</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <span t-esc="rep['registration']"/>
+                                        </div>
+                                    </div>
+                                    <div class="row row-table">
+                                        <div class="col-5">
+                                            <strong>ENTRADA:</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <span t-esc="rep['in']"/>
+                                        </div>
+                                    </div>
+                                    <div class="row row-table">
+                                        <div class="col-5">
+                                            <strong>SALIDA:</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <span t-esc="rep['out']"/>
+                                        </div>
+                                    </div>
+                                    <div class="row row-table">
+                                        <div class="col-5">
+                                            <strong>NETO:</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <span t-esc="rep['net']"/>
+                                        </div>
+                                    </div>
+                                    <div class="row row-table">
+                                        <div class="col-5">
+                                            <strong>SALIDA</strong>
+                                        </div>
+                                        <div class="col-6">
+                                        </div>
+                                    </div>
+                                    <div class="row row-table">
+                                        <div class="col-5">
+                                            <strong>FECHA:</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <span t-esc="rep['date']"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="custom-table">
+                            <div class="custom-row">
+                                <div class="custom-th" style="width:33%">
+                                        PRECINTOS
+                                </div>
+                                <div class="custom-th" style="width:33%">
+                                        LOTES
+                                </div>
+                                <div class="custom-th" style="width:33%">
+                                        ORDEN PRODUCCIÓN
+                                </div>
+                            </div> 
+                            <div class="custom-row">
+                                <div class="custom-customer-cell" style="width:33%">
+                                        <span t-esc="rep['precint']"/>
+                                </div>
+                                <div class="custom-customer-cell" style="width:33%">
+                                        <span t-esc="rep['lots']"/>
+                                </div>
+                                <div class="custom-customer-cell" style="width:33%">
+                                        <span t-esc="rep['production']"/>
+                                </div>
+                            </div> 
+                        </div> 
+                        <br/>
+                        <div class="custom-table">
+                            <div class="custom-row">
+                                <div class="custom-th">
+                                        OBSERVACIONES
+                                </div>
+                            </div> 
+                            <div class="custom-customer-cell">
+                                <div class="custom-th">
+                                    <span t-field="o.note"/>
+                                </div>
+                            </div> 
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <div>
+                            <table class="table-bordered" width="100%"> 
+    
+                                <!-- row with fixed height-->
+                                <tr height="100px" style="font-size=10px; width=100%"> 
+                                    <td  width="33%" style="vertical-align:bottom;font-weight:bold; font-size:10px;">FIRMA Y SELLO DEL REMITENTE </td> 
+                                    <td  width="33%" style="vertical-align:bottom;font-weight:bold; font-size:10px;">FIRMA Y SELLO DEL TRANSPORTISTA</td> 
+                                    <td  width="33%" style="vertical-align:bottom;font-weight:bold; font-size:10px;">FIRMA Y SELLO DEL CLIENTE</td> 
+                                </tr> 
+                                
+                                <!-- row without fixed height-->
+                            </table>  
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+                string="Port Letter"
+                id="action_report_port_letter"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                name="dairylac_custom_documents.report_port_letter"
+                file="dairylac_custom_documents.report_port_letter"
+        />
+
+    </data>
+</odoo>
+

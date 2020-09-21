@@ -1,0 +1,43 @@
+// Color de las tablas
+$custom-blue: #153d66;
+.custom-table{
+    display: table;
+    width:100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+.row-table{
+
+    font-size: 12px;
+    line-height: 2em;
+    padding:0px;
+    margin:0px;
+}
+.custom-row{
+    display: table-row;
+}
+.custom-cell{
+    display: table-cell;
+}
+.custom-th{
+    // background-color: #bedeff;
+    // color: white;
+    display: table-cell;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+    padding:0px;
+    margin:0px;
+    border: 1px solid rgb(121, 121, 121);
+}
+
+.custom-customer-cell{
+    display: table-cell;
+    font-size: 12px;
+    line-height: em;
+    padding-top: 4px;
+    padding-left: 2EM;
+    p{
+        margin-bottom: 1px;
+    }
+}

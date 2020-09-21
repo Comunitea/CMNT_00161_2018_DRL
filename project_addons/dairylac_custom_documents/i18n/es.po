@@ -1,0 +1,396 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* dairylac_custom_documents
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-21 08:36+0000\n"
+"PO-Revision-Date: 2020-09-21 08:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "<br/>\n"
+"                            <span>Motivo por el que no se ajusta: </span>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "<br/>\n"
+"                        <span>Dairylac garantiza que:</span>\n"
+"                        <br/>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "<br/>\n"
+"                        <span>ESTABLECIMIENTO EMISOR</span>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "<br/>\n"
+"                        <span>IDENTIFICACIÓN DE LA PARTIDA</span>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_analitic_certificate
+msgid "<span>BOLETÍN DE ANÁLISIS</span>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "<span>DOCUMENTO DE ACOMPAÑAMIENTO COMERCIAL (DAC)</span>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<span>NIF:   </span>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "<span>Revisión: 1</span>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_analitic_certificate
+msgid "<span>SIST. DE GESTIÓN DE CALIDAD Y SEGURIDAD ALIMENTARIA</span>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>CAMIÓN:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>CISTERNA LQ: </strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>CONDUCTOR:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>DIRECCIÓN:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>ENTRADA:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>FECHA:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>KILOS:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>MATRÍCULA(S) :</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>MERCANCÍA:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>NETO:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>NIF:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>NOMBRE:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>OPERADOR:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>REMOLQUE:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>SALIDA:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>SALIDA</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>SILOS ORIGEN:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>TFO.:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "<strong>TRANSPORTE:</strong>"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "CARTA DE PORTE (C.M.)"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "CENTRO LQ:"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "CIF:"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "CLIENTE"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "Cantidad"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.actions.report,name:dairylac_custom_documents.action_report_analitic_certificate
+msgid "Certificado de Analíticas"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.model,name:dairylac_custom_documents.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: dairylac_custom_documents
+#: model:ir.model.fields,field_description:dairylac_custom_documents.field_res_partner__code_dac
+#: model:ir.model.fields,field_description:dairylac_custom_documents.field_res_users__code_dac
+msgid "Código DAC"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.actions.report,name:dairylac_custom_documents.action_report_dac
+msgid "DAC"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "DIRECCIÓN DE ENTREGA"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "Dirección:"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.model.fields,help:dairylac_custom_documents.field_stock_picking__not_conform_note
+msgid "En caso de que la partida NO se ajuste a las especificaciones, indicar el motivo del incumplimiento"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.model.fields,field_description:dairylac_custom_documents.field_stock_picking__specifications
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.view_stock_picking_form
+msgid "Especificaciones"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "FECHA DE EMISIÓN"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "FECHA:"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "FIRMA Y SELLO DEL CLIENTE"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "FIRMA Y SELLO DEL REMITENTE"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "FIRMA Y SELLO DEL TRANSPORTISTA"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_analitic_certificate
+msgid "Fecha"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.model.fields,help:dairylac_custom_documents.field_stock_picking__specifications
+msgid "Ficha de especificaciones"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "LOTES"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_invoice_document_inherit
+msgid "Logo"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_analitic_certificate
+msgid "Lote"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.model.fields,field_description:dairylac_custom_documents.field_stock_picking__not_conform_note
+msgid "Motivo"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "Nombre/Razón social:"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "Nº DAC"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "Nº de Lote"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_analitic_certificate
+msgid "Nº de albarán"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "Nº:"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "OBSERVACIONES"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "ORDEN PRODUCCIÓN"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "ORIGEN MERCANCIA"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "PRECINTOS"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_analitic_certificate
+msgid "Parámetros analizados"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.actions.report,name:dairylac_custom_documents.action_report_port_letter
+msgid "Port Letter"
+msgstr "Carta de porte"
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_analitic_certificate
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "Producto"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "REMITENTE"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.model.fields,field_description:dairylac_custom_documents.field_res_partner__rgseea
+#: model:ir.model.fields,field_description:dairylac_custom_documents.field_res_users__rgseea
+msgid "RGSEEA"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "RGSEEA:"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_analitic_certificate
+msgid "Resultados"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.model.fields,field_description:dairylac_custom_documents.field_stock_picking__conform
+msgid "Se ajusta"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.model.fields,help:dairylac_custom_documents.field_stock_picking__conform
+msgid "Se ajusta a las especificaciones"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "TICKET BASCULA"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_port_letter
+msgid "TRANSPORTE"
+msgstr ""
+
+#. module: dairylac_custom_documents
+#: model:ir.model,name:dairylac_custom_documents.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: dairylac_custom_documents
+#: model_terms:ir.ui.view,arch_db:dairylac_custom_documents.report_dac
+msgid "Unidades de medida"
+msgstr ""
+
