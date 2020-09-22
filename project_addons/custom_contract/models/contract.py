@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models, _
 import odoo.addons.decimal_precision as dp
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class ContractContract(models.Model):
@@ -12,19 +12,43 @@ class ContractContract(models.Model):
     contract_type = fields.Selection(default="sale")
     recurring_invoices = fields.Boolean(default=False)
     price_agreement_ids = fields.One2many(
-        "contract.price.agreement", "contract_id", "Price agreements"
+        "contract.price.agreement", "contract_id", "Price agreements", states={'confirmed': [('readonly', True)]}, copy=True
     )
     delivery_agreement_ids = fields.One2many(
-        "contract.delivery.agreement", "contract_id", "Delivery Dates "
+        "contract.delivery.agreement", "contract_id", "Delivery dates", states={'confirmed': [('readonly', True)]}, copy=True
+    )
+    quality_demand_ids = fields.One2many(
+        "contract.quality.demand", "contract_id", "Quality demands", states={'confirmed': [('readonly', True)]}, copy=True
     )
     state = fields.Selection(
         [("draft", "Draft"), ("confirmed", "Confirmed")],
         readonly=True,
         default="draft",
     )
+    available_product_ids = fields.Many2many(
+        string='Available Products',
+        comodel_name='product.product',
+        compute='_compute_available_product_ids',
+    )
+    sale_order_ids = fields.One2many(
+        "sale.order", "contract_id", "Sale orders"
+    )
+    sale_count = fields.Integer(compute="_compute_sale_count")
+
+    @api.multi
+    def _compute_sale_count(self):
+        for rec in self:
+            rec.sale_count = len(rec.sale_order_ids.filtered(lambda x: x.state in ['sale', 'sent', 'done']))
+
+    @api.multi
+    @api.depends('price_agreement_ids')
+    def _compute_available_product_ids(self):
+        for contract in self:
+            contract.update({
+                'available_product_ids': [(6, 0, contract.price_agreement_ids.mapped('product_id').ids)]
+            })
 
     def validate(self):
-
         for delivery in self.delivery_agreement_ids:
             values = self.prepare_sale_order_vals(delivery)
             so = self.env["sale.order"].create(values)
@@ -57,14 +81,42 @@ class ContractContract(models.Model):
         return {
             "partner_id": self.partner_id.id,
             "partner_shipping_id": delivery_line.partner_shipping_id.id,
-            "requested_date": delivery_line.delivery_date,
+            "commitment_date": delivery_line.delivery_date,
             "contract_id": self.id,
             "payment_mode_id": self.payment_mode_id.id,
             "order_line": [
                 (0, 0, sale_line_vals) for sale_line_vals in sale_line_vals_list
             ],
         }
+    
+    @api.multi
+    def action_show_sales(self):
+        self.ensure_one()
+        tree_view_ref = (
+            'sale.view_order_tree'
+        )
+        form_view_ref = (
+            'sale.view_order_form'
+        )
+        tree_view = self.env.ref(tree_view_ref, raise_if_not_found=False)
+        form_view = self.env.ref(form_view_ref, raise_if_not_found=False)
+        action = {
+            'type': 'ir.actions.act_window',
+            'name': 'Sales',
+            'res_model': 'sale.order',
+            'view_type': 'form',
+            'view_mode': 'tree,kanban,form,calendar,pivot,graph,activity',
+            'domain': [('id', 'in', self.sale_order_ids.ids), ('state', 'in', ('sale', 'sent', 'done'))],
+        }
+        if tree_view and form_view:
+            action['views'] = [(tree_view.id, 'tree'), (form_view.id, 'form')]
+        return action
 
+    @api.multi
+    def _get_related_invoices(self):
+        res = super()._get_related_invoices()
+        res |= self.sale_order_ids.mapped('invoice_ids')
+        return res
 
 class ContractPriceAgreement(models.Model):
 
@@ -74,6 +126,19 @@ class ContractPriceAgreement(models.Model):
     price_unit = fields.Float(digits=dp.get_precision("Product Price"))
     contract_id = fields.Many2one("contract.contract")
 
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        if self.product_id and self.product_id.lst_price:
+            self.price_unit = self.product_id.lst_price
+
+    @api.multi
+    @api.constrains('product_id', 'contract_id')
+    def _check_product_id_contract_id(self):
+        for agreement in self:
+            if agreement.product_id and agreement.contract_id.delivery_agreement_ids and\
+                    agreement.product_id.id in agreement.contract_id.delivery_agreement_ids.mapped('product_id').ids:
+                raise ValidationError(
+                    _('The product is already in the price agreements list.'))
 
 class ContractDeliveryAgreement(models.Model):
 
@@ -92,6 +157,7 @@ class ContractDeliveryAgreement(models.Model):
     contract_id = fields.Many2one("contract.contract")
     partner_shipping_id = fields.Many2one("res.partner", required=True)
     state = fields.Selection(related="contract_id.state")
+    available_product_ids = fields.Many2many(related="contract_id.available_product_ids")
 
     def _compute_quantity_document(self):
         for delivery in self:
@@ -110,8 +176,49 @@ class ContractDeliveryAgreement(models.Model):
 
     @api.depends("product_id", "quantity")
     def _compute_display_name(self):
-
         for partner in self:
             partner.display_name = (
                 partner.product_id.name + ": " + str(partner.quantity)
             )
+
+class ContractQualityDemand(models.Model):
+
+    _name = "contract.quality.demand"
+
+    contract_id = fields.Many2one("contract.contract")
+    product_id = fields.Many2one("product.product", "Product")
+    available_product_ids = fields.Many2many(related="contract_id.available_product_ids")
+    available_qc_test_ids = fields.Many2many(compute="_compute_available_qc_test")
+    qc_test_id = fields.Many2one(
+        "qc.test"
+    )
+    qc_test_question_id = fields.Many2one(
+        "qc.test.question"
+    )
+    price_change = fields.Selection([
+        ('bonus', _('Bonus')),
+        ('discount', _('Discount')),
+    ])
+    comparative_sign = fields.Selection([
+        ('greaterThan', _('>')),
+        ('equal', _('=')),
+        ('lowerThan', _('<')),
+    ])
+    standard_value = fields.Float("Standard Value", digits=dp.get_precision('Quality Control'))
+    tolerance = fields.Float("Tolerance", digits=dp.get_precision('Quality Control'))
+    value = fields.Float("Value", digits=dp.get_precision('Quality Control'))
+
+    @api.depends("product_id")
+    def _compute_available_qc_test(self):
+        for demand in self:
+            if demand.product_id:
+                test_ids = self.env['qc.test'].search([
+                    '|',
+                    ('type', '=', 'generic'),
+                    ('object_id', '!=', False)
+                ]).filtered(lambda x: x.type == 'generic' or x.type == 'related' and \
+                    x.object_id._name == 'product.product' and x.object_id.id == demand.product_id.id)
+
+                demand.update({
+                    'available_qc_test_ids': [(6, 0, test_ids.ids)]
+                })
