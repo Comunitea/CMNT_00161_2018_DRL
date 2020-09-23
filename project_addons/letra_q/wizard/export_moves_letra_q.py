@@ -1,6 +1,7 @@
 # © 2019 Comunitea
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import fields, models
+from odoo import fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class ExportMovesLetraQ(models.TransientModel):
@@ -25,18 +26,35 @@ class ExportMovesLetraQ(models.TransientModel):
                     'name': group_name,
                     'sequence': exportation.get_group_sequence()
                 })
-            if move_line.location_id.location_type_q == '3':
+            if move_line.location_id.location_type_q == '3':   #ORIGEN ES CISTERNA
                 origin_letra_q = move_line.vehicle_id.letter_code_q
                 origin_center = move_line.picking_id.partner_id or move_line.picking_id.company_id.partner_id
-            else:
+            elif move_line.location_id.location_type_q in ('1','2'):   # ORIGEN ES TANQUE O SILO
                 origin_letra_q = move_line.location_id.code_q
                 origin_center = move_line.picking_id.company_id.partner_id
-            if move_line.location_dest_id.location_type_q == '3':
+            else:
+                raise ValidationError(_("Origen no implementado en Letra Q {}".format(move_line.location_id.name)))
+        
+                
+            if move_line.location_dest_id.location_type_q == '3': # DESTINO ES CISTERNA
                 dest_letra_q = move_line.vehicle_id.letter_code_q
                 dest_center = move_line.picking_id.partner_id or move_line.picking_id.company_id.partner_id
-            else:
+                destination = ''
+            elif move_line.location_dest_id.location_type_q in ('1','2'): # DESTINO ES TANQUE O SILO
                 dest_letra_q = move_line.location_dest_id.code_q
                 dest_center = move_line.picking_id.partner_id or move_line.picking_id.company_id.partner_id
+                destination = ''
+            elif move_line.location_dest_id.location_type_q == '4': # DESTINO ES LINEA DE PRODUCCIÓN
+                dest_letra_q = move_line.location_dest_id.code_q
+                dest_center = move_line.picking_id.partner_id or move_line.picking_id.company_id.partner_id
+                destination = move_line.move_id.destination_q
+            elif move_line.location_dest_id.location_type_q == '6': # DESTINO ES RECHAZO
+                dest_letra_q = move_line.location_dest_id.code_q
+                dest_center = move_line.picking_id.partner_id or move_line.picking_id.company_id.partner_id
+                destination = move_line.move_id.destination_q
+            
+            else:
+                raise ValidationError(_("Destino no implementado en Letra Q {}".format(move_line.location_dest_id.name)))
             vals = {
                 'group_id': use_group.id,
                 'move_id': move_line.id,
@@ -54,6 +72,7 @@ class ExportMovesLetraQ(models.TransientModel):
                 'dest_center': dest_center.vat,
                 'dest_country': dest_center.country_id.id,
                 'picking': move_line.picking_id.name,
+                'destination': destination
             }
             self.env['letra.q.exporter.move'].create(vals)
         return {
