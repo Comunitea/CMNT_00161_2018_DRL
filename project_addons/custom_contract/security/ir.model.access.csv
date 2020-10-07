@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_contract_price_agreement,access_contract_price_agreement,model_contract_price_agreement,base.group_user,1,1,1,1
+access_contract_quality_demand,access_contract_quality_demand,model_contract_quality_demand,base.group_user,1,1,1,1

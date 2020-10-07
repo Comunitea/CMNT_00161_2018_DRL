@@ -61,10 +61,12 @@ class StockMove(models.Model):
     def _compute_is_letra_q(self):
         for move in self:
             if move.product_id.subject_q:
-                if move.location_id.location_type_q and \
+                if move.location_id.location_type_q in ('1','2', '3') and \
                         (move.location_dest_id.location_type_q
                         or move.destination_q):
                     move.is_letra_q = True
+                else:
+                    move.is_letra_q = False
             else:
                 move.is_letra_q = False
 
@@ -105,12 +107,14 @@ class StockMoveLine(models.Model):
         'location_dest_id.location_type_q',
         'product_id.subject_q')
     def _compute_is_letra_q(self):
-        for move in self:
+         for move in self:
             if move.product_id.subject_q:
-                if move.location_id.location_type_q and \
+                if move.location_id.location_type_q in ('1','2', '3') and \
                         (move.location_dest_id.location_type_q
                         or move.move_id.destination_q):
                     move.is_letra_q = True
+                else:
+                    move.is_letra_q = False
             else:
                 move.is_letra_q = False
 

@@ -13,17 +13,19 @@ class LetraQExporter(models.Model):
 
     name = fields.Char(default=lambda r: fields.Date.today())
     user_id = fields.Many2one('res.users', default=lambda r: r.env.user.id)
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.user.company_id)
+
     letra_q_groups = fields.One2many('letra.q.exporter.group', 'exporter_id')
 
     def get_group_sequence(self):
         return self.letra_q_groups and max(self.mapped('letra_q_groups.sequence')) + 1 or 1
 
     def get_letra_q_file_name(self):
-        user_vat = "{}".format(self.user_id.partner_id.vat.replace('-','').replace('_','') or "NOVAT").zfill(9)
+        company_vat = "{}".format(self.company_id.vat.replace('-','').replace('_','') or "NOVAT").zfill(9)
         lqcode = "{}".format("000000").zfill(7) # letra q code 5 digits + 2 control digits
         date_file = "{}".format(datetime.now().strftime('%Y%m%d'))
         seq = "{}".format("001").zfill(3) # Position in files generated on the same day
-        return "MOV{}{}.TXT".format(user_vat,lqcode,date_file,seq)
+        return "MOV{}{}.TXT".format(company_vat,lqcode,date_file,seq)
 
     @api.multi
     def create_letra_q_file(self):
@@ -112,8 +114,9 @@ class LetraQExporterMove(models.Model):
          ('6', 'rechazo'),
          ('7', 'intermediario'),
          ('8', 'agente nacional')], required=True)
-    dest_q_code = fields.Char(required=True)
+    dest_q_code = fields.Char()
     dest_center = fields.Char()
+    destination = fields.Char()
     dest_country = fields.Many2one('res.country', required=True)
     picking = fields.Char(size=100)
     notes = fields.Text(size=300)
@@ -145,7 +148,7 @@ class LetraQExporterMove(models.Model):
             line += "{}#".format("") # VAT of the operator who rented the deposit in destination
             line += "{}#".format(self.dest_country.letra_q_code if self.dest_country.letra_q_code else "")
             line += "{}#".format("") # Plates of the tanker lorry in destination
-            line += "{}#".format("") # Destination. Production line or dejected
+            line += "{}#".format(self.destination if self.destination else "")
             line += "{}#".format("") # Needed if refected: Place code.
             line += "{}#".format("") # Needed if refected: Reason.
             line += "{}#".format(self.picking[:100] if self.picking else "")

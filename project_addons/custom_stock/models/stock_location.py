@@ -8,6 +8,9 @@ class StockLocation(models.Model):
 
     _inherit = 'stock.location'
 
+    capacity = fields.Float(
+        string='Capacity')
+
     def _prepare_production_vals(self, product, location, qty):
         """
         Valores para la produción que representa una mezcla en el silo

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-22 13:46+0000\n"
-"PO-Revision-Date: 2019-04-22 13:46+0000\n"
+"POT-Creation-Date: 2020-09-22 13:36+0000\n"
+"PO-Revision-Date: 2020-09-22 13:36+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,85 +16,293 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: custom_contract
-#: model:ir.model,name:custom_contract.model_account_analytic_account
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_analytic_account_id
-msgid "Analytic Account"
-msgstr "Cuenta analítica"
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__available_product_ids
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__available_product_ids
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__available_product_ids
+msgid "Available Products"
+msgstr "Productos disponibles"
 
 #. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_create_uid
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__available_qc_test_ids
+msgid "Available Qc Test"
+msgstr "Test disponibles"
+
+#. module: custom_contract
+#: code:addons/custom_contract/models/contract.py:199
+#: selection:contract.quality.demand,price_change:0
+#, python-format
+msgid "Bonus"
+msgstr "Incremento"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__comparative_sign
+msgid "Comparative Sign"
+msgstr "Comparación"
+
+#. module: custom_contract
+#: model_terms:ir.ui.view,arch_db:custom_contract.contract_sale_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: custom_contract
+#: selection:contract.contract,state:0
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: custom_contract
+#: model:ir.model,name:custom_contract.model_contract_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__contract_id
+#: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__contract_id
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__contract_id
+#: model:ir.model.fields,field_description:custom_contract.field_sale_order__contract_id
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: custom_contract
+#: model:ir.actions.act_window,name:custom_contract.open_deliver_calendar
+#: model:ir.ui.menu,name:custom_contract.menu_open_draft_deliveries_contract
+msgid "Contract Deliveries"
+msgstr "Entregas"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__contract_type
+msgid "Contract Type"
+msgstr "Tipo de contrato"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__create_uid
+#: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__create_uid
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_create_date
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__create_date
+#: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__create_date
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_display_name
+#: selection:contract.contract,contract_type:0
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__delivery_date
+msgid "Delivery Date"
+msgstr "Fecha de entrega"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__delivery_agreement_ids
+msgid "Delivery dates"
+msgstr "Fechas de entrega"
+
+#. module: custom_contract
+#: code:addons/custom_contract/models/contract.py:200
+#: selection:contract.quality.demand,price_change:0
+#, python-format
+msgid "Discount"
+msgstr "Descuento"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__display_name
+#: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__display_name
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: custom_contract
-#: code:addons/custom_contract/models/sale.py:25
+#: selection:contract.contract,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: custom_contract
+#: model_terms:ir.ui.view,arch_db:custom_contract.view_contract_delivery_calendar
+#: model_terms:ir.ui.view,arch_db:custom_contract.view_contract_delivery_form
+msgid "Draft Deliveries"
+msgstr "Entregas en borrador"
+
+#. module: custom_contract
+#: code:addons/custom_contract/models/contract.py:174
+#: code:addons/custom_contract/models/sale.py:32
 #, python-format
 msgid "El producto no se encuentra en el contrato."
-msgstr "El producto no se encuentra en el contrato."
+msgstr ""
 
 #. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_id
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__id
+#: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__id
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement___last_update
+#: model:ir.model,name:custom_contract.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Linea de factura"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement____last_update
+#: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement____last_update
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand____last_update
 msgid "Last Modified on"
-msgstr "Última Modificación en"
+msgstr "Última modificación en"
 
 #. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_write_uid
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__write_uid
+#: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__write_uid
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__write_uid
 msgid "Last Updated by"
-msgstr "Última actualización de"
+msgstr "Última actualización por"
 
 #. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_write_date
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__write_date
+#: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__write_date
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__write_date
 msgid "Last Updated on"
-msgstr "Última Actualización el"
+msgstr "Última actualización el"
 
 #. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_price_unit
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__partner_shipping_id
+msgid "Partner Shipping"
+msgstr "Entrega"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__price_change
+msgid "Price Change"
+msgstr "Cambio en el precio"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__price_unit
 msgid "Price Unit"
 msgstr "Precio unitario"
 
 #. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_ids
-#: model:ir.model.fields,field_description:custom_contract.field_project_project_price_agreement_ids
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__price_agreement_ids
 msgid "Price agreements"
-msgstr "Price agreements"
+msgstr "Precios acordados"
 
 #. module: custom_contract
-#: model:ir.model.fields,field_description:custom_contract.field_account_analytic_account_price_agreement_product_id
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__product_id
+#: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__product_id
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__product_id
 msgid "Product"
 msgstr "Producto"
 
 #. module: custom_contract
-#: model:ir.ui.view,arch_db:custom_contract.account_analytic_account_sale_form
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__qc_test_id
+msgid "Qc Test"
+msgstr "Test"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__qc_test_question_id
+msgid "Qc Test Question"
+msgstr "Pregunta"
+
+#. module: custom_contract
+#: model_terms:ir.ui.view,arch_db:custom_contract.contract_sale_form
+msgid "Quality Demands"
+msgstr "Calidad "
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__quality_demand_ids
+msgid "Quality demands"
+msgstr "Exigencias de calidad"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__quantity_document
+msgid "Quantity Document"
+msgstr ""
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__recurring_invoices
+msgid "Recurring Invoices"
+msgstr "Facturas recurrentes"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__sale_count
+msgid "Sale Count"
+msgstr "Ventas"
+
+#. module: custom_contract
+#: model:ir.model,name:custom_contract.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__sale_order_ids
+msgid "Sale orders"
+msgstr "Pedidos"
+
+#. module: custom_contract
+#: model_terms:ir.ui.view,arch_db:custom_contract.contract_sale_form
 msgid "Sales"
 msgstr "Ventas"
 
 #. module: custom_contract
+#: model:ir.model,name:custom_contract.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Ventas. Anticipo pago factura"
+
+#. module: custom_contract
 #: model:ir.model,name:custom_contract.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de pedido de ventas"
+msgstr "Línea de pedido de venta"
 
 #. module: custom_contract
-#: model:ir.model,name:custom_contract.model_account_analytic_account_price_agreement
-msgid "account.analytic.account.price.agreement"
-msgstr "account.analytic.account.price.agreement"
+#: model_terms:ir.ui.view,arch_db:custom_contract.contract_sale_form
+msgid "Set to Draft"
+msgstr "Cambiar a borrador"
 
 #. module: custom_contract
-#: model:ir.model,name:custom_contract.model_account_analytic_invoice_line
-msgid "account.analytic.invoice.line"
-msgstr "account.analytic.invoice.line"
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__standard_value
+msgid "Standard Value"
+msgstr "Valor estándar"
 
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__state
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__state
+msgid "State"
+msgstr "Estado"
+
+#. module: custom_contract
+#: selection:contract.contract,contract_type:0
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: custom_contract
+#: code:addons/custom_contract/models/contract.py:141
+#, python-format
+msgid "The product is already in the price agreements list."
+msgstr "El producto ya se encuentra en el listado de precios acordados."
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__tolerance
+msgid "Tolerance"
+msgstr "Tolerancia"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__value
+msgid "Value"
+msgstr "Valor"
+
+#. module: custom_contract
+#: model:ir.model,name:custom_contract.model_contract_delivery_agreement
+msgid "contract.delivery.agreement"
+msgstr ""
+
+#. module: custom_contract
+#: model:ir.model,name:custom_contract.model_contract_price_agreement
+msgid "contract.price.agreement"
+msgstr ""
+
+#. module: custom_contract
+#: model:ir.model,name:custom_contract.model_contract_quality_demand
+msgid "contract.quality.demand"
+msgstr ""

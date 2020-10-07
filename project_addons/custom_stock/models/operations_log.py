@@ -57,7 +57,7 @@ class OperationsLogMove(models.Model):
         'Destino producción')
     destination_q_scrap = fields.Selection(
         [('10', 'Esparcimiento en tierra'),
-        ('9', 'Combustible'),
+         ('9', 'Combustible'),
          ('11', 'Fábrica de alimento de animales de compañía'),
          ('12', 'Fabricación de abonos y enmiendas del suelo'),
          ('13', 'Planta de biogás'),
@@ -68,9 +68,9 @@ class OperationsLogMove(models.Model):
     move_type = fields.Selection(
         string='Move Type',
         selection=[
-            ('to_production', 'Salida a Production'), 
-            ('from_production', 'Entrada desde Production'), 
-            ('move', 'Silo o Tanque'),
+            ('to_production', 'Salida a Producciónn'), 
+            ('from_production', 'Entrada desde Producción'), 
+            ('move', 'Movs. entre silos o tanques'),
             ('scrap', 'Rechazo',)
             ],
         default='to_production',
@@ -98,6 +98,12 @@ class OperationsLogMove(models.Model):
         domain="[('product_id', '=', product_id)]",
         context="{'default_product_id': product_id}"
     )
+    project_id = fields.Many2one(
+        string='Proyecto',
+        comodel_name='project.project',
+        ondelete='restrict',
+    )
+    
     message = fields.Char(
         string='Message'
     )   
@@ -191,15 +197,43 @@ class OperationsLogMove(models.Model):
         self.env['stock.move'].create(vals)
         picking_id.action_confirm()
         picking_id.action_assign()
-        #picking_id.action_done()
         if self.emptied:
             picking_id.move_line_ids.write({'emptied': True})
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'stock.picking',
-            'res_id': picking_id.id,
-            'view_mode': 'form',
-            'view_type': 'form',
-            'view_id': self.env.ref('stock.view_picking_form').id,
-            'target': 'current',
-        }
+            
+            
+        
+        pick_to_backorder = self.env['stock.picking']
+        pick_to_do = self.env['stock.picking']
+        
+            # If still in draft => confirm and assign
+            
+        if picking_id.state != 'assigned':
+            raise UserError(_("Could not reserve all requested products. Please use the \'Mark as Todo\' button to handle the reservation manually."))
+        for move in picking_id.move_lines.filtered(lambda m: m.state not in ['done', 'cancel']):
+            for move_line in move.move_line_ids:
+                move_line.qty_done = move_line.product_uom_qty
+                if self.new_lot_id:
+                    move_line.lot_id = self.new_lot_id.id
+        picking_id.action_done()
+        
+        # return {
+        #     'type': 'ir.actions.act_window',
+        #     'res_model': 'stock.picking',
+        #     'res_id': picking_id.id,
+        #     'view_mode': 'form',
+        #     'view_type': 'form',
+        #     'view_id': self.env.ref('stock.view_picking_form').id,
+        #     'target': 'current',
+        # }
+        
+        if self.project_id:
+            self.env['account.analytic.line'].create({
+                'name': "Operacion %s - %s" % (picking_id.name, self.operations_log_id.name),
+                'account_id': self.project_id.analytic_account_id.id,
+                'product_id': self.product_id.id,
+                'unit_amount': -1 *self.quantity,
+                'date': self.date_done,
+                'product_uom_id': self.product_id.uom_id.id,
+                'amount': -1 * self.product_id.standard_price * self.quantity,
+                
+            })

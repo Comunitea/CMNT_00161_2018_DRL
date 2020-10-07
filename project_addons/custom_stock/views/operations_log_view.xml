@@ -32,7 +32,8 @@
                                     <field name="destination_q_prod"  attrs="{'required':[('move_type', '=', 'to_production')], 'invisible':[('move_type', '!=', 'to_production')]}"/>
                                     <field name="destination_q_scrap"  attrs="{'required':[('move_type', '=', 'scrap')], 'invisible':[('move_type', '!=', 'scrap')]}"/>
                                     <field name="location_dest_id" attrs="{'required':[('move_type', 'in', ['move', 'from_production'])], 'invisible':[('move_type', 'not in', ['move', 'from_production'])]}"/>
-                                    <field name="new_lot_id" attrs="{'required':[('move_type', 'in', ['move', 'from_production'])], 'invisible':[('move_type', 'not in', ['move', 'from_production'])]}"/>
+                                    <field name="new_lot_id" attrs="{'required':[('move_type', 'in', [ 'from_production'])], 'invisible':[('move_type', 'not in', [ 'from_production'])]}"/>
+                                    <field name="project_id" attrs="{'invisible':[('move_type', 'not in', [ 'to_production'])]}"/>
                                     <field name="message" nolabel="1" readonly="True"/>
                                 </tree>
                             </field>

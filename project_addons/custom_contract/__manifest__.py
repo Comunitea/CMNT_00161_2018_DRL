@@ -13,6 +13,7 @@
     ],
     'data': [
         'views/contract_contract.xml',
+        'views/sale_order.xml',
         'security/ir.model.access.csv'],
     'installable': True,
 }
