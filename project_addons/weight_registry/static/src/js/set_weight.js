@@ -28,11 +28,17 @@ var SetWeight = AbstractAction.extend({
         self.state = 'weight1'
         self.error = false;
         self.input_number = ''
-        self.weight = 1000.0
-
-        self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));
+        self.read_online();
+        // self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));
     },
-
+    read_online: function () {
+        var self = this;
+        self.weight = 0;
+        this._rpc({model:'weight.online', method: 'get_last'}).then(function (res) {
+            self.weight = res;
+            self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));
+            })
+    },
     search_vehicle: function () {
         var self = this;
         var vehicle_number = this.$('.input_vehicle_number').val();
@@ -57,7 +63,8 @@ var SetWeight = AbstractAction.extend({
                 self.vehicle = res;
                 
             }
-            self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));
+            self.read_online();
+            // self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));
 
         });
     },
@@ -95,7 +102,8 @@ var SetWeight = AbstractAction.extend({
         })
         .then(function(result) {
             self.state = 'weight1'
-            self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));
+            self.read_online();
+            // self.$el.html(QWeb.render("WeightRegistryWidget", {widget: self}));
         });
     },
 });

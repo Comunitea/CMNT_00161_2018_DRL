@@ -30,6 +30,18 @@ WEIGHT_REGISTRY_STATES = [
     ('4', 'Asignado')
 ]
 
+class WeightReader(models.Model):
+    _name = 'weight.online'
+
+    weight_online = fields.Float('Weight Online')
+
+    @api.model
+    def get_last(self, domain = []):
+        print ("GET LAST")
+        last_id = self.search(domain, order='id desc', limit=1)
+        return last_id and last_id.weight_online or 0.00
+
+
 
 class WeightRegistryType(models.Model):
 
