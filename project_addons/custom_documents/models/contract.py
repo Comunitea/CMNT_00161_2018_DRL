@@ -18,7 +18,7 @@ class ContractContract(models.Model):
             line = self.price_agreement_ids[0]
             deliveries = len(self.delivery_agreement_ids)
             quantity = (
-                sum([x.quantity for x in self.delivery_agreement_ids]) * 1000
+                sum([x.quantity for x in self.delivery_agreement_ids])
             )
             product_name = line.product_id.name
             return "{}  cisternas de {} +/- {} litros".format(
