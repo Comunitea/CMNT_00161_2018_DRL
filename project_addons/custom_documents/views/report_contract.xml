@@ -3,14 +3,14 @@
     <template id="report_contract_document" inherit_id="contract.report_contract_document">
         <div class="page" position="replace">
             <div class="page">
-                <div class="oe_structure"/>
-                <div class="row" id="partner_info">
+                <!--div class="oe_structure"/-->
+                <!--div class="row" id="partner_info">
                     <div class="col-xs-5 col-xs-offset-7">
                         <p id="partner_info"><strong>Partner:</strong></p>
                         <div t-field="o.partner_id" t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile", "fax", "email"], "no_marker": true, "phone_icons": true}'/>
                         <p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>
                     </div>
-                </div>
+                </div-->
                 <div class="row">
                     <h5 class="col-12" style="background-color: #F2F2F2;">CONDICIONES DE LA OFERTA</h5>
                 </div>
@@ -28,7 +28,7 @@
                 <t t-if="o.price_agreement_ids">
                     <t t-set="line" t-value="o.price_agreement_ids[0]"/>
                     <p>
-                        <span class="offset-1 col-11" t-field="line.price_unit"/> €/1000 litros
+                        <span class="offset-1 col-11" t-field="line.price_unit"/> €/litro
                     </p>
                 </t>
                 <h6 class="col-12" style="border-bottom: 1px solid black">Exigencia de calidad:</h6>
@@ -49,6 +49,10 @@
                 <div class="row" style="margin-top: 10px">
                     <p class="offset-5 col-7">Nombre y sello del cliente:</p>
                 </div>
+                <div class="row" >
+                    <p style="font-size: 10px;">De acuerdo con las obligaciones establecidas en el Reglamento General de Protección de Datos y LOPDGD relativa a la protección de los datos personales le informamos que sus datos personales serán tratados por Dairylac SL con CIF B15775570 y domicilio en Parque Empresarial A Madanela, Parcela 44-48, 15800 - Melide - A Coruña - España, con la finalidad de desarrollar y cumplir con las obligaciones previstas en el presente contrato.Los datos serán conservados durante el plazo en que dure el presente contrato y hasta 4 años desde la finalización y no serán cedidos salvo obligación legal. No obstante, sus datos podrían ser comunicados a gestorías, entidades financieras y AEAT por ser necesario para gestionar las obligaciones derivadas del presente contrato.No se prevén transferencias.Con la finalidad de mantener actualizados los datos, el cliente deberá comunicar cualquier cambio que se produzca sobre los mismos.Puede ejercitar sus derechos de acceso, rectificación, cancelación, limitación, portabilidad y oposición al tratamiento dirigiéndose por correo electrónico protecciondatos@galacteum.com o www.AEPD.ES.</p>
+                </div>
+                
             </div>
         </div>
     </template>

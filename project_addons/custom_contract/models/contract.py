@@ -34,11 +34,22 @@ class ContractContract(models.Model):
         "sale.order", "contract_id", "Sale orders"
     )
     sale_count = fields.Integer(compute="_compute_sale_count")
+    picking_count = fields.Integer(compute="_compute_picking_count")
+    delivery_count = fields.Integer(compute="_compute_delivery_count")
 
     @api.multi
     def _compute_sale_count(self):
         for rec in self:
             rec.sale_count = len(rec.sale_order_ids.filtered(lambda x: x.state in ['sale', 'sent', 'done']))
+            
+    def _compute_delivery_count(self):
+        for rec in self:
+            rec.delivery_count = len(rec.delivery_agreement_ids.filtered(lambda x: x.state in ['draft']))
+            
+    @api.multi
+    def _compute_picking_count(self):
+        for rec in self:
+            rec.picking_count = len(rec._get_related_pickings())
 
     @api.multi
     @api.depends('price_agreement_ids')
@@ -88,6 +99,30 @@ class ContractContract(models.Model):
                 (0, 0, sale_line_vals) for sale_line_vals in sale_line_vals_list
             ],
         }
+        
+    @api.multi
+    def action_show_pickings(self):
+        self.ensure_one()
+        tree_view_ref = (
+            'stock.vpicktree'
+        )
+        form_view_ref = (
+            'stock.view_picking_form'
+        )
+        tree_view = self.env.ref(tree_view_ref, raise_if_not_found=False)
+        form_view = self.env.ref(form_view_ref, raise_if_not_found=False)
+        action = {
+            'type': 'ir.actions.act_window',
+            'name': 'Pickings',
+            'res_model': 'stock.picking',
+            'view_type': 'form',
+            'view_mode': 'tree,kanban,form,calendar',
+            'domain': [('id', 'in', self._get_related_pickings().ids)],
+        }
+        if tree_view and form_view:
+            action['views'] = [(tree_view.id, 'tree'), (form_view.id, 'form')]
+        return action
+
     
     @api.multi
     def action_show_sales(self):
@@ -113,9 +148,40 @@ class ContractContract(models.Model):
         return action
 
     @api.multi
+    def action_show_deliveries(self):
+        self.ensure_one()
+        form_view_ref = (
+            'custom_contract.view_contract_delivery_form'
+        )
+        calendar_view_ref = (
+            'custom_contract.view_contract_delivery_calendar'
+        )
+    
+        form_view = self.env.ref(form_view_ref, raise_if_not_found=False)
+        calendar_view = self.env.ref(calendar_view_ref, raise_if_not_found=False)
+        action = {
+            'type': 'ir.actions.act_window',
+            'name': 'Deliveries',
+            'res_model': 'contract.delivery.agreement',
+            'view_type': 'form',
+            'view_mode': 'calendar',
+            'domain': [('id', 'in', self.delivery_agreement_ids.ids), ('state', '=', 'draft')],
+        }
+        if form_view and calendar_view:
+            action['views'] = [ (calendar_view.id, 'calendar'), (form_view.id, 'form')]
+        return action
+
+
+    @api.multi
     def _get_related_invoices(self):
         res = super()._get_related_invoices()
         res |= self.sale_order_ids.mapped('invoice_ids')
+        return res
+    
+    @api.multi
+    def _get_related_pickings(self):
+
+        res = self.sale_order_ids.mapped('picking_ids').filtered(lambda r: r.state not in ('draft', 'cancel'))
         return res
 
 class ContractPriceAgreement(models.Model):
@@ -147,17 +213,18 @@ class ContractDeliveryAgreement(models.Model):
     display_name = fields.Char(
         compute="_compute_display_name", store=True, index=True
     )
-    product_id = fields.Many2one("product.product", "Product")
+    product_id = fields.Many2one("product.product", "Product", required=True)
     quantity = fields.Float(digits=dp.get_precision("Product Unit of Measure"))
     quantity_document = fields.Float(
         digits=dp.get_precision("Product Unit of Measure"),
         compute="_compute_quantity_document",
     )
-    delivery_date = fields.Date("Delivery Date")
+    delivery_date = fields.Date("Delivery Date", required=True)
     contract_id = fields.Many2one("contract.contract")
     partner_shipping_id = fields.Many2one("res.partner", required=True)
     state = fields.Selection(related="contract_id.state")
     available_product_ids = fields.Many2many(related="contract_id.available_product_ids")
+    price_unit = fields.Float(digits=dp.get_precision("Product Price"), required=True)
 
     def _compute_quantity_document(self):
         for delivery in self:

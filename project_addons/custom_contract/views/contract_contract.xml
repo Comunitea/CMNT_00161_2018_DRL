@@ -34,6 +34,20 @@
                             name="sale_count"
                             widget="statinfo"/>
                 </button>
+                <button name="action_show_deliveries"
+                        type="object" icon="fa-calendar"
+                        class="oe_stat_button">
+                    <field string="Deliveries"
+                            name="delivery_count"
+                            widget="statinfo"/>
+                </button>
+                <button name="action_show_pickings"
+                                type="object" icon="fa-truck"
+                                class="oe_stat_button">
+                            <field string="Pickings"
+                                   name="picking_count"
+                                   widget="statinfo"/>
+                        </button>
             </xpath>
             <field name="contract_line_ids" position="after">
                 <field name="price_agreement_ids">
@@ -52,6 +66,7 @@
                             name="product_id"
                             domain="[('id', 'in', available_product_ids)]"/>
                         <field name="quantity"/>
+                        <field name="price_unit"/>
                         <field name="delivery_date"/>
                         <field name="partner_shipping_id"/>
                     </tree>
@@ -132,9 +147,10 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="product_id"/>
+                            <field name="product_id" />
                             <field name="quantity"/>
-                                <field name="delivery_date"/>
+                            <field name="price_unit"/>
+                            <field name="delivery_date"/>
                             <field name="partner_shipping_id"/>
                         </group>
                     </group>

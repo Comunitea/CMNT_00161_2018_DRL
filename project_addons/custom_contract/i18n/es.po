@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-22 13:36+0000\n"
-"PO-Revision-Date: 2020-09-22 13:36+0000\n"
+"POT-Creation-Date: 2020-11-03 20:10+0000\n"
+"PO-Revision-Date: 2020-11-03 20:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgid "Available Qc Test"
 msgstr "Test disponibles"
 
 #. module: custom_contract
-#: code:addons/custom_contract/models/contract.py:199
+#: code:addons/custom_contract/models/contract.py:266
 #: selection:contract.quality.demand,price_change:0
 #, python-format
 msgid "Bonus"
@@ -62,7 +62,7 @@ msgstr "Contrato"
 #: model:ir.actions.act_window,name:custom_contract.open_deliver_calendar
 #: model:ir.ui.menu,name:custom_contract.menu_open_draft_deliveries_contract
 msgid "Contract Deliveries"
-msgstr "Entregas"
+msgstr "Entregas de contratos"
 
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_contract__contract_type
@@ -89,6 +89,16 @@ msgid "Customer"
 msgstr "Cliente"
 
 #. module: custom_contract
+#: model_terms:ir.ui.view,arch_db:custom_contract.contract_sale_form
+msgid "Deliveries"
+msgstr "Entregas"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__delivery_count
+msgid "Delivery Count"
+msgstr "Nº de entregas"
+
+#. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__delivery_date
 msgid "Delivery Date"
 msgstr "Fecha de entrega"
@@ -99,7 +109,7 @@ msgid "Delivery dates"
 msgstr "Fechas de entrega"
 
 #. module: custom_contract
-#: code:addons/custom_contract/models/contract.py:200
+#: code:addons/custom_contract/models/contract.py:267
 #: selection:contract.quality.demand,price_change:0
 #, python-format
 msgid "Discount"
@@ -121,10 +131,10 @@ msgstr "Borrador"
 #: model_terms:ir.ui.view,arch_db:custom_contract.view_contract_delivery_calendar
 #: model_terms:ir.ui.view,arch_db:custom_contract.view_contract_delivery_form
 msgid "Draft Deliveries"
-msgstr "Entregas en borrador"
+msgstr "Entregas borrador"
 
 #. module: custom_contract
-#: code:addons/custom_contract/models/contract.py:174
+#: code:addons/custom_contract/models/contract.py:241
 #: code:addons/custom_contract/models/sale.py:32
 #, python-format
 msgid "El producto no se encuentra en el contrato."
@@ -166,7 +176,17 @@ msgstr "Última actualización el"
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__partner_shipping_id
 msgid "Partner Shipping"
-msgstr "Entrega"
+msgstr "Dirección de entrega"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__picking_count
+msgid "Picking Count"
+msgstr "Nº Albaranes"
+
+#. module: custom_contract
+#: model_terms:ir.ui.view,arch_db:custom_contract.contract_sale_form
+msgid "Pickings"
+msgstr "Albaranes"
 
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__price_change
@@ -174,14 +194,15 @@ msgid "Price Change"
 msgstr "Cambio en el precio"
 
 #. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__price_unit
 #: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__price_unit
 msgid "Price Unit"
-msgstr "Precio unitario"
+msgstr "Precio"
 
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_contract__price_agreement_ids
 msgid "Price agreements"
-msgstr "Precios acordados"
+msgstr "Acuerdos de precio"
 
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__product_id
@@ -218,7 +239,7 @@ msgstr "Cantidad"
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__quantity_document
 msgid "Quantity Document"
-msgstr ""
+msgstr "Cantidad documentos"
 
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_contract__recurring_invoices
@@ -244,11 +265,6 @@ msgstr "Pedidos"
 #: model_terms:ir.ui.view,arch_db:custom_contract.contract_sale_form
 msgid "Sales"
 msgstr "Ventas"
-
-#. module: custom_contract
-#: model:ir.model,name:custom_contract.model_sale_advance_payment_inv
-msgid "Sales Advance Payment Invoice"
-msgstr "Ventas. Anticipo pago factura"
 
 #. module: custom_contract
 #: model:ir.model,name:custom_contract.model_sale_order_line
@@ -277,7 +293,7 @@ msgid "Supplier"
 msgstr "Proveedor"
 
 #. module: custom_contract
-#: code:addons/custom_contract/models/contract.py:141
+#: code:addons/custom_contract/models/contract.py:207
 #, python-format
 msgid "The product is already in the price agreements list."
 msgstr "El producto ya se encuentra en el listado de precios acordados."
@@ -306,3 +322,4 @@ msgstr ""
 #: model:ir.model,name:custom_contract.model_contract_quality_demand
 msgid "contract.quality.demand"
 msgstr ""
+

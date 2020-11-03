@@ -68,7 +68,7 @@ class OperationsLogMove(models.Model):
     move_type = fields.Selection(
         string='Move Type',
         selection=[
-            ('to_production', 'Salida a Producciónn'), 
+            ('to_production', 'Salida a Producción'), 
             ('from_production', 'Entrada desde Producción'), 
             ('move', 'Movs. entre silos o tanques'),
             ('scrap', 'Rechazo',)
