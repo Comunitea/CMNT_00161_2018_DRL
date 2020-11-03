@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="res_partner_letra_Q" model="ir.ui.view">
+        <field name="name">res.partner.letraQ</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lang']" position="after">
+                <field name="letra_q_code"/>
+            </xpath>
+            
+        </field>
+    </record>
+
+</odoo>
+
+

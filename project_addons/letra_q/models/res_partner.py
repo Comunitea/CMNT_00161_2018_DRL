@@ -7,5 +7,5 @@ class ResPartner(models.Model):
 
     _inherit = "res.partner"
 
-    driver = fields.Boolean("Driver")
-    legacy_account_code = fields.Char("Código contable (previo)")
+    
+    letra_q_code = fields.Char("Código Letra Q")

@@ -4,3 +4,4 @@ from . import product
 from . import stock
 from . import letra_q_exporter
 from . import res_country
+from . import res_partner

@@ -16,6 +16,7 @@
         'views/stock_view.xml',
         'views/letra_q_exporter.xml',
         'views/res_country.xml',
+        'views/res_partner_view.xml',
         'wizard/export_moves_letra_q.xml',
         'security/ir.model.access.csv'
         ],

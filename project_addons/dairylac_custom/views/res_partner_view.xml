@@ -10,6 +10,9 @@
             <xpath expr="//field[@name='lang']" position="after">
                 <field name="driver"/>
             </xpath>
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="legacy_account_code"/>
+            </xpath>
         </field>
     </record>
 
