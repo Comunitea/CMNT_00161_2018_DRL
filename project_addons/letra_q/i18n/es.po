@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-13 07:29+0000\n"
-"PO-Revision-Date: 2020-05-13 07:29+0000\n"
+"POT-Creation-Date: 2020-11-04 08:25+0000\n"
+"PO-Revision-Date: 2020-11-04 08:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,16 @@ msgid "Combustible"
 msgstr ""
 
 #. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: letra_q
+#: model:ir.model,name:letra_q.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: letra_q
 #: model:ir.model,name:letra_q.model_res_country
 msgid "Country"
 msgstr "País"
@@ -87,6 +97,8 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_res_partner__letra_q_code
+#: model:ir.model.fields,field_description:letra_q.field_res_users__letra_q_code
 #: model:ir.model.fields,field_description:letra_q.field_stock_location__code_q
 msgid "Código Letra Q"
 msgstr ""
@@ -94,27 +106,34 @@ msgstr ""
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__dest_center
 msgid "Dest Center"
-msgstr "Centro dest."
+msgstr "Centro destino"
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__dest_country
 msgid "Dest Country"
-msgstr "País Dest."
+msgstr "País destino"
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__dest_location
 msgid "Dest Location"
-msgstr "Ubicación dest."
+msgstr "Ubicación destino"
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__dest_q_code
 msgid "Dest Q Code"
-msgstr "Código dest Q"
+msgstr "Código Q destino"
 
 #. module: letra_q
+#: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__destination
 #: model:ir.model.fields,field_description:letra_q.field_stock_move__destination_q
 msgid "Destination"
 msgstr "Destino"
+
+#. module: letra_q
+#: code:addons/letra_q/wizard/export_moves_letra_q.py:57
+#, python-format
+msgid "Destino no implementado en Letra Q {}"
+msgstr ""
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_export_moves_letra_q__display_name
@@ -138,18 +157,18 @@ msgstr ""
 #. module: letra_q
 #: model_terms:ir.ui.view,arch_db:letra_q.export_moves_letra_q_form
 msgid "Export the moves to letra Q"
-msgstr "Esportar movimientos a letra Q"
+msgstr "Exportar movimientos a Letra Q"
 
 #. module: letra_q
 #: model:ir.actions.act_window,name:letra_q.action_export_moves_letra_q
 msgid "Export to letra Q"
-msgstr "Exportar a letra Q"
+msgstr "Exportar a Letra Q"
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_export_moves_letra_q__exportation_id
 #: model:ir.model.fields,field_description:letra_q.field_stock_move_line__exportation_ids
 msgid "Exportation"
-msgstr "Exportación"
+msgstr "Expotación"
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__exporter_id
@@ -295,6 +314,11 @@ msgid "Letra Q Code"
 msgstr "Código Letra Q"
 
 #. module: letra_q
+#: model_terms:ir.ui.view,arch_db:letra_q.letra_q_exporter_view_form
+msgid "Letra Q File"
+msgstr "Generar Fichero"
+
+#. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_stock_move_line__letra_q_group
 msgid "Letra Q Group"
 msgstr "Grupo Letra Q"
@@ -360,7 +384,7 @@ msgstr "Mensajes"
 #: model:ir.model.fields,field_description:letra_q.field_product_product__species_q
 #: model:ir.model.fields,field_description:letra_q.field_product_template__species_q
 msgid "Milk Species"
-msgstr "Especies"
+msgstr "Especies leche"
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__move_date
@@ -371,7 +395,7 @@ msgstr "Fecha del asiento"
 #: model_terms:ir.ui.view,arch_db:letra_q.view_stock_move_letra_q_view_filter
 #: model_terms:ir.ui.view,arch_db:letra_q.view_stock_move_line_letra_q_view_filter
 msgid "Movements Letra Q"
-msgstr ""
+msgstr "Movimientos Letra Q"
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_group__move_ids
@@ -435,9 +459,15 @@ msgid "Number of unread messages"
 msgstr "Número de mensajes no leidos"
 
 #. module: letra_q
+#: code:addons/letra_q/wizard/export_moves_letra_q.py:36
+#, python-format
+msgid "Origen no implementado en Letra Q {}"
+msgstr ""
+
+#. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__origin_center
 msgid "Origin Center"
-msgstr "Centro Origen"
+msgstr "Centro origen"
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__origin_country
@@ -452,7 +482,7 @@ msgstr "Depósito origen"
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__origin_empty
 msgid "Origin Empty"
-msgstr ""
+msgstr "Vaciado origen"
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter_move__origin_location
@@ -589,6 +619,12 @@ msgid "Tanque"
 msgstr ""
 
 #. module: letra_q
+#: code:addons/letra_q/models/letra_q_exporter.py:42
+#, python-format
+msgid "There was a problem creating the file {}"
+msgstr "Ocurrió un problema creando el archivo {}"
+
+#. module: letra_q
 #: selection:letra.q.exporter,activity_state:0
 msgid "Today"
 msgstr "Hoy"
@@ -620,6 +656,30 @@ msgstr "Usuario"
 #: model:ir.model.fields,field_description:letra_q.field_stock_move_line__vehicle_id
 msgid "Vehicle"
 msgstr "Mátricula"
+
+#. module: letra_q
+#: code:addons/letra_q/models/letra_q_exporter.py:59
+#, python-format
+msgid "We could not create the file because:\n"
+"%s."
+msgstr "No se ha podido crear el archivo debido a:\n"
+"%s."
+
+#. module: letra_q
+#: code:addons/letra_q/models/letra_q_exporter.py:166
+#, python-format
+msgid "We could not create the line for one move in %s because:\n"
+"%s."
+msgstr "No se ha podido crear la línea para uno de los movimientos en %s debido a:\n"
+"%s."
+
+#. module: letra_q
+#: code:addons/letra_q/models/letra_q_exporter.py:81
+#, python-format
+msgid "We could not create the line for the group %s because:\n"
+"%s."
+msgstr "No se ha podido crear la línea para el grupo %s debido a:\n"
+"%s."
 
 #. module: letra_q
 #: model:ir.model.fields,field_description:letra_q.field_letra_q_exporter__website_message_ids
@@ -724,37 +784,3 @@ msgstr ""
 msgid "vacuno"
 msgstr ""
 
-#. module: letra_q
-#: code:addons/letra_q/models/letra_q_exporter.py:40
-#, python-format
-msgid "There was a problem creating the file {}"
-msgstr "Ocurrió un problema creando el archivo {}"
-
-#. module: letra_q
-#: code:addons/letra_q/models/letra_q_exporter.py:57
-#, python-format
-msgid "We could not create the file because:\n"
-"%s."
-msgstr "No se ha podido crear el archivo debido a:\n"
-"%s."
-
-#. module: letra_q
-#: code:addons/letra_q/models/letra_q_exporter.py:163
-#, python-format
-msgid "We could not create the line for one move in %s because:\n"
-"%s."
-msgstr "No se ha podido crear la línea para uno de los movimientos en %s debido a:\n"
-"%s."
-
-#. module: letra_q
-#: code:addons/letra_q/models/letra_q_exporter.py:79
-#, python-format
-msgid "We could not create the line for the group %s because:\n"
-"%s."
-msgstr "No se ha podido crear la línea para el grupo %s debido a:\n"
-"%s."
-
-#. module: letra_q
-#: model_terms:ir.ui.view,arch_db:letra_q.letra_q_exporter_view_form
-msgid "Letra Q File"
-msgstr "Generar"
