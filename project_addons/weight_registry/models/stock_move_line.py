@@ -110,6 +110,7 @@ class StockMove(models.Model):
         return res
 
     def _action_done(self):
-        if self.picking_type_id.weight_control != 'none' and any(x.registry_line_id == False for x in self.move_line_ids):
-                raise ValidationError (_('You need to check the assigned weight control for this move'))
+        for move in self:
+            if move.picking_type_id.weight_control != 'none' and any(x.registry_line_id == False for x in move.move_line_ids):
+                    raise ValidationError (_('You need to check the assigned weight control for this move'))
         return super()._action_done()
