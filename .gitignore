@@ -75,3 +75,5 @@ eggs-custom
 
 .idea/
 .vscode/
+scripts/*xls*
+scripts/*csv
