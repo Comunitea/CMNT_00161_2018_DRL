@@ -1,6 +1,7 @@
 # © 2020 Comunitea
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class OperationsLog(models.Model):
@@ -14,12 +15,13 @@ class OperationsLog(models.Model):
         default="draft",
     )
     name = fields.Char(default=lambda r: fields.Date.today())
-    user_id = fields.Many2one('res.users', default=lambda r: r.env.user.id)
+    #user_id = fields.Many2one('res.users', default=lambda r: r.env.user.id)
     move_ids = fields.One2many('operations.log.move', 'operations_log_id')
 
     def create_picking(self):
         for move in self.move_ids:
-            move.create_picking()
+            if not move.registered:
+                move.create_picking()
         self.write({'state': 'confirmed'})
 
 
@@ -27,6 +29,10 @@ class OperationsLogMove(models.Model):
     _name = 'operations.log.move'
     _order = 'date_done'
 
+    task_id = fields.Many2one(
+        comodel_name='project.task', string='Task',
+        required=False)
+    user_id = fields.Many2one('res.users', default=lambda r: r.env.user.id)
     operations_log_id = fields.Many2one('operations.log')
     location_id = fields.Many2one(
         string='Location origin',
@@ -68,6 +74,7 @@ class OperationsLogMove(models.Model):
     move_type = fields.Selection(
         string='Move Type',
         selection=[
+            ('consume', 'Consumos material'),
             ('to_production', 'Salida a Producción'), 
             ('from_production', 'Entrada desde Producción'), 
             ('move', 'Movs. entre silos o tanques'),
@@ -80,7 +87,8 @@ class OperationsLogMove(models.Model):
         string='Location destination',
         comodel_name='stock.location',
         ondelete='restrict',
-        domain="[('location_type_q', 'in',[1,2])]"
+        #domain="[('location_type_q', 'in',[1,2])]"
+        domain="[('usage', '=', 'internal')]"
     )
     
     emptied = fields.Boolean(
@@ -98,6 +106,12 @@ class OperationsLogMove(models.Model):
         domain="[('product_id', '=', product_id)]",
         context="{'default_product_id': product_id}"
     )
+    lot_id = fields.Many2one(
+        string='Lot',
+        comodel_name='stock.production.lot',
+        domain="[('product_id', '=', product_id)]",
+        context="{'default_product_id': product_id}"
+    )
     project_id = fields.Many2one(
         string='Proyecto',
         comodel_name='project.project',
@@ -106,12 +120,42 @@ class OperationsLogMove(models.Model):
     
     message = fields.Char(
         string='Message'
-    )   
+    )
+    registered = fields.Boolean('Registered', default=False)
+    
+    uom_id = fields.Many2one(related='product_id.uom_id', readonly=True)
+    picking_id = fields.Many2one('stock.picking', 'Picking')
+    qc_inspections_ids = fields.One2many(related='picking_id.qc_inspections_ids')
+    nbr_inspections = fields.Integer("Number inspections", compute="_compute_inspections")
+
+    def _compute_inspections(self):
+        for log in self:
+            log.nbr_inspections = len(log.qc_inspections_ids)
+        
+
+    @api.multi
+    @api.constrains('quantity')
+    def _check_quantity(self):
+        for operation in self:
+            if not operation.quantity > 0.0:
+                raise ValidationError(
+                    _('Quantity of operation must be greater than 0.')
+                )
+
+
+    @api.onchange('move_type')
+    def onchange_move_type(self):
+        if self.move_type:
+            if self.move_type == 'consume':
+                return {'domain':{'location_id': [('location_type_q', '=', False) ,('usage', 'in',['internal'])]}}
+            else:
+                return {'domain':{'location_id': [('location_type_q', 'in',[1,2])]}}
 
     @api.onchange('location_id')
     def onchange_location_id(self):
         if self.location_id:
-            self.product_id = self.location_id.product_id.id
+            if not self.product_id:
+                self.product_id = self.location_id.product_id.id
             qty =  self.location_id.quantity
             for move in self.operations_log_id.move_ids.filtered(lambda m: m.product_id==self.product_id and m.location_id==self.location_id):
                 if move != self:
@@ -120,24 +164,47 @@ class OperationsLogMove(models.Model):
         else:
             self.location_quantity = 0    
         
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        if not self.product_id:
+            return False
+        if self.move_type and self.move_type == 'consume':
+            location_stock = self.env.ref('stock.stock_location_stock')
+            quants = self.env['stock.quant']._gather(self.product_id, location_stock)
+            if quants:
+                self.location_id = quants[0].location_id.id
+                self.lot_id = quants[0].lot_id and quants[0].lot_id.id or False
+                self.location_quantity = quants[0].quantity
+            else:
+                res = {}
+                res['warning'] = {'title': _('Warning')}
+                res['warning']['message'] = _(
+                        "No hay stock registrado para cosnsumir el producto:"
+                        " %s seleccionado para esta operaction de consumo"
+                    ) % (self.product_id.name)
+                return res
+            
 
     
     @api.onchange('emptied', 'quantity')
     def onchange_emptied(self):
         if self.emptied:
             adjust = self.location_quantity - self.quantity
-            self.message = "Se ha marcado como vaciado el tanque de origen.\r\n Se generará un movimiento de ajuste por %f miles de litros" % adjust
+            self.message = "Se ha marcado como vaciado el tanque de origen.\r\n Se generará un movimiento de ajuste por %f litros" % adjust
         else:
              self.message = ""
 
     @api.onchange('location_dest_id')
     def onchange_location_dest_id(self):
     
-        if self.location_dest_id and self.location_dest_id.product_id and self.location_dest_id.product_id != self.product_id:
+        if self.location_dest_id and \
+            self.location_dest_id.location_type_q in [1,2] and \
+            self.location_dest_id.product_id and \
+            self.location_dest_id.product_id != self.product_id: 
             res = {}
             res['warning'] = {'title': _('Warning')}
             res['warning']['message'] = _(
-                    "El product conternido en la ubicación de destino:"
+                    "El product contenido en la ubicación de destino:"
                     "%s : %s no es compatible con el producto de la ubicación "
                     "seleccionada para esta operación."
                 ) % (self.location_dest_id.name, self.location_dest_id.product_id.name)
@@ -145,8 +212,10 @@ class OperationsLogMove(models.Model):
             return res 
 
 
-    
+    @api.multi
     def create_picking(self):
+        if self.registered:
+            return False
         if self.move_type == 'to_production':
             vals = {
                 'location_id': self.location_id.id,
@@ -179,6 +248,14 @@ class OperationsLogMove(models.Model):
                 'date_done': self.date_done   
             }
             destination_q = self.destination_q_scrap
+        elif self.move_type == 'consume':
+            vals = {
+                'location_id': self.location_id.id,
+                'location_dest_id': self.env['ir.model.data'].xmlid_to_res_id("stock.location_production"),
+                'picking_type_id': self.env['ir.model.data'].xmlid_to_res_id("custom_stock.consumes_type"),
+                'date_done': self.date_done   
+            }
+            destination_q = False
         picking_id = self.env['stock.picking'].create(vals)
 
         vals = {
@@ -188,6 +265,7 @@ class OperationsLogMove(models.Model):
             'product_uom_qty': self.quantity,
             'picking_id': picking_id.id,
             'destination_q': destination_q,
+            'operation_id': self.id
 
         }
         move = self.env['stock.move'].new(vals)
@@ -215,6 +293,8 @@ class OperationsLogMove(models.Model):
                 if self.new_lot_id:
                     move_line.lot_id = self.new_lot_id.id
         picking_id.action_done()
+        self.picking_id = picking_id.id
+        self.registered = True
         
         # return {
         #     'type': 'ir.actions.act_window',
@@ -237,3 +317,44 @@ class OperationsLogMove(models.Model):
                 'amount': -1 * self.product_id.standard_price * self.quantity,
                 
             })
+    
+    @api.multi
+    def action_view_qc_inspecions(self):
+        
+        action = self.env.ref('quality_control.action_qc_inspection').read()[0]
+
+        inspections= self.qc_inspections_ids
+        if len(inspections) > 1:
+            action['domain'] = [('id', 'in', inspections.ids)]
+        elif inspections:
+            form_view = [(self.env.ref('quality_control.qc_inspection_form_view').id, 'form')]
+            if 'views' in action:
+                action['views'] = form_view + [(state,view) for state,view in action['views'] if view != 'form']
+            else:
+                action['views'] = form_view
+            action['res_id'] = inspections.id
+        return action
+
+class StockMove(models.Model):
+    _inherit = 'stock.move'
+
+    operation_id = fields.Many2one('operations.log.move', 'Operation')
+
+    def _update_reserved_quantity(self, need, available_quantity,
+                                  location_id, lot_id=None,
+                                  package_id=None, owner_id=None,
+                                  strict=True):
+        if self.operation_id.lot_id:
+            lot_id = self.operation_id.lot_id
+        return super()._update_reserved_quantity(
+            need, available_quantity, location_id, lot_id=lot_id,
+            package_id=package_id, owner_id=owner_id, strict=strict)
+
+    def _prepare_move_line_vals(self, quantity=None, reserved_quant=None):
+        vals = super()._prepare_move_line_vals(
+            quantity=quantity, reserved_quant=reserved_quant)
+        if self.operation_id.lot_id:
+            lot = self.operation_id.lot_id
+        if reserved_quant and lot:
+            vals['lot_id'] = lot.id
+        return vals

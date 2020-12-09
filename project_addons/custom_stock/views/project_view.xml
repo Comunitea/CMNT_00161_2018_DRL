@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Copyright 2012 - 2013 Daniel Reis
+        Copyright 2015 - Antiun Ingeniería S.L. - Sergio Teruel
+        Copyright 2016 - Tecnativa - Vicent Cubells
+        Copyright 2018 - Brain-tec AG - Carlos Jesus Cebrian
+        License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0).
+    -->
+    <record id="view_project_operation_form" model="ir.ui.view">
+        <field name="name">project.task.form.operation</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="operations_log" string="Operations Log" groups="project.group_project_user">
+                    <field name="operation_ids" context="{'default_move_type': 'consume', 'default_project_id': project_id}">
+                        <tree string="operation_log" editable="top" >
+                            <field name="date_done" required="True" attrs="{'readonly': [('registered', '=', True)]}"/>
+                            <field name="user_id" required="True" attrs="{'readonly': [('registered', '=', True)]}"/>
+                            <field name="move_type" required="True" attrs="{'readonly': [('registered', '=', True)]}"/>
+                            <field name="product_id" required="True" attrs="{'readonly':[('registered', '=', True)] }" />
+                            <field name="quantity" required="True" attrs="{'readonly':[('registered', '=', True)]}"/>
+                            <field name="uom_id" readonly="True" />
+                            <field name="lot_id"  attrs="{'invisible':[('move_type', 'not in', ['consume'])], 'readonly': [('registered', '=', True)]}"/>
+                            <field name="location_id" domain="[('location_type_q', 'in',[1,2])]"
+                            attrs="{'required':[('move_type', 'in', ['consume', 'to_production', 'scrap', 'move'])], 'invisible':[('move_type', 'not in', ['consume', 'to_production', 'scrap', 'move'])], 'readonly': [('registered', '=', True)]}"/>
+                            <field name="location_quantity" readonly="True" force_save="1" />
+                            <field name="emptied" required="False"
+                            attrs="{'invisible':[('move_type', 'not in', ['to_production', 'scrap', 'move'])], 'readonly': [('registered', '=', True)]}"/>
+                            <field name="destination_q_prod"  attrs="{'required':[('move_type', '=', 'to_production')], 'invisible':[('move_type', '!=', 'to_production')], 'readonly': [('registered', '=', True)]}"/>
+                            <field name="destination_q_scrap"  attrs="{'required':[('move_type', '=', 'scrap')], 'invisible':[('move_type', '!=', 'scrap')], 'readonly': [('registered', '=', True)]}"/>
+                            <field name="location_dest_id" attrs="{'required':[('move_type', 'in', ['move', 'from_production'])], 'invisible':[('move_type', 'not in', ['move', 'from_production'])], 'readonly': [('registered', '=', True)]}"/>
+                            <field name="new_lot_id" attrs="{'required':[('move_type', 'in', [ 'from_production'])], 'invisible':[('move_type', 'not in', [ 'from_production'])], 'readonly': [('registered', '=', True)]}"/>
+                            <field name="project_id" readonly="1" force_save="1" />
+                            <field name="message" nolabel="1" readonly="True"/>
+                            <field name="registered" readonly="1"/>
+                            <button name="create_picking" type="object"  icon="fa-arrow-circle-o-right" string="Register move" attrs="{'invisible': [('registered', '=', True)]}"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -17,6 +17,7 @@
         'views/mrp_production.xml',
         'views/operations_log_view.xml',
         'views/stock_view.xml',
+        'views/project_view.xml',
         'wizard/qualify_lot_view.xml',
         'wizard/location_to_production_view.xml',
     ],

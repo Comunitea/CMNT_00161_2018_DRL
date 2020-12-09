@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <record id="looperations_log_view" model="ir.ui.view">
+    <record id="operations_log_view" model="ir.ui.view">
         <field name="name">operations_log_form</field>
         <field name="model">operations.log</field>
         <field name="type">form</field>
@@ -15,26 +14,28 @@
                     <h1>
                         <field name="name" required="True" readonly="True"/>
                     </h1>
-                    <field name="user_id" required="True"/>
                     <notebook>
                         <page string="Log moves">
-                            <field name="move_ids" string="Log moves"  mode="tree,kanban" attrs="{'readonly':[('state','=','confirmed')]}">
-                                <tree string="Log moves" editable="bottom" >
-                                    <field name="date_done" required="True"/>
-                                    <field name="move_type" required="True"/>
+                            <field name="move_ids" string="Log moves"   mode="tree">
+                                <tree string="Log moves" editable="bottom" colors="grey:registered==True" >
+                                    <field name="date_done" required="True" attrs="{'readonly': [('registered', '=', True)]}"/>
+                                    <field name="user_id" required="True" attrs="{'readonly': [('registered', '=', True)]}"/>
+                                    <field name="move_type" required="True" attrs="{'readonly': [('registered', '=', True)]}"/>
                                     <field name="location_id" domain="[('location_type_q', 'in',[1,2])]"
-                                    attrs="{'required':[('move_type', 'in', ['to_production', 'scrap', 'move'])], 'invisible':[('move_type', 'not in', ['to_production', 'scrap', 'move'])]}"/>
-                                    <field name="product_id" required="True" />
-                                    <field name="location_quantity" />
-                                    <field name="quantity" required="True"/>
+                                    attrs="{'required':[('move_type', 'in', ['to_production', 'scrap', 'move'])], 'invisible':[('move_type', 'not in', ['to_production', 'scrap', 'move'])], 'readonly': [('registered', '=', True)]}"/>
+                                    <field name="product_id" required="True" attrs="{'readonly':[('registered', '=', True)] }" />
+                                    <field name="location_quantity" attrs="{'readonly':[('registered', '=', True)]}" />
+                                    <field name="quantity" required="True" attrs="{'readonly':[('registered', '=', True)]}"/>
                                     <field name="emptied" required="False"
-                                    attrs="{'invisible':[('move_type', 'not in', ['to_production', 'scrap', 'move'])]}"/>
-                                    <field name="destination_q_prod"  attrs="{'required':[('move_type', '=', 'to_production')], 'invisible':[('move_type', '!=', 'to_production')]}"/>
-                                    <field name="destination_q_scrap"  attrs="{'required':[('move_type', '=', 'scrap')], 'invisible':[('move_type', '!=', 'scrap')]}"/>
-                                    <field name="location_dest_id" attrs="{'required':[('move_type', 'in', ['move', 'from_production'])], 'invisible':[('move_type', 'not in', ['move', 'from_production'])]}"/>
-                                    <field name="new_lot_id" attrs="{'required':[('move_type', 'in', [ 'from_production'])], 'invisible':[('move_type', 'not in', [ 'from_production'])]}"/>
-                                    <field name="project_id" attrs="{'invisible':[('move_type', 'not in', [ 'to_production'])]}"/>
+                                    attrs="{'invisible':[('move_type', 'not in', ['to_production', 'scrap', 'move'])], 'readonly': [('registered', '=', True)]}"/>
+                                    <field name="destination_q_prod"  attrs="{'required':[('move_type', '=', 'to_production')], 'invisible':[('move_type', '!=', 'to_production')], 'readonly': [('registered', '=', True)]}"/>
+                                    <field name="destination_q_scrap"  attrs="{'required':[('move_type', '=', 'scrap')], 'invisible':[('move_type', '!=', 'scrap')], 'readonly': [('registered', '=', True)]}"/>
+                                    <field name="location_dest_id" attrs="{'required':[('move_type', 'in', ['move', 'from_production'])], 'invisible':[('move_type', 'not in', ['move', 'from_production'])], 'readonly': [('registered', '=', True)]}"/>
+                                    <field name="new_lot_id" attrs="{'required':[('move_type', 'in', [ 'from_production'])], 'invisible':[('move_type', 'not in', [ 'from_production'])], 'readonly': [('registered', '=', True)]}"/>
+                                    <field name="project_id" attrs="{'invisible':[('move_type', 'not in', [ 'to_production'])], 'readonly': [('registered', '=', True)]}"/>
                                     <field name="message" nolabel="1" readonly="True"/>
+                                    <field name="registered" readonly="1"/>
+                                    <button name="create_picking" type="object"  icon="fa-arrow-circle-o-right" string="Register move" attrs="{'invisible': [('registered', '=', True)]}"/>
                                 </tree>
                             </field>
                         </page>
@@ -45,8 +46,77 @@
         </field>
     </record>
 
+    <record id="operations_log_move_view" model="ir.ui.view">
+        <field name="name">operations_log_move_tree</field>
+        <field name="type">tree</field>
+        <field name="model">operations.log.move</field>
+        <field name="arch" type="xml">
+            <tree string="Log moves" editable="bottom" colors="grey:registered==True">
+                <field name="date_done" required="True" attrs="{'readonly': [('registered', '=', True)]}"/>
+                <field name="user_id" required="True" attrs="{'readonly': [('registered', '=', True)]}"/>
+                <field name="move_type" required="True" attrs="{'readonly': [('registered', '=', True)]}"/>
+                <field name="location_id" domain="[('location_type_q', 'in',[1,2])]"
+                attrs="{'required':[('move_type', 'in', ['consume', 'to_production', 'scrap', 'move'])], 'invisible':[('move_type', 'not in', ['consume', 'to_production', 'scrap', 'move'])], 'readonly': [('registered', '=', True)]}"/>
+                <field name="location_quantity" readonly="True" force_save="1" />
+                <field name="product_id" required="True" attrs="{'readonly':[('registered', '=', True)] }" />
+                <field name="quantity" required="True" attrs="{'readonly':[('registered', '=', True)]}"/>
+                <field name="uom_id" readonly="True" />
+                <field name="lot_id"  attrs="{'invisible':[('move_type', 'not in', ['consume'])], 'readonly': [('registered', '=', True)]}"/>
+                <field name="emptied" required="False"
+                attrs="{'invisible':[('move_type', 'not in', ['to_production', 'scrap', 'move'])], 'readonly': [('registered', '=', True)]}"/>
+                <field name="destination_q_prod"  attrs="{'required':[('move_type', '=', 'to_production')], 'invisible':[('move_type', '!=', 'to_production')], 'readonly': [('registered', '=', True)]}"/>
+                <field name="destination_q_scrap"  attrs="{'required':[('move_type', '=', 'scrap')], 'invisible':[('move_type', '!=', 'scrap')], 'readonly': [('registered', '=', True)]}"/>
+                <field name="location_dest_id" attrs="{'required':[('move_type', 'in', ['move', 'from_production'])], 'invisible':[('move_type', 'not in', ['move', 'from_production'])], 'readonly': [('registered', '=', True)]}"/>
+                <field name="new_lot_id" attrs="{'required':[('move_type', 'in', [ 'from_production'])], 'invisible':[('move_type', 'not in', [ 'from_production'])], 'readonly': [('registered', '=', True)]}"/>
+                <field name="project_id" attrs="{'invisible':[('move_type', 'not in', ['consume', 'to_production'])], 'readonly': [('registered', '=', True)]}"/>
+                <field name="message" nolabel="1" readonly="True"/>
+                <field name="registered" readonly="1"/>
+                <field name="picking_id" invisible="1"/>
+                <field name="qc_inspections_ids" invisible="1"/>
+                <field name="nbr_inspections" invisible="1"/>
+                <button type="object" name="action_view_qc_inspecions" class="oe_stat_button" icon="fa-files-o" attrs="{'invisible': [('nbr_inspections', '=', 0)]}" />      
+                <button name="create_picking" type="object"  icon="fa-arrow-circle-o-right" string="Register move" attrs="{'invisible': [('registered', '=', True)]}"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="operations_log_move_search_view" model="ir.ui.view">
+        <field name="name">operations_log_move_search</field>
+        <field name="model">operations.log.move</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search Move Operation Logs">
+                <field name="product_id" />
+                <field name="move_type"/>
+                <field name="location_id"/>
+                <field name="location_dest_id"/>
+                <separator/>
+                <filter string="Today Operations" name="operations_today"
+                    domain="[('date_done','&lt;', time.strftime('%%Y-%%m-%%d 23:59:59')), ('date_done','&gt;=', time.strftime('%%Y-%%m-%%d 00:00:00'))]"/>
+                <filter string="Registered" name="registered" domain="[('registered','=',True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Product" name="product" domain="[]" context="{'group_by':'product_id'}"/>
+                    <filter string="Origin Location" name="location" domain="[]" context="{'group_by':'location_id'}"/>
+                    <filter string="Dest. Location" name="location_dest" domain="[]" context="{'group_by':'location_dest_id'}"/>
+                    <filter string="Date" name="date" domain="[]" context="{'group_by':'date_done'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="operations_log_move_act" model="ir.actions.act_window">
+        <field name="name">Operations Log Moves</field>
+        <field name="res_model">operations.log.move</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="domain"></field>
+    </record>
+
+    <menuitem name="Operations Log Moves" parent="stock.menu_stock_warehouse_mgmt" action="operations_log_move_act" id="operations_log_move_menu"/>
+
     <record id="operations_log_act" model="ir.actions.act_window">
-        <field name="name">Operations Logs</field>
+        <field name="name">Operations Log Block</field>
         <field name="res_model">operations.log</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
@@ -54,6 +124,7 @@
     </record>
 
     <menuitem name="Operations Logs" parent="stock.menu_stock_warehouse_mgmt" action="operations_log_act" id="operations_log_menu"/>
+
 
 
 </odoo>
