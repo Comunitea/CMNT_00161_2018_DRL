@@ -338,7 +338,7 @@ class OperationsLogMove(models.Model):
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
-    operation_id = fields.Many2one('operations.log.move', 'Operation')
+    operation_log_id = fields.Many2one('operations.log.move', 'Operation')
 
     def _update_reserved_quantity(self, need, available_quantity,
                                   location_id, lot_id=None,

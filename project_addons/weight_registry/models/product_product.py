@@ -7,13 +7,7 @@ from odoo.exceptions import ValidationError
 
 class ProductUom(models.Model):
 
-    _inherit = 'uom.uom'
-
-    kgr_uom_id = fields.Many2one('uom.uom', 'Linked vol. unit')
-    kgr_to_uom_factor_ids = fields.One2many(
-        comodel_name='uom.uom',
-        inverse_name='kgr_uom_id',
-        string="Convert Kgrs -> Litre Unit", help="L = Kgr * factor")
+    _inherit = 'uom.uom'    
 
     template_id = fields.Many2one ('product.template')
 
@@ -28,10 +22,7 @@ class ProductTemplate(models.Model):
 
     uom_po_id_category_id = fields.Many2one(related='uom_po_id.category_id')
     weight_control = fields.Boolean('Requires weight control', help="For filter in weight control links", default=False)
-    kgr_to_uom_factor_ids = fields.One2many(
-        comodel_name='uom.uom',
-        inverse_name='template_id',
-        string="Convert Kgrs -> Stock Unit", help="L = Kgr * factor")
+   
 
     @api.model
     def get_weight_factor(self, uom_id):

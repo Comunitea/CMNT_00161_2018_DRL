@@ -11,15 +11,6 @@
             <field name="category_id" position="after">
                 <field name="template_id"/>
             </field>
-            <field name="rounding" position="after">
-                <field name="kgr_to_uom_factor_ids">
-                    <tree>
-                        <field name="name"/>
-                        <field name="template_id"/>
-                        <field name="factor"/>
-                    </tree>
-                </field>
-            </field>
         </field>
     </record>
 
@@ -34,13 +25,6 @@
             <field name="tracking" position="after">
                 <field name="uom_po_id_category_id" invisible="1"/>
                 <field name="weight_control"/>
-                 <field name="kgr_to_uom_factor_ids">
-                    <tree>
-                        <field name="name"/>
-                        <field name="template_id" invisible="1"/>
-                        <field name="factor"/>
-                    </tree>
-                </field>
             </field>
         </field>
     </record>

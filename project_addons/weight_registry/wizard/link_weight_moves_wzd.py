@@ -162,19 +162,26 @@ class StockPickwightControlWzd(models.TransientModel):
             if not line.move_line_id:
                 qty_kgrs = line.qty
                 ## CONVIERTO LOS KGRS DE LV A LITROS
-                qty_litros = uom_id._compute_quantity(line.qty,
-                                                   move_id.product_id.uom_id,
-                                                   rounding_method='HALF-UP')
+                # se cambia la uso de la segunda unidad
+                #line_qty está en Kilos y es como debe estar configurada la segunda unidad de stock
+                qty_litros = line.qty * (
+                    move_id.product_id.stock_secondary_uom_id.factor or 1.0)
+                qty_litros = float_round(
+                    qty_litros, precision_rounding=move_id.product_id.uom_id.rounding)
+                
+                # qty_litros = uom_id._compute_quantity(line.qty,
+                #                                    move_id.product_id.uom_id,
+                #                                    rounding_method='HALF-UP')
                 ##CONVIERTO LOS LITROS A MILES DE LITROS
-                qty_mlitros = move_id.product_id.uom_id._compute_quantity(qty_litros, move_id.product_uom)
+                #qty_mlitros = move_id.product_id.uom_id._compute_quantity(qty_litros, move_id.product_uom)
                 ## Propongo Cantidad como
 
             if line.move_line_id:
-                qty_mlitros = line.move_line_id.registry_line_id_qty_flow
+                #qty_mlitros = line.move_line_id.registry_line_id_qty_flow
                 qty = line.move_line_id.qty_done
                 lot_id = line.lot_id
             elif self.select_qty == 'weight' and not line.move_line_id:
-                qty = qty_mlitros
+                qty = qty_litros
 
             else:
                 qty = 0.0
@@ -187,7 +194,7 @@ class StockPickwightControlWzd(models.TransientModel):
                    'deposit_id': line.deposit_id.id,
                    'lot_id': lot_id,
                    'registry_line_id_qty': line.qty,
-                   'registry_line_id_qty_flow': qty_mlitros,
+                   'registry_line_id_qty_flow': qty_litros,
                    'qty': qty,
                    'registry_line_id': line.id,
                    'used': True
