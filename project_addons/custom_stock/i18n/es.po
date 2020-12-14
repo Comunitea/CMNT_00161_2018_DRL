@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-09 16:49+0000\n"
-"PO-Revision-Date: 2020-12-09 16:49+0000\n"
+"POT-Creation-Date: 2020-12-14 06:56+0000\n"
+"PO-Revision-Date: 2020-12-14 06:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgid "Consumos material"
 msgstr "Consumos de material"
 
 #. module: custom_stock
-#: code:addons/custom_stock/models/operations_log.py:288
+#: code:addons/custom_stock/models/operations_log.py:314
 #, python-format
 msgid "Could not reserve all requested products. Please use the 'Mark as Todo' button to handle the reservation manually."
 msgstr "No se pudieron reservar todos los productos solicitados."
@@ -140,10 +140,10 @@ msgid "Draft"
 msgstr "Borrador"
 
 #. module: custom_stock
-#: code:addons/custom_stock/models/operations_log.py:205
+#: code:addons/custom_stock/models/operations_log.py:214
 #, python-format
 msgid "El product contenido en la ubicación de destino:%s : %s no es compatible con el producto de la ubicación seleccionada para esta operación."
-msgstr ""
+msgstr "El producto contenido en la ubicación de destino:%s : %s no es compatible con el producto de la ubicación seleccionada para esta operación."
 
 #. module: custom_stock
 #: code:addons/custom_stock/wizard/location_to_production.py:93
@@ -170,7 +170,7 @@ msgstr ""
 #. module: custom_stock
 #: selection:location.to.production,destination_q:0
 msgid "Esparcimineto en tierra"
-msgstr "Esparcimiento en tierra"
+msgstr ""
 
 #. module: custom_stock
 #: selection:location.to.production,destination_q:0
@@ -236,7 +236,7 @@ msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log_move__qc_inspections_ids
 msgid "Inspections"
-msgstr "Inspecciones calidad"
+msgstr "Inspecciones"
 
 #. module: custom_stock
 #: model:ir.model.fields,help:custom_stock.field_operations_log_move__qc_inspections_ids
@@ -409,6 +409,11 @@ msgid "Movs. entre silos o tanques"
 msgstr ""
 
 #. module: custom_stock
+#: model_terms:ir.ui.view,arch_db:custom_stock.operations_log_move_search_view
+msgid "My operations"
+msgstr "Mis operaciones"
+
+#. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log__name
 msgid "Name"
 msgstr "Nombre"
@@ -422,7 +427,7 @@ msgstr ""
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log_move__new_lot_id
 msgid "New Lot"
-msgstr "Nuevo lote"
+msgstr "Nuevo Lote"
 
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log__activity_date_deadline
@@ -440,7 +445,7 @@ msgid "Next Activity Type"
 msgstr "Siguiente Tipo de Actividad"
 
 #. module: custom_stock
-#: code:addons/custom_stock/models/operations_log.py:180
+#: code:addons/custom_stock/models/operations_log.py:187
 #, python-format
 msgid "No hay stock registrado para cosnsumir el producto: %s seleccionado para esta operaction de consumo"
 msgstr ""
@@ -476,7 +481,7 @@ msgid "Number of unread messages"
 msgstr "Número de mensajes no leidos"
 
 #. module: custom_stock
-#: model:ir.model.fields,field_description:custom_stock.field_stock_move__operation_id
+#: model:ir.model.fields,field_description:custom_stock.field_stock_move__operation_log_id
 msgid "Operation"
 msgstr "Operación"
 
@@ -489,7 +494,7 @@ msgstr "Registro de operaciones"
 #. module: custom_stock
 #: model:ir.actions.act_window,name:custom_stock.operations_log_act
 msgid "Operations Log Block"
-msgstr "Bloque de Registro de operaciones"
+msgstr "Bloque de operaciones"
 
 #. module: custom_stock
 #: model:ir.actions.act_window,name:custom_stock.operations_log_move_act
@@ -500,7 +505,7 @@ msgstr "Registros de operaciones"
 #. module: custom_stock
 #: model:ir.ui.menu,name:custom_stock.operations_log_menu
 msgid "Operations Logs"
-msgstr "Bloque de registro de operaciones"
+msgstr "Registros de operaciones"
 
 #. module: custom_stock
 #: model_terms:ir.ui.view,arch_db:custom_stock.operations_log_move_search_view
@@ -553,6 +558,11 @@ msgid "Preparados lácteos"
 msgstr ""
 
 #. module: custom_stock
+#: model:ir.model.fields,field_description:custom_stock.field_operations_log_move__price
+msgid "Price"
+msgstr "Precio"
+
+#. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_location_to_production__product_id
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log_move__product_id
 #: model_terms:ir.ui.view,arch_db:custom_stock.operations_log_move_search_view
@@ -599,7 +609,7 @@ msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: custom_stock
-#: code:addons/custom_stock/models/operations_log.py:141
+#: code:addons/custom_stock/models/operations_log.py:146
 #, python-format
 msgid "Quantity of operation must be greater than 0."
 msgstr "La cantidad de la operación debe ser mayor que  0"
@@ -669,6 +679,11 @@ msgid "Send to Production"
 msgstr "Enviar a producción"
 
 #. module: custom_stock
+#: selection:operations.log.move,move_type:0
+msgid "Servicios"
+msgstr ""
+
+#. module: custom_stock
 #: selection:location.to.production,move_type:0
 msgid "Silo o Tanque"
 msgstr ""
@@ -736,8 +751,8 @@ msgid "User"
 msgstr "Usuario"
 
 #. module: custom_stock
-#: code:addons/custom_stock/models/operations_log.py:179
-#: code:addons/custom_stock/models/operations_log.py:204
+#: code:addons/custom_stock/models/operations_log.py:186
+#: code:addons/custom_stock/models/operations_log.py:213
 #: code:addons/custom_stock/wizard/location_to_production.py:92
 #, python-format
 msgid "Warning"
@@ -752,6 +767,12 @@ msgstr "Mensajes del sitio web"
 #: model:ir.model.fields,help:custom_stock.field_operations_log__website_message_ids
 msgid "Website communication history"
 msgstr "Historial de comunicaciones del sitio web"
+
+#. module: custom_stock
+#: code:addons/custom_stock/models/operations_log.py:226
+#, python-format
+msgid "You can not delete a registered move."
+msgstr ""
 
 #. module: custom_stock
 #: model:ir.model,name:custom_stock.model_location_to_production

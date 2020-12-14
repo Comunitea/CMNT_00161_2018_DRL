@@ -74,6 +74,7 @@ class OperationsLogMove(models.Model):
     move_type = fields.Selection(
         string='Move Type',
         selection=[
+            ('services', 'Servicios'),
             ('consume', 'Consumos material'),
             ('to_production', 'Salida a Producción'), 
             ('from_production', 'Entrada desde Producción'), 
@@ -127,6 +128,9 @@ class OperationsLogMove(models.Model):
     picking_id = fields.Many2one('stock.picking', 'Picking')
     qc_inspections_ids = fields.One2many(related='picking_id.qc_inspections_ids')
     nbr_inspections = fields.Integer("Number inspections", compute="_compute_inspections")
+    price = fields.Float(
+        string='Price',
+    )
 
     def _compute_inspections(self):
         for log in self:
@@ -147,9 +151,11 @@ class OperationsLogMove(models.Model):
     def onchange_move_type(self):
         if self.move_type:
             if self.move_type == 'consume':
-                return {'domain':{'location_id': [('location_type_q', '=', False) ,('usage', 'in',['internal'])]}}
+                return {'domain':{'location_id': [('location_type_q', '=', False) ,('usage', 'in',['internal'])], 'product_id':  [('type', '!=', 'service')]}}
+            elif self.move_type == 'services':
+                return {'domain':{'product_id': [('type', '=', 'service')]}}
             else:
-                return {'domain':{'location_id': [('location_type_q', 'in',[1,2])]}}
+                return {'domain':{'location_id': [('location_type_q', 'in',[1,2])], 'product_id': [('type', '=', 'product')]}}
 
     @api.onchange('location_id')
     def onchange_location_id(self):
@@ -168,7 +174,7 @@ class OperationsLogMove(models.Model):
     def onchange_product_id(self):
         if not self.product_id:
             return False
-        if self.move_type and self.move_type == 'consume':
+        if self.move_type and self.move_type == 'consume' and self.product_id.type=='product':
             location_stock = self.env.ref('stock.stock_location_stock')
             quants = self.env['stock.quant']._gather(self.product_id, location_stock)
             if quants:
@@ -183,6 +189,8 @@ class OperationsLogMove(models.Model):
                         " %s seleccionado para esta operaction de consumo"
                     ) % (self.product_id.name)
                 return res
+        if self.move_type == 'services':
+            self.price = self.product_id.standard_price
             
 
     
@@ -211,7 +219,14 @@ class OperationsLogMove(models.Model):
             self.location_dest_id = False
             return res 
 
-
+    def unlink(self):
+        for op in self:
+            if op.registered:
+                raise ValidationError(
+                    _('You can not delete a registered move.')
+                )            
+    
+    
     @api.multi
     def create_picking(self):
         if self.registered:
@@ -256,56 +271,61 @@ class OperationsLogMove(models.Model):
                 'date_done': self.date_done   
             }
             destination_q = False
-        picking_id = self.env['stock.picking'].create(vals)
-
-        vals = {
-            'location_id': picking_id.location_id.id,
-            'location_dest_id': picking_id.location_dest_id.id,
-            'product_id': self.product_id.id,
-            'product_uom_qty': self.quantity,
-            'picking_id': picking_id.id,
-            'destination_q': destination_q,
-            'operation_id': self.id
-
-        }
-        move = self.env['stock.move'].new(vals)
-
-        move.onchange_product_id()
-        vals = move._convert_to_write(move._cache)
-        self.env['stock.move'].create(vals)
-        picking_id.action_confirm()
-        picking_id.action_assign()
-        if self.emptied:
-            picking_id.move_line_ids.write({'emptied': True})
+        elif self.move_type == 'services':
+            vals = {
+                'location_id': False,
+                'location_dest_id': False,
+                'picking_type_id': False,
+                'date_done': self.date_done   
+            }
+            destination_q = False
             
+        if self.move_type != 'services':
+            picking_id = self.env['stock.picking'].create(vals)
+
+            vals = {
+                'location_id': picking_id.location_id.id,
+                'location_dest_id': picking_id.location_dest_id.id,
+                'product_id': self.product_id.id,
+                'product_uom_qty': self.quantity,
+                'picking_id': picking_id.id,
+                'destination_q': destination_q,
+                'operation_id': self.id
+
+            }
+            move = self.env['stock.move'].new(vals)
+
+            move.onchange_product_id()
+            vals = move._convert_to_write(move._cache)
+            self.env['stock.move'].create(vals)
+            picking_id.action_confirm()
+            picking_id.action_assign()
+            if self.emptied:
+                picking_id.move_line_ids.write({'emptied': True})
+                
+                
             
-        
-        pick_to_backorder = self.env['stock.picking']
-        pick_to_do = self.env['stock.picking']
-        
-            # If still in draft => confirm and assign
+            pick_to_backorder = self.env['stock.picking']
+            pick_to_do = self.env['stock.picking']
             
-        if picking_id.state != 'assigned':
-            raise UserError(_("Could not reserve all requested products. Please use the \'Mark as Todo\' button to handle the reservation manually."))
-        for move in picking_id.move_lines.filtered(lambda m: m.state not in ['done', 'cancel']):
-            for move_line in move.move_line_ids:
-                move_line.qty_done = move_line.product_uom_qty
-                if self.new_lot_id:
-                    move_line.lot_id = self.new_lot_id.id
-        picking_id.action_done()
-        self.picking_id = picking_id.id
+                # If still in draft => confirm and assign
+                
+            if picking_id.state != 'assigned':
+                raise UserError(_("Could not reserve all requested products. Please use the \'Mark as Todo\' button to handle the reservation manually."))
+            for move in picking_id.move_lines.filtered(lambda m: m.state not in ['done', 'cancel']):
+                for move_line in move.move_line_ids:
+                    move_line.qty_done = move_line.product_uom_qty
+                    if self.new_lot_id:
+                        move_line.lot_id = self.new_lot_id.id
+            picking_id.action_done()
+            self.picking_id = picking_id.id
         self.registered = True
         
-        # return {
-        #     'type': 'ir.actions.act_window',
-        #     'res_model': 'stock.picking',
-        #     'res_id': picking_id.id,
-        #     'view_mode': 'form',
-        #     'view_type': 'form',
-        #     'view_id': self.env.ref('stock.view_picking_form').id,
-        #     'target': 'current',
-        # }
-        
+        if (self.move_type == 'services'):
+            price = self.price
+        else:
+            price = self.product_id.standard_price
+            
         if self.project_id:
             self.env['account.analytic.line'].create({
                 'name': "Operacion %s - %s" % (picking_id.name, self.operations_log_id.name),
@@ -314,7 +334,7 @@ class OperationsLogMove(models.Model):
                 'unit_amount': -1 *self.quantity,
                 'date': self.date_done,
                 'product_uom_id': self.product_id.uom_id.id,
-                'amount': -1 * self.product_id.standard_price * self.quantity,
+                'amount': -1 * price * self.quantity,
                 
             })
     
