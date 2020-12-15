@@ -1,7 +1,7 @@
 # © 2020 Comunitea
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class OperationsLog(models.Model):
@@ -280,8 +280,13 @@ class OperationsLogMove(models.Model):
             }
             destination_q = False
             
+        ctx = self.env.context.copy()
+        if ctx.get('default_parent_id'):
+            del ctx['default_parent_id']
         if self.move_type != 'services':
-            picking_id = self.env['stock.picking'].create(vals)
+            
+            picking_id = self.env['stock.picking'].with_context(ctx).create(vals)
+            
 
             vals = {
                 'location_id': picking_id.location_id.id,
@@ -290,14 +295,14 @@ class OperationsLogMove(models.Model):
                 'product_uom_qty': self.quantity,
                 'picking_id': picking_id.id,
                 'destination_q': destination_q,
-                'operation_id': self.id
+                'operation_log_id': self.id
 
             }
             move = self.env['stock.move'].new(vals)
 
             move.onchange_product_id()
             vals = move._convert_to_write(move._cache)
-            self.env['stock.move'].create(vals)
+            self.env['stock.move'].with_context(ctx).create(vals)
             picking_id.action_confirm()
             picking_id.action_assign()
             if self.emptied:
@@ -323,12 +328,14 @@ class OperationsLogMove(models.Model):
         
         if (self.move_type == 'services'):
             price = self.price
+            name = "Operacion %s - %s" % (self.move_type, self.product_id.name),
         else:
             price = self.product_id.standard_price
+            name = "Operacion %s - %s" % (picking_id.name, self.product_id.name),
             
         if self.project_id:
             self.env['account.analytic.line'].create({
-                'name': "Operacion %s - %s" % (picking_id.name, self.operations_log_id.name),
+                'name': name,
                 'account_id': self.project_id.analytic_account_id.id,
                 'product_id': self.product_id.id,
                 'unit_amount': -1 *self.quantity,
@@ -364,8 +371,8 @@ class StockMove(models.Model):
                                   location_id, lot_id=None,
                                   package_id=None, owner_id=None,
                                   strict=True):
-        if self.operation_id.lot_id:
-            lot_id = self.operation_id.lot_id
+        if self.operation_log_id.lot_id:
+            lot_id = self.operation_log_id.lot_id
         return super()._update_reserved_quantity(
             need, available_quantity, location_id, lot_id=lot_id,
             package_id=package_id, owner_id=owner_id, strict=strict)
@@ -373,8 +380,9 @@ class StockMove(models.Model):
     def _prepare_move_line_vals(self, quantity=None, reserved_quant=None):
         vals = super()._prepare_move_line_vals(
             quantity=quantity, reserved_quant=reserved_quant)
-        if self.operation_id.lot_id:
-            lot = self.operation_id.lot_id
+        lot = False
+        if self.operation_log_id.lot_id:
+            lot = self.operation_log_id.lot_id
         if reserved_quant and lot:
             vals['lot_id'] = lot.id
         return vals
