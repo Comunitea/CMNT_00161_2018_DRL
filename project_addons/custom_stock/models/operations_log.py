@@ -335,6 +335,7 @@ class OperationsLogMove(models.Model):
             
         if self.project_id:
             self.env['account.analytic.line'].create({
+                'project_id': False,
                 'name': name,
                 'account_id': self.project_id.analytic_account_id.id,
                 'product_id': self.product_id.id,

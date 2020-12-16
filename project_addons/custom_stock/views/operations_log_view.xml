@@ -92,6 +92,7 @@
                 <field name="move_type"/>
                 <field name="location_id"/>
                 <field name="location_dest_id"/>
+                <field name="project_id" />
                 <separator/>
                 <filter string="Today Operations" name="operations_today"
                     domain="[('date_done','&lt;', time.strftime('%%Y-%%m-%%d 23:59:59')), ('date_done','&gt;=', time.strftime('%%Y-%%m-%%d 00:00:00'))]"/>
@@ -108,6 +109,18 @@
                 </group>
             </search>
         </field>
+    </record>
+
+    <record id="operations_log_move_all_act" model="ir.actions.act_window">
+        <field name="name">Operations Log Moves</field>
+        <field name="res_model">operations.log.move</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{
+            'search_default_project_id': [active_id],
+            'default_project_id': active_id,
+        }</field>
+        <field name="domain"></field>
     </record>
 
     <record id="operations_log_move_act" model="ir.actions.act_window">
