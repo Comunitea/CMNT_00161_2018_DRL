@@ -7,7 +7,8 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 
 from odoo.tools.float_utils import float_compare, float_round, float_is_zero
-
+import logging
+_logger = logging.getLogger(__name__)
 # import logging
 
 # _logger = logging.getLogger('WHEIGHT_REGISTRY')
@@ -321,6 +322,7 @@ class WeightRegistry(models.Model):
 
     @api.model
     def set_weight_registry(self, vehicle_id, weight, deposits, vehicles):
+        _logger.info('Pesada para {}: Weight {}, depositos: {}, vehicles {}'.format(vehicle_id, weight, deposits, vehicles))
         res = True
         vehicle = self.env['vehicle'].browse(vehicle_id)
         reg = vehicle.vehicle_action_change(weight)
@@ -350,6 +352,8 @@ class WeightRegistry(models.Model):
                     }
                     self.env['weight.registry.line'].create(vals)
             else:
+
+
                 ## En este caso las lineas se crean antes del pesaje
                 ## por lo tanto ya tengo un albarán y unos movimientos asovciados a la línea
                 move_id = reg.picking_ids[0].move_lines
@@ -367,18 +371,13 @@ class WeightRegistry(models.Model):
                         line.move_line_id.write({'qty_done': qty})
 
                 ## lo que sobra/falte lo meto en el último deposito
-                line.qty += available_total_qty
-                if update_move_line:
-                    line.move_line_id.write({'qty_done': line.qty})
-                    ## Escribo la cantidad total
+                if line:
+                    line.qty += available_total_qty
+                    if update_move_line:
+                        line.move_line_id.write({'qty_done': line.qty})
+                        ## Escribo la cantidad total
 
-
-
-
-
-
-
-            return res
+            return reg
 
     @api.model
     def set_weight_registry_bis(self, vehicle_id, weight, deposits):

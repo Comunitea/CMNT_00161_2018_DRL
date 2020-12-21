@@ -12,6 +12,22 @@
             </field>
         </field>
     </record>
+    <record id="stock_picking_form_custom" model="ir.ui.view">
+            <field name="name">stock.picking.form.view.custom</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+            <field name="arch" type="xml">
+              <data>
+                  <field name="carrier_id" position="before">
+                      <field name="operator_id" options="{'no_create': True, 'no_open': True}"/>
+                  </field>
+                  <field name="carrier_id" position="after">
+                      <field name="driver_id" context="{'default_driver': True}" domain ="[('parent_id', '=', carrier_id)]">
+                      </field>
+                  </field>
+              </data>
+            </field>
+        </record>
 
     <record id="view_stock_location_capacity_view_tree" model="ir.ui.view">
         <field name="name">stock.location.capacity.tree</field>
@@ -24,6 +40,16 @@
             </field>
         </field>
     </record>
-
+    <record id="res_partner_filter_custom" model="ir.ui.view">
+        <field name="name">res.partner.filter.custom</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <separator/>
+                <filter name="from_carrier_id" string="Del transportista ..." domain="[('parent_id','ilike', context.get('from_carrier_id'))]"/>
+            </filter>
+        </field>
+    </record>
    
 </odoo>

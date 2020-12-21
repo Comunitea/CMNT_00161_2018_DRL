@@ -333,6 +333,7 @@ class StockPickwightControlWzd(models.TransientModel):
         partially_available_moves.write({'state': 'partially_available'})
         assigned_moves.write({'state': 'assigned'})
         self.picking_id._check_entire_pack()
+        self.picking_id.vehicle_ids = self.registry_id.vehicle_ids
         if assigned_moves or partially_available_moves:
             self.picking_id.weight_registry_ids = [(6, 0, [self.registry_id.id])]
             action = self.picking_id.get_formview_action()

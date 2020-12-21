@@ -101,8 +101,17 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <field name="move_ids_without_package" position="before">
-                 <div class="oe_button_box" attrs="{'invisible':['|', ('state', '=', 'done'), ('weight_state','=','none')]}">
+                 <div class="oe_button_box" attrs="{'invisible':['|', ('state', 'in', ('draft', 'cancel', 'done')), ('weight_state','=','none')]}">
+                    <field name="weight_registry_state" widget="statusbar" />
                     <field name="weight_state" widget="statusbar" statusbar_visible="waiting,to_assign,done"/>
+
+                      <button
+                            class="oe_stat_button"
+                            name="fill_weight_from_pick"
+                            type="object"
+                            icon="fa-tachometer"
+                            attrs="{'invisible': ['|', ('vehicle_ids', '=', []), ('weight_registry_state', '=', 'checked_out')]}"
+                            string="Leer báscula"/>
                       <button
                             class="oe_stat_button"
                             name="link_and_fill_from_weight_wzd"
@@ -129,14 +138,31 @@
 
             </field>
             <xpath expr="//field[@name='group_id']" position="after">
-                <field name="weight_registry_ids">
-                    <tree editable="0" create="0" delete="1">
+                <field name="weight_registry_ids" widget="many2many_tags">
+                    <!--tree editable="0" create="0" delete="1">
                         <field name="vehicle_str"/>
                         <field name="net"/>
-
-                    </tree>
+                    </tree-->
                 </field>
             </xpath>
+            <field name="carrier_id" position="after">
+                <label for="vehicle_ids" />
+                <div class="o_row">
+                    <field name="vehicle_ids">
+                     <tree>
+                            <field name="register"/>
+                            <field name="vehicle_type_id"/>
+                        </tree>
+                    </field>
+                    <!--button
+                            class="oe_stat_button"
+                            name="fill_weight_from_pick"
+                            type="object"
+                            icon="fa-pencil"
+                            string="Weight control"/-->
+                </div>
+
+            </field>
         </field>
     </record>
 </odoo>

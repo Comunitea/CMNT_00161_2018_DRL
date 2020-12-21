@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_direct_weight_to_pick_wzd" model="ir.ui.view">
+        <field name="name">view.direct.weght.to.pick.wzd</field>
+        <field name="model">weight.pick.direct.wzd</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!--field name='state' widget='statusbar'/-->
+                </header>
+                <h2>
+                    <field name="picking_id" readonly="1"/>
+                </h2>
+                <group>
+                    <field name="weight"/>
+                </group>
+                <div>
+                    <field name="line_ids" >
+                        <tree create="0" delete="0" editable="top">
+                            <!--field name="vehicle_id" readonly="1"/-->
+                            <field name="deposit_id" readonly="1"/>
+                            <field name="capacity" readonly="1"/>
+                            <field name="checked"/>
+                        </tree>
+                    </field>
+                </div>
+                <footer>
+                    <!--button string="Atrás" class="oe_link" name = "button_back" type="object" states="lots,moves"/-->
+                    <button name="assign_2_weigt" string="Confirmar" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--act_window name="Empaquetar movimientos"
+                res_model="stock.move.pack.wzd"
+                src_model="stock.move"
+                view_mode="form"
+                target="new"
+                key2="client_action_multi"
+                id="view_stock_move_pack_wzd_act_window"/-->
+
+
+</odoo>
+

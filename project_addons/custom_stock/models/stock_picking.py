@@ -8,6 +8,9 @@ class StockPicking(models.Model):
 
     _inherit = 'stock.picking'
 
+    operator_id = fields.Many2one("delivery.carrier", string="Operator")
+    driver_id = fields.Many2one("res.partner", string="Driver", domain=[('driver', '=', True)])
+
     @api.multi
     def action_done(self):
         """

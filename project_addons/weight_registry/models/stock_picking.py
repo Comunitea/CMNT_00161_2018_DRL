@@ -38,13 +38,23 @@ class StockPicking(models.Model):
 
     _inherit = "stock.picking"
 
+
+    @api.multi
+    def _compute_last_weight_state(self):
+        for pick in self:
+            if pick.vehicle_ids:
+                pick.weight_registry_state = pick.vehicle_ids[0].weight_registry_state
     #picking_ids = fields.Many2many('stock.picking', "pick_weight_rel", column1="picking_id", column2="weight_id",
     #                               string="Albaranes asociados")
-    weight_registry_ids = fields.Many2many('weight.registry', "stock_picking_weight_rel", string="Linked weight registry")
+    weight_registry_ids = fields.Many2many('weight.registry', "stock_picking_weight_rel", string="Linked weight registry", copy=False)
     weight_control = fields.Selection(related='picking_type_id.weight_control', store=True)
     weight_state = fields.Selection (selection=PICK_WEIGHT_STATES, string="Weight state",
                                      compute="compute_weight_state",
                                      help="No weight: No need weight control.\nWaiting Control: Need control, watiting fot it.\nWaiting assigment: Control done, need moves.\Moves done. Weight done")
+    vehicle_ids = fields.Many2many('vehicle', string="Listado de matrículas", required=False, copy=False)
+    weight_registry_state = fields.Selection(
+        string="Vehicle state", compute='_compute_last_weight_state',
+        selection=[('checked_out', "Check out"), ('checked_in', "Check in")], copy=False)
 
     @api.multi
     def compute_weight_state(self):
@@ -68,6 +78,14 @@ class StockPicking(models.Model):
         self.ensure_one()
         if self.weight_control in ('done', 'none'):
             return
+        vehicle_id = self.vehicle_ids and self.vehicle_ids[0] or False
+
+        if vehicle_id:
+            if vehicle_id.weight_registry_state == 'checked_in':
+
+                ## Tengo que asigna
+                return self.fill_from_weight_wzd()
+
 
         if self.weight_state == 'waiting':
             return self.link_weight_wzd()
@@ -101,3 +119,49 @@ class StockPicking(models.Model):
         # return action
         action['res_id'] = new_wzd.id
         return action
+
+    @api.multi
+    def fill_weight_from_pick(self):
+        self.ensure_one()
+        if not self.vehicle_ids:
+            raise ValidationError (_('You need vehicles'))
+
+        weight = self.env['weight.online'].get_last()
+        vehicle_ids = []
+        deposit_ids = []
+        vehicle_id = self.vehicle_ids[0]
+
+        if not self.vehicle_ids[0].vehicle_type_id.master:
+            raise ValidationError(_('First register must be master'))
+
+        for v_id in self.vehicle_ids:
+            vals = {'id': v_id.id, 'register': v_id.register}
+            vehicle_ids.append(vals)
+            for dep in v_id.deposit_ids:
+                v_dep = {'id': dep.id, 'check': False}
+                deposit_ids.append((v_dep))
+
+        ## Creo el asistente
+        wzd_vals = {'vehicle_id': v_id.id, 'picking_id': self.id, 'weight': weight}
+        wzd_id = self.env['weight.pick.direct.wzd'].create(wzd_vals)
+        for v_id in self.vehicle_ids:
+            for dep in v_id.deposit_ids:
+                line_val = {'wzd_id': wzd_id.id,
+                        'vehicle_id': v_id.id,
+                        'deposit_id': dep.id,
+                        'checked': True,
+                        'capacity': dep.capacity}
+                wzd_id.line_ids.create(line_val)
+        action = wzd_id.get_formview_action()
+        action['target'] = 'new'
+        # return action
+        action['res_id'] = wzd_id.id
+        return action
+
+
+
+
+
+
+
+

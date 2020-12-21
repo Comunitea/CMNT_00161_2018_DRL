@@ -27,7 +27,8 @@
         'views/stock_views.xml',
         'views/stock_picking.xml',
         'wizard/link_weight_moves_wzd.xml',
-        'wizard/link_pick_to_weight.xml'
+        'wizard/link_pick_to_weight.xml',
+        'wizard/weight_pick_direct_wzd.xml'
     ],
     'installable': True,
     'qweb': [
