@@ -3,3 +3,4 @@
 from . import qc_test
 from . import qc_test_question
 from . import qc_inspection
+from . import stock_picking

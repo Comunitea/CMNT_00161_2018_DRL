@@ -14,6 +14,28 @@ class QcInspection(models.Model):
 
     no_cases = fields.\
         Integer("No of Cases", compute="_get_no_cases", store=True)
+    
+    valid_for_move = fields.Boolean(
+        compute="_compute_valid_for_move", string='Success',
+        help='This field will be marked if all tests requiered for move are covered.',
+        store=True,
+        readonly=True)
+        
+    @api.multi
+    def _prepare_inspection_line(self, test, line, fill=None):
+        data = super()._prepare_inspection_line(test, line, fill)
+        data['result_required'] = line.result_required
+        return data 
+
+    @api.depends('inspection_lines', 'inspection_lines.success')
+    def _compute_valid_for_move(self):
+        for i in self:
+            i.valid_for_move = False
+            required_lines = i.inspection_lines.filtered(lambda a: a.result_required == True)
+            if not required_lines:
+                i.valid_for_move = True
+            else: 
+                i.valid_for_move = all([x.success for x in required_lines])
 
 
 class QcInspectionLine(models.Model):
@@ -96,3 +118,4 @@ class QcInspectionLine(models.Model):
         'Quantitative value 6', digits=dp.get_precision('Quality Control'),
         help="Value 6 of the result for a quantitative question.",
         default=0.0)
+    result_required= fields.Boolean("Required for validate move")

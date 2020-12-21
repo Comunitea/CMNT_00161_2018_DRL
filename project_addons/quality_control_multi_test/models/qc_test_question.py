@@ -11,3 +11,6 @@ class QcTestQuestion(models.Model):
         Selection([('all', 'All valid'), ('one', 'One valid'),
                    ('sum', 'Sum valid'), ('avg', 'Average valid')],
                   "Result type", required=True, default='one')
+        
+    result_required= fields.Boolean("Required for validate move", default=True, help="The result must be correct before valdate related stock move")
+    
