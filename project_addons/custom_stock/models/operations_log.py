@@ -347,6 +347,12 @@ class OperationsLogMove(models.Model):
             })
     
     @api.multi
+    def launch_tests_before_move (self):
+        picking_id.launch_tests_before_move()
+    
+    
+
+    @api.multi
     def action_view_qc_inspecions(self):
         
         action = self.env.ref('quality_control.action_qc_inspection').read()[0]

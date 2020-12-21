@@ -23,7 +23,9 @@
         <field name="arch" type="xml">
             <field name="type" position="after">
                 <field name="result_type"/>
+                <field name="result_required"/>
             </field>
+            
         </field>
     </record>
 

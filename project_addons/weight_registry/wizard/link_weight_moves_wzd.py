@@ -155,8 +155,7 @@ class StockPickwightControlWzd(models.TransientModel):
 
         for line in self.registry_line_ids:
 
-            #PRIMERO LO PASO A LA UNIDAD
-            ## qty = line.qty * move_id.product_id.product_tmpl_id.get_weight_factor(move_id.product_uom)
+           
             domain = [('template_id', '=', move_id.product_id.product_tmpl_id.id), ('category_id', '=', move_id.product_id.uom_id.category_id.id)]
             uom_id = self.env['uom.uom'].search(domain, limit=1)
             if not line.move_line_id:

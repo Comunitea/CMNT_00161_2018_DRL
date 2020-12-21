@@ -12,9 +12,9 @@ class ProductUom(models.Model):
     template_id = fields.Many2one ('product.template')
 
 
-    @api.model
-    def get_weight_factor(self, template_id):
-        return self.env['product.uom.factor'].get_weight_factor(template_id, self.id)
+    # @api.model
+    # def get_weight_factor(self, template_id):
+    #     return self.env['product.uom.factor'].get_weight_factor(template_id, self.id)
 
 class ProductTemplate(models.Model):
 
@@ -24,6 +24,6 @@ class ProductTemplate(models.Model):
     weight_control = fields.Boolean('Requires weight control', help="For filter in weight control links", default=False)
    
 
-    @api.model
-    def get_weight_factor(self, uom_id):
-        return self.env['product.uom.factor'].get_weight_factor(self, uom_id)
+    # @api.model
+    # def get_weight_factor(self, uom_id):
+    #     return self.env['product.uom.factor'].get_weight_factor(self, uom_id)

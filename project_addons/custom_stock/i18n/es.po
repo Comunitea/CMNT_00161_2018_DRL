@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 06:56+0000\n"
-"PO-Revision-Date: 2020-12-14 06:56+0000\n"
+"POT-Creation-Date: 2020-12-21 13:04+0000\n"
+"PO-Revision-Date: 2020-12-21 13:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -68,10 +68,10 @@ msgid "Consumos material"
 msgstr "Consumos de material"
 
 #. module: custom_stock
-#: code:addons/custom_stock/models/operations_log.py:314
+#: code:addons/custom_stock/models/operations_log.py:319
 #, python-format
 msgid "Could not reserve all requested products. Please use the 'Mark as Todo' button to handle the reservation manually."
-msgstr "No se pudieron reservar todos los productos solicitados."
+msgstr "No se pudo hacer la reserrva de todos los productos. Es posible qu eno exista stock suficiente en la ubicacion seleccionada"
 
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_location_to_production__create_uid
@@ -149,7 +149,7 @@ msgstr "El producto contenido en la ubicación de destino:%s : %s no es compatib
 #: code:addons/custom_stock/wizard/location_to_production.py:93
 #, python-format
 msgid "El product conternido en la ubicación de destino:%s : %s no es compatible con el producto de la ubicación seleccionada como origen."
-msgstr "El producto conternido en la ubicación de destino:%s : %s no es compatible con el producto de la ubicación seleccionada como origen."
+msgstr ""
 
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_location_to_production__emptied
@@ -427,7 +427,7 @@ msgstr ""
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log_move__new_lot_id
 msgid "New Lot"
-msgstr "Nuevo Lote"
+msgstr "Lote"
 
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log__activity_date_deadline
@@ -486,6 +486,16 @@ msgid "Operation"
 msgstr "Operación"
 
 #. module: custom_stock
+#: model_terms:ir.ui.view,arch_db:custom_stock.view_project_project_operation_form
+msgid "Operations"
+msgstr "Operaciones"
+
+#. module: custom_stock
+#: model:ir.model.fields,field_description:custom_stock.field_project_project__op_count
+msgid "Operations Count"
+msgstr ""
+
+#. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log_move__operations_log_id
 #: model_terms:ir.ui.view,arch_db:custom_stock.view_project_operation_form
 msgid "Operations Log"
@@ -494,10 +504,11 @@ msgstr "Registro de operaciones"
 #. module: custom_stock
 #: model:ir.actions.act_window,name:custom_stock.operations_log_act
 msgid "Operations Log Block"
-msgstr "Bloque de operaciones"
+msgstr "Grupo de registro de operaciones"
 
 #. module: custom_stock
 #: model:ir.actions.act_window,name:custom_stock.operations_log_move_act
+#: model:ir.actions.act_window,name:custom_stock.operations_log_move_all_act
 #: model:ir.ui.menu,name:custom_stock.operations_log_move_menu
 msgid "Operations Log Moves"
 msgstr "Registros de operaciones"
@@ -505,7 +516,7 @@ msgstr "Registros de operaciones"
 #. module: custom_stock
 #: model:ir.ui.menu,name:custom_stock.operations_log_menu
 msgid "Operations Logs"
-msgstr "Registros de operaciones"
+msgstr "Grupo de Registros de operaciones"
 
 #. module: custom_stock
 #: model_terms:ir.ui.view,arch_db:custom_stock.operations_log_move_search_view
@@ -579,6 +590,11 @@ msgstr "Producto calificado"
 #: selection:location.to.production,move_type:0
 msgid "Production"
 msgstr "Producción"
+
+#. module: custom_stock
+#: model:ir.model,name:custom_stock.model_project_project
+msgid "Project"
+msgstr "Proyecto"
 
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log_move__project_id
@@ -756,7 +772,7 @@ msgstr "Usuario"
 #: code:addons/custom_stock/wizard/location_to_production.py:92
 #, python-format
 msgid "Warning"
-msgstr ""
+msgstr "Aviso"
 
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log__website_message_ids
@@ -772,7 +788,7 @@ msgstr "Historial de comunicaciones del sitio web"
 #: code:addons/custom_stock/models/operations_log.py:226
 #, python-format
 msgid "You can not delete a registered move."
-msgstr ""
+msgstr "No se puede borrar una operación registrada"
 
 #. module: custom_stock
 #: model:ir.model,name:custom_stock.model_location_to_production

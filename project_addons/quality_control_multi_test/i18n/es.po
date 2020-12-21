@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-18 05:49+0000\n"
-"PO-Revision-Date: 2019-07-18 05:49+0000\n"
+"POT-Creation-Date: 2020-12-21 12:57+0000\n"
+"PO-Revision-Date: 2020-12-21 12:57+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,12 @@ msgstr "Todos válidos"
 #: selection:qc.test.question,result_type:0
 msgid "Average valid"
 msgstr "Validac valor medio"
+
+#. module: quality_control_multi_test
+#: code:addons/quality_control_multi_test/models/stock_picking.py:20
+#, python-format
+msgid "Before validate th picking you need to fill at least on inspecion . You can need to geneate tests"
+msgstr "Antes de validar esta operación se necesita rellenar el menos un test de calidad (o algunos de sus valores). Es necesario generar estos tests antes de validarlo"
 
 #. module: quality_control_multi_test
 #: selection:qc.test,location_type:0
@@ -46,15 +52,15 @@ msgid "Internal"
 msgstr "Interno"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_location_type
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test__location_type
 msgid "Location"
 msgstr "Ubicación"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_no_cases
-#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_no_cases
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection__no_cases
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test__no_cases
 msgid "No of Cases"
-msgstr "No de valores"
+msgstr "Nº de casos"
 
 #. module: quality_control_multi_test
 #: selection:qc.test,no_cases:0
@@ -87,32 +93,38 @@ msgid "Quality control test"
 msgstr "Test del control de calidad"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line_quantitative_value2
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line__quantitative_value2
 msgid "Quantitative value 2"
-msgstr "Cuantitativo 2"
+msgstr "Valor cuantitativo 2"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line_quantitative_value3
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line__quantitative_value3
 msgid "Quantitative value 3"
-msgstr "Cuantitativo 3"
+msgstr "Valor cuantitativo 3"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line_quantitative_value4
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line__quantitative_value4
 msgid "Quantitative value 4"
-msgstr "Cuantitativo 4"
+msgstr "Valor cuantitativo 4"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line_quantitative_value5
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line__quantitative_value5
 msgid "Quantitative value 5"
-msgstr "Cuantitativo 5"
+msgstr "Valor cuantitativo 5"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line_quantitative_value6
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line__quantitative_value6
 msgid "Quantitative value 6"
-msgstr "Cuantitativo 6"
+msgstr "Valor cuantitativo 6"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_question_result_type
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line__result_required
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_question__result_required
+msgid "Required for validate move"
+msgstr "Requerido para validar la oepración"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_question__result_type
 msgid "Result type"
 msgstr "Tipo de resultado"
 
@@ -122,9 +134,24 @@ msgid "Six columns"
 msgstr "6 valores"
 
 #. module: quality_control_multi_test
+#: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection__valid_for_move
+msgid "Success"
+msgstr "Correcta"
+
+#. module: quality_control_multi_test
 #: selection:qc.test.question,result_type:0
 msgid "Sum valid"
 msgstr "Válida la suma"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_test_question__result_required
+msgid "The result must be correct before valdate related stock move"
+msgstr "El resultado debe ser correcto antes de validar la operación relacionada"
+
+#. module: quality_control_multi_test
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection__valid_for_move
+msgid "This field will be marked if all tests requiered for move are covered."
+msgstr "Se marcará este campo si todos los valores de los tests naecesarios para esta operación están realizados"
 
 #. module: quality_control_multi_test
 #: selection:qc.test,no_cases:0
@@ -132,32 +159,37 @@ msgid "Three columns"
 msgstr "3 valores"
 
 #. module: quality_control_multi_test
+#: model:ir.model,name:quality_control_multi_test.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: quality_control_multi_test
 #: selection:qc.test,no_cases:0
 msgid "Two columns"
 msgstr "2 valores"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value2
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line__quantitative_value2
 msgid "Value 2 of the result for a quantitative question."
-msgstr "Valor 2 del resultado para la pregunta cuantitativa."
+msgstr "Valor 2 del resultado de la pregunta cuantitativa"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value3
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line__quantitative_value3
 msgid "Value 3 of the result for a quantitative question."
-msgstr "Valor 3 del resultado para la pregunta cuantitativa."
+msgstr "Valor 3 del resultado de la pregunta cuantitativa"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value4
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line__quantitative_value4
 msgid "Value 4 of the result for a quantitative question."
-msgstr "Valor 4 del resultado para la pregunta cuantitativa."
+msgstr "Valor 4 del resultado de la pregunta cuantitativa"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value5
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line__quantitative_value5
 msgid "Value 5 of the result for a quantitative question."
-msgstr "Valor 5 del resultado para la pregunta cuantitativa."
+msgstr "Valor 5 del resultado de la pregunta cuantitativa"
 
 #. module: quality_control_multi_test
-#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line_quantitative_value6
+#: model:ir.model.fields,help:quality_control_multi_test.field_qc_inspection_line__quantitative_value6
 msgid "Value 6 of the result for a quantitative question."
-msgstr "Valor 6 del resultado para la pregunta cuantitativa."
+msgstr "Valor 6 del resultado de la pregunta cuantitativa"
 

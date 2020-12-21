@@ -6,8 +6,14 @@
         <field name="model">qc.inspection</field>
         <field name="inherit_id" ref="quality_control.qc_inspection_form_view"/>
         <field name="arch" type="xml">
+            <field name="auto_generated" position="before">
+                <field name="valid_for_move"/>
+            </field>
             <field name="auto_generated" position="after">
                 <field name="no_cases" invisible="1"/>
+            </field>
+            <field name="quantitative_value" position="before">
+                <field name="result_required"/>
             </field>
             <field name="quantitative_value" position="after">
                 <field name="quantitative_value2" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'column_invisible': [('parent.no_cases', '&lt;', 2)]}" />
@@ -17,6 +23,10 @@
                 <field name="quantitative_value6" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'column_invisible': [('parent.no_cases', '&lt;', 6)]}" />
             </field>
         </field>
+
+        
+
+
     </record>
 
 </odoo>
