@@ -16,12 +16,10 @@ class PurchaseOrder(models.Model):
             for pick in pickings:
                 moves = pick.move_lines.filtered(lambda x: x.purchase_line_id.date_planned != pick.scheduled_date)
                 while moves:
-                    _logger.info("Se separa el movimienro %s"%moves[0].display_name)
                     scheduled_date = moves[0].purchase_line_id.date_planned
                     res = order._prepare_picking()
                     res['scheduled_date'] = scheduled_date
                     new_picking = StockPicking.create(res)
-                    _logger.info("Se crea el nuevo albarán%s" % new_picking.display_name)
                     moves_to_assign = moves.filtered(lambda x: x.purchase_line_id.date_planned == scheduled_date)
                     for move in moves_to_assign:
                         move.picking_id = new_picking
