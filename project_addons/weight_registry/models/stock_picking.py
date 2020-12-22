@@ -79,7 +79,7 @@ class StockPicking(models.Model):
     @api.multi
     def link_and_fill_from_weight_wzd(self):
         self.ensure_one()
-        if self.weight_control in ('done', 'none'):
+        if self.weight_state in ('done', 'none'):
             return
         vehicle_id = self.vehicle_ids and self.vehicle_ids[0] or False
 
