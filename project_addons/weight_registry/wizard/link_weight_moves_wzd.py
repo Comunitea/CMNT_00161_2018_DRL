@@ -250,7 +250,7 @@ class StockPickwightControlWzd(models.TransientModel):
                 deposit_dest_id = line.deposit_id.id
                 deposit_id = False
             from_wc = {
-                'lot_id': lot_id.id,
+                'lot_id': lot_id and lot_id.id,
                 'emptied': line.full_empty,
                 'registry_line_id': line.registry_line_id.id,
                 'location_dest_id': location_dest_id,

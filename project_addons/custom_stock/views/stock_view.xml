@@ -52,5 +52,58 @@
             </filter>
         </field>
     </record>
-   
+
+    <record id="stock_picking_kanban_custom" model="ir.ui.view">
+        <field name="name">stock.picking.kanban.custom</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.stock_picking_kanban"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="origin"/>
+                <field name="first_product_id"/>
+                <field name="scheduled_date"/>
+            </field>
+
+            <xpath expr="//div[hasclass('oe_kanban_bottom_right')]" position="replace">
+                <div class="oe_kanban_bottom_right text-primary">
+                    <t t-esc="record.scheduled_date.value and record.scheduled_date.value.split(' ')[0] or False"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="after">
+                <div class="o_kanban_record_bottom">
+                    <div class="text-primary">
+                        <t t-esc="record.first_product_id.value"/>
+                    </div>
+
+                </div>
+                <div class="o_kanban_record_bottom">
+                    <div class="oe_kanban_bottom_left">
+                        <t t-esc="record.origin and record.origin.value"/>
+                    </div>
+                    <div class="oe_kanban_bottom_right text-muted">
+                        <t t-esc="record.date.value and record.date.value.split(' ')[0] or False"/>
+                    </div>
+                </div>
+
+
+            </xpath>
+        </field>
+    </record>
+        <record id="view_picking_internal_search_custom" model="ir.ui.view">
+        <field name="name">stock.picking.search.custom</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <filter name="backorder" position="after">
+                    <separator/>
+                      <filter name="next_7dh" string="Next week"
+                      domain="[('state', 'not in', ['cancel', 'draft', 'done']),
+                      ('scheduled_date','&lt;', (context_today() + datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))
+                      ('scheduled_date','&gt;', (context_today() + datetime.timedelta(days=0)).strftime('%%Y-%%m-%%d'))]"
+                      />
+                      <filter string="This week" name='this_week' date="scheduled_date" default_period="this_week"/>
+
+            </filter>
+        </field>
+    </record>
 </odoo>

@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#       * dairylac_custom
+#	* dairylac_custom
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-09 15:38+0000\n"
-"PO-Revision-Date: 2019-04-09 15:38+0000\n"
+"POT-Creation-Date: 2020-12-22 17:43+0000\n"
+"PO-Revision-Date: 2020-12-22 17:43+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,156 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_deposit_capacity
-msgid "Capacity"
-msgstr "Capacidad"
-
-#. module: dairylac_custom
-#: model:ir.model,name:dairylac_custom.model_delivery_carrier
-msgid "Carrier"
-msgstr "Forma de envío"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_delivery_carrier_carrier_code
-msgid "Carrier Code"
-msgstr "Carrier Code"
-
-#. module: dairylac_custom
-#: model:ir.model,name:dairylac_custom.model_res_partner
-msgid "Contact"
-msgstr "Contacto"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_deposit_create_uid
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_create_uid
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_create_uid
-msgid "Created by"
-msgstr "Creado por"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_deposit_create_date
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_create_date
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_create_date
-msgid "Created on"
-msgstr "Creado en"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_deposit_ids
-msgid "Deposit Used"
-msgstr "Depósitos"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_description
-msgid "Description"
-msgstr "Descripción"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_deposit_display_name
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_display_name
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_display_name
-msgid "Display Name"
-msgstr "Nombre mostrado"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_res_partner_driver
-#: model:ir.model.fields,field_description:dairylac_custom.field_res_users_driver
-#: model:ir.ui.menu,name:dairylac_custom.driver
-msgid "Driver"
-msgstr "Conductor"
-
-#. module: dairylac_custom
-#: model:ir.actions.act_window,name:dairylac_custom.action_partner_driver
-msgid "Drivers"
-msgstr "Conductores"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_deposit_ids
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_id
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_id
-msgid "ID"
-msgstr "ID (identificación)"
-
-#. module: dairylac_custom
-#: model:ir.ui.view,arch_db:dairylac_custom.res_partner_driver_filter
-msgid "Is driver"
-msgstr "Es conductor"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_deposit___last_update
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle___last_update
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type___last_update
-msgid "Last Modified on"
-msgstr "Última modificación en"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_deposit_write_uid
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_write_uid
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_write_uid
-msgid "Last Updated by"
-msgstr "Última actualización de"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_deposit_write_date
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_write_date
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_write_date
-msgid "Last Updated on"
-msgstr "Última actualización en"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_letter_code_q
-msgid "Letter code Q"
-msgstr "Letra Q"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type_name
-msgid "Name"
-msgstr "Nombre"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_deposit_quantity
-msgid "Quantity"
-msgstr "Cantidad"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_register
-msgid "Register"
-msgstr "Registro"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_total_deposits
-msgid "Total Deposits"
-msgstr "Depositos totales"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_total_quantity
-msgid "Total Quantity"
-msgstr "Cantidad total"
-
-#. module: dairylac_custom
-#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_vehicle_type_id
-msgid "Type of vehicle"
-msgstr "Tipo de vehículo"
-
-#. module: dairylac_custom
-#: model:ir.actions.act_window,name:dairylac_custom.action_vehicle
-#: model:ir.ui.menu,name:dairylac_custom.vehicle
-msgid "Vehicles"
-msgstr "Vehículo"
-
-#. module: dairylac_custom
-#: model:ir.model,name:dairylac_custom.model_deposit
-msgid "deposit"
-msgstr "Depósito"
-
-#. module: dairylac_custom
-#: model:ir.model,name:dairylac_custom.model_vehicle
-msgid "vehicle"
-msgstr "vehículo"
-
-#. module: dairylac_custom
-#: model:ir.model,name:dairylac_custom.model_vehicle_type
-msgid "vehicle.type"
-msgstr "vehicle.type"
+#: model:ir.model,name:dairylac_custom.model_qc_trigger_line
+msgid "Abstract line for defining triggers"
+msgstr "Línea abstracta para definir disparadores"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_qc_trigger_line__before_move_done
@@ -176,6 +29,254 @@ msgid "Before Move Done"
 msgstr "Antes de realizar el movimiento"
 
 #. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit__capacity
+msgid "Capacity"
+msgstr "Capacidad"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_delivery_carrier__carrier_code
+msgid "Carrier Code"
+msgstr "Codigo de transportista"
+
+#. module: dairylac_custom
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.vehicle_search_view
+msgid "Cisterna"
+msgstr ""
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit__code
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__code
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type__code
+msgid "Code"
+msgstr "Código"
+
+#. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_stock_picking__created_tests
+msgid "Created Tests"
+msgstr "Test creados"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit__create_uid
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__create_uid
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit__create_date
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__create_date
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_res_partner__legacy_account_code
+#: model:ir.model.fields,field_description:dairylac_custom.field_res_users__legacy_account_code
+msgid "Código contable (previo)"
+msgstr ""
+
+#. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr ""
+
+#. module: dairylac_custom
+#: model:ir.actions.act_window,name:dairylac_custom.show_deposit_action_vehicle
+msgid "Deposit"
+msgstr "Depósito"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__deposit_ids
+msgid "Deposit Used"
+msgstr "Depósitos usados"
+
+#. module: dairylac_custom
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.vehicle_form_view
+msgid "Deposits"
+msgstr "Depositos"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit__display_name
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__display_name
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_res_partner__driver
+#: model:ir.model.fields,field_description:dairylac_custom.field_res_users__driver
+#: model:ir.ui.menu,name:dairylac_custom.driver
+msgid "Driver"
+msgstr "Conductor"
+
+#. module: dairylac_custom
+#: model:ir.actions.act_window,name:dairylac_custom.action_partner_driver
+#: model:ir.model.fields,field_description:dairylac_custom.field_delivery_carrier__driver_ids
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__driver_ids
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.delivery_carrier_driver_form
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.vehicle_form_view
+msgid "Drivers"
+msgstr "Conductores"
+
+#. module: dairylac_custom
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.delivery_carrier_driver_form
+msgid "Drivers/Vehicles"
+msgstr "Conductores/Vehículos"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit__id
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__id
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type__id
+msgid "ID"
+msgstr ""
+
+#. module: dairylac_custom
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.res_partner_driver_filter
+msgid "Is driver"
+msgstr "Es conductor"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit____last_update
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle____last_update
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit__write_uid
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__write_uid
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit__write_date
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__write_date
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: dairylac_custom
 #: model_terms:ir.ui.view,arch_db:dairylac_custom.view_picking_form
 msgid "Launch quality test"
 msgstr "Lanzar test de calidad"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__letter_code_q
+msgid "Letter code Q"
+msgstr "Letra Q"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_delivery_carrier__vehicle_ids
+msgid "Listado de matrículas"
+msgstr ""
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__master
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type__master
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.vehicle_search_view
+msgid "Master"
+msgstr "Maestro"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle_type__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: dairylac_custom
+#: model_terms:ir.actions.act_window,help:dairylac_custom.show_deposit_action_vehicle
+msgid "No deposit."
+msgstr "Sin deposito."
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit__number
+msgid "Number"
+msgstr "Número"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__register
+msgid "Register"
+msgstr "Matrícula"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__total_deposits
+msgid "Total Deposits"
+msgstr "Depósitos totales."
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__total_quantity
+msgid "Total Quantity"
+msgstr "Cantidad total"
+
+#. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: dairylac_custom
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.vehicle_search_view
+msgid "Type Vehicle"
+msgstr "Tipo de vehículo"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__vehicle_type_id
+msgid "Type of vehicle"
+msgstr "Tipo de vehículo"
+
+#. module: dairylac_custom
+#: model:ir.model.fields,field_description:dairylac_custom.field_deposit__vehicle_id
+msgid "Vehicle"
+msgstr "Mátricula"
+
+#. module: dairylac_custom
+#: model:ir.actions.act_window,name:dairylac_custom.action_vehicle
+#: model:ir.ui.menu,name:dairylac_custom.vehicle
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.delivery_carrier_driver_form
+msgid "Vehicles"
+msgstr "Vehículo"
+
+#. module: dairylac_custom
+#: model_terms:ir.ui.view,arch_db:dairylac_custom.vehicle_form_view
+msgid "W. registry"
+msgstr "Registro pesada"
+
+#. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_deposit
+msgid "deposit"
+msgstr "Depósito"
+
+#. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_qc_trigger_product_category_line
+msgid "qc.trigger.product_category_line"
+msgstr ""
+
+#. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_qc_trigger_product_line
+msgid "qc.trigger.product_line"
+msgstr ""
+
+#. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_qc_trigger_product_template_line
+msgid "qc.trigger.product_template_line"
+msgstr ""
+
+#. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_vehicle
+msgid "vehicle"
+msgstr "vehículo"
+
+#. module: dairylac_custom
+#: model:ir.model,name:dairylac_custom.model_vehicle_type
+msgid "vehicle.type"
+msgstr ""
+

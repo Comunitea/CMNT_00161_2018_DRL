@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-21 13:04+0000\n"
-"PO-Revision-Date: 2020-12-21 13:04+0000\n"
+"POT-Creation-Date: 2020-12-22 17:11+0000\n"
+"PO-Revision-Date: 2020-12-22 17:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr "Consumos de material"
 #: code:addons/custom_stock/models/operations_log.py:319
 #, python-format
 msgid "Could not reserve all requested products. Please use the 'Mark as Todo' button to handle the reservation manually."
-msgstr "No se pudo hacer la reserrva de todos los productos. Es posible qu eno exista stock suficiente en la ubicacion seleccionada"
+msgstr "No se puedde reservar todos los productos requeridos. Utiliza el botón 'Marcar para realizar' para hacerlo manualmente."
 
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_location_to_production__create_uid
@@ -107,6 +107,11 @@ msgid "Default unit of measure used for all stock operations."
 msgstr "Unidad de medida por defecto utilizada para todas las operaciones de stock"
 
 #. module: custom_stock
+#: model_terms:ir.ui.view,arch_db:custom_stock.res_partner_filter_custom
+msgid "Del transportista ..."
+msgstr ""
+
+#. module: custom_stock
 #: model_terms:ir.ui.view,arch_db:custom_stock.operations_log_move_search_view
 msgid "Dest. Location"
 msgstr "Ubicación dest."
@@ -138,6 +143,16 @@ msgstr "Nombre mostrado"
 #: selection:operations.log,state:0
 msgid "Draft"
 msgstr "Borrador"
+
+#. module: custom_stock
+#: model:ir.model.fields,field_description:custom_stock.field_stock_picking__driver_id
+msgid "Driver"
+msgstr "Conductor"
+
+#. module: custom_stock
+#: model:ir.model.fields,field_description:custom_stock.field_stock_picking__available_driver_ids
+msgid "Drivers"
+msgstr "Conductores"
 
 #. module: custom_stock
 #: code:addons/custom_stock/models/operations_log.py:214
@@ -493,7 +508,7 @@ msgstr "Operaciones"
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_project_project__op_count
 msgid "Operations Count"
-msgstr ""
+msgstr "Nº Operaciones"
 
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_operations_log_move__operations_log_id
@@ -504,7 +519,7 @@ msgstr "Registro de operaciones"
 #. module: custom_stock
 #: model:ir.actions.act_window,name:custom_stock.operations_log_act
 msgid "Operations Log Block"
-msgstr "Grupo de registro de operaciones"
+msgstr "Lote de operaciones"
 
 #. module: custom_stock
 #: model:ir.actions.act_window,name:custom_stock.operations_log_move_act
@@ -516,7 +531,12 @@ msgstr "Registros de operaciones"
 #. module: custom_stock
 #: model:ir.ui.menu,name:custom_stock.operations_log_menu
 msgid "Operations Logs"
-msgstr "Grupo de Registros de operaciones"
+msgstr "Registros de operaciones"
+
+#. module: custom_stock
+#: model:ir.model.fields,field_description:custom_stock.field_stock_picking__operator_id
+msgid "Operator"
+msgstr "Operador"
 
 #. module: custom_stock
 #: model_terms:ir.ui.view,arch_db:custom_stock.operations_log_move_search_view
@@ -614,7 +634,7 @@ msgstr "Producto calificado"
 #. module: custom_stock
 #: model_terms:ir.ui.view,arch_db:custom_stock.qualify_lot_view
 msgid "Qualify_product"
-msgstr ""
+msgstr "Calificación de productos"
 
 #. module: custom_stock
 #: model:ir.model.fields,field_description:custom_stock.field_location_to_production__location_quantity
@@ -820,4 +840,3 @@ msgstr "o"
 #: model:ir.model,name:custom_stock.model_qualify_lot
 msgid "qualify.lot"
 msgstr ""
-
