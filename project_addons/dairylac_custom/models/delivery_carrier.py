@@ -9,3 +9,8 @@ class DeliveryCarrier(models.Model):
     _inherit = 'delivery.carrier'
 
     carrier_code = fields.Char('Carrier Code')
+
+    vehicle_ids = fields.Many2many('vehicle', string="Listado de matrículas", required=False, copy=False)
+    driver_ids = fields.Many2many(
+        "res.partner", string="Drivers", domain=[("driver", "=", True)]
+    )

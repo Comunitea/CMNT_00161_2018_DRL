@@ -25,6 +25,7 @@ class WeightPickLinkWzd(models.TransientModel):
     vehicle_id = fields.Many2one('vehicle', 'Vehículo')
     weight = fields.Float('Peso')
     line_ids = fields.One2many('weight.pick.direct.line.wzd', 'wzd_id', string='Depositos',)
+    show_details = fields.Boolean('Show_details')
 
     @api.multi
     def assign_2_weigt(self):
@@ -40,6 +41,11 @@ class WeightPickLinkWzd(models.TransientModel):
         for line in self.line_ids:
             v_dep = {'id': line.deposit_id.id, 'check': line.checked}
             deposit_ids.append((v_dep))
+        domain = [('vehicle_id', '=', vehicle_id.id), ('check_out', '=', False)]
+        reg_id = self.env['weight.registry'].search(domain, limit=1, order="id desc")
+        if reg_id and self.picking_id.weight_registry_state != 'checked_in':
+            self.picking_id.write({'weight_registry_ids': [(4, reg_id.id)]})
+            return
         new_w = self.env['weight.registry'].set_weight_registry(vehicle_id.id, self.weight, deposit_ids, vehicle_ids_v)
         #new_w = self.env['weight.registry'].set_weight_registry(vehicle_id.id, weight, deposit_ids, vehicle_ids)
         if new_w:

@@ -48,10 +48,12 @@ class StockPicking(models.Model):
     #                               string="Albaranes asociados")
     weight_registry_ids = fields.Many2many('weight.registry', "stock_picking_weight_rel", string="Linked weight registry", copy=False)
     weight_control = fields.Selection(related='picking_type_id.weight_control', store=True)
+    net_weight_registry = fields.Float('Net weight registry', compute="compute_weight_state")
     weight_state = fields.Selection (selection=PICK_WEIGHT_STATES, string="Weight state",
                                      compute="compute_weight_state",
                                      help="No weight: No need weight control.\nWaiting Control: Need control, watiting fot it.\nWaiting assigment: Control done, need moves.\Moves done. Weight done")
-    vehicle_ids = fields.Many2many('vehicle', string="Listado de matrículas", required=False, copy=False)
+    available_vehicle_ids = fields.Many2many(related="carrier_id.vehicle_ids")
+    vehicle_ids = fields.Many2many('vehicle', string="Listado de matrículas", required=False, copy=False, domain="[('id', 'in', available_vehicle_ids)]")
     weight_registry_state = fields.Selection(
         string="Vehicle state", compute='_compute_last_weight_state',
         selection=[('checked_out', "Check out"), ('checked_in', "Check in")], copy=False)
@@ -72,6 +74,7 @@ class StockPicking(models.Model):
                     pick.weight_state = 'to_assign'
                 else:
                     pick.weight_state = 'done'
+            pick.net_weight_registry = sum(x.net for x in pick.weight_registry_ids)
 
     @api.multi
     def link_and_fill_from_weight_wzd(self):
@@ -142,15 +145,19 @@ class StockPicking(models.Model):
                 deposit_ids.append((v_dep))
 
         ## Creo el asistente
-        wzd_vals = {'vehicle_id': v_id.id, 'picking_id': self.id, 'weight': weight}
+        if self.weight_registry_ids:
+            show_details = True
+        else:
+            show_details = False
+        wzd_vals = {'vehicle_id': v_id.id, 'picking_id': self.id, 'weight': weight, 'show_details': show_details}
         wzd_id = self.env['weight.pick.direct.wzd'].create(wzd_vals)
         for v_id in self.vehicle_ids:
             for dep in v_id.deposit_ids:
                 line_val = {'wzd_id': wzd_id.id,
-                        'vehicle_id': v_id.id,
-                        'deposit_id': dep.id,
-                        'checked': True,
-                        'capacity': dep.capacity}
+                            'vehicle_id': v_id.id,
+                            'deposit_id': dep.id,
+                            'checked': True,
+                            'capacity': dep.capacity}
                 wzd_id.line_ids.create(line_val)
         action = wzd_id.get_formview_action()
         action['target'] = 'new'

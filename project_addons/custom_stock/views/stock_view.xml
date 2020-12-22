@@ -22,7 +22,8 @@
                       <field name="operator_id" options="{'no_create': True, 'no_open': True}"/>
                   </field>
                   <field name="carrier_id" position="after">
-                      <field name="driver_id" context="{'default_driver': True}" domain ="[('parent_id', '=', carrier_id)]">
+                      <field name="available_driver_ids" invisible="1"/>
+                      <field name="driver_id" >
                       </field>
                   </field>
               </data>

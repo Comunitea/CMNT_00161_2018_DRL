@@ -100,9 +100,9 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <field name="move_ids_without_package" position="before">
+            <!--field name="move_ids_without_package" position="before">
                  <div class="oe_button_box" attrs="{'invisible':['|', ('state', 'in', ('draft', 'cancel', 'done')), ('weight_state','=','none')]}">
-                    <field name="weight_registry_state" widget="statusbar" />
+                    <field name="weight_registry_state"/>
                     <field name="weight_state" widget="statusbar" statusbar_visible="waiting,to_assign,done"/>
 
                       <button
@@ -116,53 +116,63 @@
                             class="oe_stat_button"
                             name="link_and_fill_from_weight_wzd"
                             type="object"
-                            icon="fa-pencil"
-                            attrs="{'invisible': [('weight_state', '!=', 'to_assign')]}"
-                            string="Weight control"/>
-                      <button
-                            class="oe_stat_button"
-                            name="link_and_fill_from_weight_wzd"
-                            type="object"
-                            icon="fa-pencil"
-                            attrs="{'invisible': [('weight_state', '!=', 'done')]}"
-                            string="Weight control"/>
-                        <button
-                            class="oe_stat_button"
-                            name="link_and_fill_from_weight_wzd"
-                            type="object"
                             icon="fa-balance-scale"
-                            attrs="{'invisible': [('weight_state', '!=', 'waiting')]}"
+                            attrs="{'invisible': [('weight_registry_state', '=', 'checked_in')]}"
                             string="Weight control"/>
 
                 </div>
 
+            </field-->
+
+            <field name="carrier_id" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
             </field>
-            <xpath expr="//field[@name='group_id']" position="after">
-                <field name="weight_registry_ids" widget="many2many_tags">
-                    <!--tree editable="0" create="0" delete="1">
-                        <field name="vehicle_str"/>
-                        <field name="net"/>
-                    </tree-->
-                </field>
-            </xpath>
             <field name="carrier_id" position="after">
+                <field name="available_vehicle_ids" invisible="1"/>
                 <label for="vehicle_ids" />
                 <div class="o_row">
-                    <field name="vehicle_ids">
+                    <field name="vehicle_ids" widget="many2many_tags">
                      <tree>
                             <field name="register"/>
                             <field name="vehicle_type_id"/>
                         </tree>
                     </field>
-                    <!--button
-                            class="oe_stat_button"
-                            name="fill_weight_from_pick"
-                            type="object"
-                            icon="fa-pencil"
-                            string="Weight control"/-->
                 </div>
-
             </field>
+            <xpath expr="//group[@name='carrier_data']" position="after">
+                    <group string="Báscula">
+                        <field name="weight_registry_state" invisible="1"/>
+                        <field name="weight_state" widget="statusbar" invisible="1"/>
+                        <!--label for="weight_registry_ids" /-->
+
+                        <group>
+                                <field name="net_weight_registry"/>
+                                <field name="weight_registry_ids" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'done'])]}" widget="many2many_tags">
+                                    <tree editable="0" create="0" delete="1">
+                                        <field name="vehicle_str"/>
+                                        <field name="net"/>
+                                    </tree>
+                                </field>
+                            <!--h2>Importar datos >> </h2-->
+                        </group>
+                        <group >
+                            <button
+                                class="oe_stat_button"
+                                name="fill_weight_from_pick"
+                                type="object"
+                                icon="fa-tachometer"
+                                attrs="{'invisible': ['|', '|', ('state', 'in', ['draft', 'cancel', 'done']), ('vehicle_ids', '=', []), ('weight_registry_state', '=', 'checked_out')]}"
+                                string="Leer báscula"/>
+                            <button
+                                class="oe_stat_button"
+                                name="link_and_fill_from_weight_wzd"
+                                type="object"
+                                icon="fa-balance-scale"
+                                attrs="{'invisible': ['|', ('state', 'in', ['draft', 'cancel', 'done']), ('weight_registry_state', '=', 'checked_in')]}"
+                                string="Weight control"/>
+                        </group>
+                    </group>
+            </xpath>
         </field>
     </record>
 </odoo>

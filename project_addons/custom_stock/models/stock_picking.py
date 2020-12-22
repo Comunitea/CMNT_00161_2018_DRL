@@ -9,7 +9,12 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
     operator_id = fields.Many2one("delivery.carrier", string="Operator")
-    driver_id = fields.Many2one("res.partner", string="Driver", domain=[('driver', '=', True)])
+    driver_id = fields.Many2one("res.partner", string="Driver", domain="[('id', 'in', available_driver_ids)]")
+    available_driver_ids = fields.Many2many(related='carrier_id.driver_ids')
+
+    @api.onchange('operator_id')
+    def onchange_operator_id(self):
+        self.carrier_id = self.operator_id
 
     @api.multi
     def action_done(self):

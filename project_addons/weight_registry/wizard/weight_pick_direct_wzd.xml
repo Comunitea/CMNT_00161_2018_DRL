@@ -16,7 +16,8 @@
                     <field name="weight"/>
                 </group>
                 <div>
-                    <field name="line_ids" >
+                    <field name="show_details" invisible="1"/>
+                    <field name="line_ids" attrs="{'invisible': [('show_details', '=', False)]}">
                         <tree create="0" delete="0" editable="top">
                             <!--field name="vehicle_id" readonly="1"/-->
                             <field name="deposit_id" readonly="1"/>

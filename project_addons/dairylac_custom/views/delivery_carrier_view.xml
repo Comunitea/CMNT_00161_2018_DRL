@@ -12,6 +12,30 @@
                     <field name="carrier_code"/>
                 </group>
             </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Drivers/Vehicles">
+                    <group >
+                        <group string="Drivers">
+                            <field name="driver_ids" nolabel="1">
+                                <tree>
+                                    <field name="vat"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Vehicles">
+                            <field name="vehicle_ids" nolabel="1">
+                                <tree>
+                                    <field name="register"/>
+                                    <field name="vehicle_type_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+
+                </page>
+            </xpath>
         </field>
     </record>
 
