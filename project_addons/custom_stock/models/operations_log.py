@@ -334,7 +334,7 @@ class OperationsLogMove(models.Model):
             name = "Operacion %s - %s" % (picking_id.name, self.product_id.name),
             
         if self.project_id:
-            self.env['account.analytic.line'].create({
+            self.env['account.analytic.line'].sudo().create({
                 'project_id': False,
                 'name': name,
                 'account_id': self.project_id.analytic_account_id.id,
