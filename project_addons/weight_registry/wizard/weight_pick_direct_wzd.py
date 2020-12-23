@@ -31,7 +31,12 @@ class WeightPickLinkWzd(models.TransientModel):
     def assign_2_weigt(self):
         vehicle_ids_v = []
         deposit_ids = []
-        vehicle_id = self.picking_id.vehicle_ids[0]
+        ##miro si hay alguna pesada para este
+        weight_registry_id = self.picking_id.weight_registry_id
+
+        vehicle_id = self.picking_id.vehicle_ids.filtered(lambda x: x.master)[0]
+        if not vehicle_id:
+            raise ValidationError ("No encunetro un vehiculo principal")
         vehicle_ids = self.picking_id.vehicle_ids
         if not vehicle_ids[0].vehicle_type_id.master:
             raise ValidationError(_('First register must be master'))
@@ -43,14 +48,24 @@ class WeightPickLinkWzd(models.TransientModel):
             deposit_ids.append((v_dep))
         domain = [('vehicle_id', '=', vehicle_id.id), ('check_out', '=', False)]
         reg_id = self.env['weight.registry'].search(domain, limit=1, order="id desc")
-        if reg_id and self.picking_id.weight_registry_state != 'checked_in':
-            self.picking_id.write({'weight_registry_ids': [(4, reg_id.id)]})
+        if vehicle_id.weight_registry_state == 'check_out':
+            ## Si el vehiculo está fuera, entonces
+            ## compruebo el albarán
+            if self.picking_id.weight_registry_id:
+                raise ValidationError ('No puedes tener un vehiculo fuera y el albarán con registro')
+            if self.picking_id.weight_registry_state != 'checked_in':
+                raise ValidationError ('Error de estado de pesaje. El estado del vehiculo y del albarán deben coincidir.')
+            #Hago la entrada, esto mete el vehiculo y debería cambiarme el estado del albarán
+            new_w = self.env['weight.registry'].set_weight_registry(vehicle_id.id, self.weight, deposit_ids,
+                                                                        vehicle_ids_v, self.picking_id)
+            #self.picking_id.weight_registry_id = reg_id
+
             return
-        new_w = self.env['weight.registry'].set_weight_registry(vehicle_id.id, self.weight, deposit_ids, vehicle_ids_v)
+
+        new_w = self.env['weight.registry'].set_weight_registry(vehicle_id.id, self.weight, deposit_ids, vehicle_ids_v, self.picking_id)
         #new_w = self.env['weight.registry'].set_weight_registry(vehicle_id.id, weight, deposit_ids, vehicle_ids)
         if new_w:
-            self.picking_id.write({'weight_registry_ids': [(4, new_w.id)]})
-
-        if new_w.check_out_weight:
-            return self.picking_id.link_and_fill_from_weight_wzd()
+            self.picking_id.weight_registry_id = new_w
+            if new_w.check_out:
+                return self.picking_id.link_and_fill_from_weight_wzd()
         # self.picking_id.link_and_fill_from_weight_wzd()

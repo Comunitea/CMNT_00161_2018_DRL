@@ -6,8 +6,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.addons.weight_registry.models.weight_registry import REGISTRY_TYPE
 from odoo.tools.float_utils import float_compare, float_round, float_is_zero
-from odoo.exceptions import UserError, ValidationError
-
+from odoo.addons import decimal_precision as dp
 
 class MoveLineWeightControlWzd(models.TransientModel):
     _name = 'move.line.weight.control.wzd'
@@ -56,15 +55,23 @@ class AvailableLineMovesWzd(models.TransientModel):
     registry_line_id_qty = fields.Float('Weigth qty')
     registry_line_id_qty_flow = fields.Float('Flow qty')
     full_empty = fields.Boolean('Vaciado completo', help="Vacia toda la cantidad de la ubicación origen ", default=False)
+    product_uom_qty = fields.Float('Qty')
+    product_uom_id = fields.Many2one(related="product_id.uom_id")
+    secondary_uom_id = fields.Many2one(
+        comodel_name='product.secondary.unit',
+        string='Second unit',
+    )
+    secondary_uom_qty = fields.Float(
+        string='Secondary Qty',
+        digits=dp.get_precision('Product Unit of Measure'),
+    )
 
 
     @api.onchange('location_id')
     def onchange_location_id(self):
-
         domain = [('product_id', '=', self.move_id.product_id.id), ('location_id', 'child_of', self.location_id.id)]
         quants = self.env['stock.quant'].search(domain)
         lot_id = quants.mapped('lot_id')
-
         if len(lot_id)==1 and lot_id:
             self.lot_id = lot_id
             if self.wzd_id.full_empty:
@@ -75,6 +82,13 @@ class AvailableLineMovesWzd(models.TransientModel):
             'lot_id': [
                 ('id', 'in', lot_id.ids)]}}
 
+    @api.multi
+    def _compute_secondary_unit_qty_available(self):
+        for line in self.filtered('secondary_uom_id'):
+            qty = line.registry_line_id_qty / (
+                    line.secondary_uom_id.factor or 1.0)
+            line.secondary_uom_qty = float_round(
+                qty, precision_rounding=line.uom_id.rounding)
 
 class StockPickwightControlWzd(models.TransientModel):
 
@@ -140,50 +154,47 @@ class StockPickwightControlWzd(models.TransientModel):
 
     @api.model
     def create_future_lines(self):
+        ##La unidad de pesada es kg
+        ## Buscamos una segunda unidad en el factor de la segunda unidad
+        ## si no lo tiene, es 1 (porque no tiene o es la propia unidad del producto)
+        kg = self.env.ref('uom.product_uom_kgm')
+        secondary_uom_id = self.picking_id.product_id.secondary_uom_ids.filtered(lambda x: x.uom_id == kg)
+        if not secondary_uom_id:
+            factor = 1
+            secondary_uom_id = False
+        else:
+            factor = secondary_uom_id.factor or 1.0
+
+
         self.available_moves.unlink()
         self.location_id = self.picking_id.location_id
         self.location_dest_id = self.picking_id.location_dest_id
         move_id = self.picking_id.move_lines.filtered(lambda x:x.product_id == self.product_id)
         move_id.ensure_one()
+        move_id.weight_registry_id = self.registry_id
         lot_id = default_location_id = default_dest_location_id = False
-        if self.type=='incoming':
+        if self.type == 'incoming':
             default_location_id = self.location_id.id
             self.unique_location_id = self.location_id
-        elif self.type=='outgoing':
+        elif self.type == 'outgoing':
             default_dest_location_id = self.location_dest_id.id
             self.unique_location_dest_id = self.location_dest_id
 
         for line in self.registry_line_ids:
-
-           
-            domain = [('template_id', '=', move_id.product_id.product_tmpl_id.id), ('category_id', '=', move_id.product_id.uom_id.category_id.id)]
-            uom_id = self.env['uom.uom'].search(domain, limit=1)
+            uom_id = move_id.product_id.uom_id
             if not line.move_line_id:
-                qty_kgrs = line.qty
-                ## CONVIERTO LOS KGRS DE LV A LITROS
-                # se cambia la uso de la segunda unidad
-                #line_qty está en Kilos y es como debe estar configurada la segunda unidad de stock
-                qty_litros = line.qty * (
-                    move_id.product_id.stock_secondary_uom_id.factor or 1.0)
-                qty_litros = float_round(
-                    qty_litros, precision_rounding=move_id.product_id.uom_id.rounding)
-                
-                # qty_litros = uom_id._compute_quantity(line.qty,
-                #                                    move_id.product_id.uom_id,
-                #                                    rounding_method='HALF-UP')
-                ##CONVIERTO LOS LITROS A MILES DE LITROS
-                #qty_mlitros = move_id.product_id.uom_id._compute_quantity(qty_litros, move_id.product_uom)
-                ## Propongo Cantidad como
+                ## En la báscula la segunda unidad es kgr.
+                ## La unidad de stock
+                secondary_uom_qty = line.qty
+                primary_uom_qty = secondary_uom_qty * factor
+                primary_uom_qty = float_round(primary_uom_qty, precision_rounding=uom_id.rounding)
 
             if line.move_line_id:
+                raise ValidationError ("No debería entrar por aquí nunca")
                 #qty_mlitros = line.move_line_id.registry_line_id_qty_flow
                 qty = line.move_line_id.qty_done
                 lot_id = line.lot_id
-            elif self.select_qty == 'weight' and not line.move_line_id:
-                qty = qty_litros
 
-            else:
-                qty = 0.0
 
             val = {'wzd_id': self.id,
                    'product_id': move_id.product_id.id,
@@ -192,10 +203,12 @@ class StockPickwightControlWzd(models.TransientModel):
                    'location_dest_id': default_dest_location_id,
                    'deposit_id': line.deposit_id.id,
                    'lot_id': lot_id,
-                   'registry_line_id_qty': line.qty,
-                   'registry_line_id_qty_flow': qty_litros,
-                   'qty': qty,
+                   'registry_line_id_qty': secondary_uom_qty,
+                   'qty': primary_uom_qty,
+                   'product_uom_qty': primary_uom_qty,
+                   'secondary_uom_qty': secondary_uom_qty,
                    'registry_line_id': line.id,
+                   'secondary_uom_id': secondary_uom_id.id,
                    'used': True
                    }
             self.env['available.line.moves.wzd'].create(val)
@@ -213,7 +226,7 @@ class StockPickwightControlWzd(models.TransientModel):
 
     @api.multi
     def action_assign_product(self):
-
+        kg = self.env.ref('uom.product_uom_kgm').id
         if self.product_id.tracking != 'none' and self.unique_lot_id == False and (any(not line.lot_id for line in self.available_moves)):
             raise ValidationError ('Tienes movimientos sin lote asignado')
         if self.unique_location_dest_id == False and (any(not line.location_dest_id for line in self.available_moves)):
@@ -227,17 +240,20 @@ class StockPickwightControlWzd(models.TransientModel):
         assigned_moves = self.env['stock.move']
         partially_available_moves = self.env['stock.move']
         new_move_lines = self.env['stock.move.line']
-
         total_qty = 0
+
+
         for line in self.available_moves.filtered(lambda x: x.used):
+
             move = line.move_id
+            # line_qty = line._compute_secondary_unit_qty_available
             rounding = roundings[move]
             missing_reserved_uom_quantity = move.product_uom_qty - move.reserved_availability
-            missing_reserved_quantity = move.product_uom._compute_quantity(missing_reserved_uom_quantity,
-                                                                           move.product_id.uom_id,
-                                                                           rounding_method='HALF-UP')
+            # missing_reserved_quantity = move.product_uom._compute_quantity(missing_reserved_uom_quantity,
+            #                                                                move.product_id.uom_id,
+            #                                                                rounding_method='HALF-UP')
             line_need = move.product_uom._compute_quantity(line.qty, move.product_id.uom_id, rounding_method='HALF-UP')
-            missing_reserved_quantity = line_need
+            # missing_reserved_quantity = line_need
             ctx = self._context.copy()
 
             lot_id = self.unique_lot_id or line.lot_id  or False
@@ -259,7 +275,9 @@ class StockPickwightControlWzd(models.TransientModel):
                 'registry_line_id_qty': line.registry_line_id_qty,
                 'registry_line_id_qty_flow': line.registry_line_id_qty_flow,
                 'deposit_dest_id': deposit_dest_id,
-                'deposit_id' : deposit_id
+                'deposit_id' : deposit_id,
+                'secondary_uom_id': line.secondary_uom_id.id,
+                'secondary_uom_qty': line.secondary_uom_qty
             }
             if lot_id:
                 from_wc.update(lot_name = lot_id.name)
@@ -315,7 +333,8 @@ class StockPickwightControlWzd(models.TransientModel):
                     'registry_line_id_qty': line.registry_line_id_qty,
                     'registry_line_id_qty_flow': line.registry_line_id_qty_flow,
                     'deposit_dest_id': deposit_dest_id,
-                    'deposit_id' : deposit_id
+                    'deposit_id': deposit_id,
+                    'secondary_uom_qty': line.secondary_uom_qty
                     })
                 new_move_lines |= new_move_line
                 if float_is_zero(taken_quantity, precision_rounding=rounding):
@@ -334,7 +353,8 @@ class StockPickwightControlWzd(models.TransientModel):
         self.picking_id._check_entire_pack()
         self.picking_id.vehicle_ids = self.registry_id.vehicle_ids
         if assigned_moves or partially_available_moves:
-            self.picking_id.weight_registry_ids = [(6, 0, [self.registry_id.id])]
+            #self.picking_id.weight_registry_ids = [(6, 0, [self.registry_id.id])]
+            self.picking_id.weight_registry_id = self.registry_id
             action = self.picking_id.get_formview_action()
             return action
         else:

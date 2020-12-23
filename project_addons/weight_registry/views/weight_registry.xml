@@ -10,7 +10,7 @@
             <tree string="Weight registry"
                   decoration-info="not check_out"
                   decoration-danger="not registry_type"
-                  decoration-success="picking_ids != False">
+                  decoration-success="picking_id != False">
 
                 <field name="registry_type"/>
                 <field name="display_name" readonly="1"/>
@@ -20,7 +20,7 @@
                         string="Link to stock picking"
                         type="object"
                         icon="fa-share-alt"
-                        attrs="{'invisible': ['|', ('picking_ids', '!=', False), ('registry_type', '=', False)]}"
+                        attrs="{'invisible': ['|', ('picking_id', '!=', False), ('registry_type', '=', False)]}"
                     />
                 <field name="state"/>
                 <field name="check_in" invisible="1"/>
@@ -30,7 +30,7 @@
                 <field name="fill" invisible="0"/>
                 <field name="net" invisible="0"/>
                 <field name="partner_id" invisible="0"/>
-                <field name="picking_ids" widget="many2many_tags" invisible="0"/>
+                <field name="picking_id" invisible="0"/>
             </tree>
         </field>
     </record>
@@ -61,7 +61,7 @@
                         <field name="registry_type"/>
                         <field name="partner_id"/>
                         <field name="worked_hours"/>
-                        <field name="picking_ids" widget="many2many_tags"/>
+                        <field name="picking_id"/>
                       
                     </group>
                     <group col="3">

@@ -38,17 +38,22 @@ class StockPicking(models.Model):
 
     _inherit = "stock.picking"
 
+    @api.multi
+    def compute_first_product_id(self):
+        for pick in self:
+            move = self.move_lines.filtered(lambda x: x.product_id.weight_control)
+            pick.first_product_id = move and move.product_id or False
 
     @api.multi
     def _compute_last_weight_state(self):
         for pick in self:
-            if pick.vehicle_ids:
-                pick.weight_registry_state = pick.vehicle_ids[0].weight_registry_state
-    #picking_ids = fields.Many2many('stock.picking', "pick_weight_rel", column1="picking_id", column2="weight_id",
-    #                               string="Albaranes asociados")
-    weight_registry_ids = fields.Many2many('weight.registry', "stock_picking_weight_rel", string="Linked weight registry", copy=False)
+            v_ids = pick.vehicle_ids.filtered(lambda x: x.master)
+            if v_ids:
+                pick.weight_registry_state = v_ids[0].weight_registry_state
+
+    weight_registry_id = fields.Many2one('weight.registry', string="Linked weight registry", copy=False)
     weight_control = fields.Selection(related='picking_type_id.weight_control', store=True)
-    net_weight_registry = fields.Float('Net weight registry', compute="compute_weight_state")
+    net_weight_registry = fields.Integer(related="weight_registry_id.net", string='Net weight registry')#, compute="compute_weight_state")
     weight_state = fields.Selection (selection=PICK_WEIGHT_STATES, string="Weight state",
                                      compute="compute_weight_state",
                                      help="No weight: No need weight control.\nWaiting Control: Need control, watiting fot it.\nWaiting assigment: Control done, need moves.\Moves done. Weight done")
@@ -59,22 +64,36 @@ class StockPicking(models.Model):
         selection=[('checked_out', "Check out"), ('checked_in', "Check in")], copy=False)
 
     @api.multi
+    def do_unreserve(self):
+        super().do_unreserve()
+        for picking in self:
+            #picking.weight_registry_ids = False
+            picking.weight_registry_id = False
+
+
+    @api.multi
     def compute_weight_state(self):
         for pick in self:
-            if pick.weight_control == 'none':
+            if not pick.first_product_id:
+                pick.weight_state = 'none'
+                continue
+
+            #pick.net_weight_registry = sum(x.net for x in pick.weight_registry_ids)
+            if pick.state in ['draft', 'cancel', 'confirmed', 'waiting'] or pick.weight_control == 'none':
                 pick.weight_state = 'none'
                 continue
             if pick.state == 'done':
                 pick.weight_state = 'done'
                 continue
-            if not pick.weight_registry_ids:
+            if not pick.weight_registry_id or (pick.weight_registry_id and not pick.weight_registry_id.check_out):
+                # not pick.weight_registry_ids or not pick.weight_registry_ids.check_out:
                 pick.weight_state = 'waiting'
             else:
                 if any(not sml.registry_line_id for sml in pick.move_line_ids):
                     pick.weight_state = 'to_assign'
                 else:
                     pick.weight_state = 'done'
-            pick.net_weight_registry = sum(x.net for x in pick.weight_registry_ids)
+
 
     @api.multi
     def link_and_fill_from_weight_wzd(self):
@@ -85,7 +104,6 @@ class StockPicking(models.Model):
 
         if vehicle_id:
             if vehicle_id.weight_registry_state == 'checked_in':
-
                 ## Tengo que asigna
                 return self.fill_from_weight_wzd()
 
@@ -98,7 +116,8 @@ class StockPicking(models.Model):
     @api.multi
     def fill_from_weight_wzd(self):
         self.ensure_one()
-        wr_id = self.weight_registry_ids
+        #wr_id = self.weight_registry_ids
+        wr_id = self.weight_registry_id
         if not wr_id:
             raise ValidationError ('El albarán no tiene asignado una pesada')
         product_id = self.move_lines[0].product_id
@@ -108,7 +127,7 @@ class StockPicking(models.Model):
     @api.multi
     def link_weight_wzd(self):
         self.ensure_one()
-        domain = [('picking_ids', '=', False)]
+        domain = [('picking_id', '=', False)]
         wc_ids = self.env['weight.registry'].search(domain)
         val = {'picking_id': self.id}
         new_wzd = self.env['weight.pick.link.wzd'].create(val)
@@ -145,7 +164,7 @@ class StockPicking(models.Model):
                 deposit_ids.append((v_dep))
 
         ## Creo el asistente
-        if self.weight_registry_ids:
+        if self.weight_registry_id:
             show_details = True
         else:
             show_details = False

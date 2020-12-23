@@ -24,10 +24,10 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <field name="usage" position="after">
-                <field name="location_type_q"/>
-                <field name="code_q"/>
+                <field name="location_type_q" />
+                <field name="code_q" />
                 <field name="product_id"/>
-                <field name="lot_id"/>
+                <field name="lot_id" />
                 <field name="quantity"/>
             </field>
         </field>
@@ -104,11 +104,11 @@
         <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree"/>
         <field name="arch" type="xml">
             <field name="location_id" position="before">
-                <field name="vehicle_id" />
-                <field name="deposit_id"  domain="[('vehicle_id', '=', vehicle_id)]"/>
-                <field name="dest_location_type_q" invisible="1"/>
-                <field name="is_letra_q"/>
-                <field name="emptied"/>
+                <field name="vehicle_id"  attrs="{'column_invisible': [('parent.show_advance_lq', '=', False)]}"/>
+                <field name="deposit_id"  domain="[('vehicle_id', '=', vehicle_id)]"  attrs="{'column_invisible': [('parent.show_advance_lq', '=', False)]}"/>
+                <field name="dest_location_type_q" invisible="1"  attrs="{'column_invisible': [('parent.show_advance_lq', '=', False)]}"/>
+                <field name="is_letra_q"  attrs="{'column_invisible': [('parent.show_advance_lq', '=', False)]}"/>
+                <field name="emptied"  attrs="{'column_invisible': [('parent.show_advance_lq', '=', False)]}"/>
             </field>
         </field>
     </record>
@@ -119,8 +119,14 @@
         <field name="inherit_id" ref="stock.view_stock_move_operations"/>
         <field name="arch" type="xml">
             <field name="move_line_ids" position="before">
+                <group>
+                    <field name="show_advance_lq" />
+                </group>
+                <group string="Letra Q" attrs="{'invisible': [('show_advance_lq', '=', False)]}">
                     <field name="location_type_q" />
                     <field name="is_letra_q" />
+                </group>
+
             </field>
         </field>
     </record>

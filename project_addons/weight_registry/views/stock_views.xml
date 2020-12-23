@@ -32,13 +32,13 @@
         <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree"/>
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="registry_line_id"/>
+                <field name="registry_line_id" attrs="{'column_invisible': [('parent.show_advance_lq', '=', False)]}"/>
             </field>
 
-            <field name="product_uom_qty" position="before">
+            <!--field name="product_uom_qty" position="before">
                 <field name="registry_line_id_qty" attrs="{'column_invisible': [('parent.weight_control', '=', 'none')]}"/>
                 <field name="registry_line_id_qty_flow" attrs="{'column_invisible': [('parent.weight_control', '=', 'none')]}"/>
-            </field>
+            </field-->
         </field>
     </record>
      <record id="view_stock_location_wc_view_form" model="ir.ui.view">

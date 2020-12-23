@@ -70,6 +70,7 @@ class StockMove(models.Model):
             else:
                 move.is_letra_q = False
 
+    show_advance_lq = fields.Boolean('Avanzado', default=False, store=False)
     emptied = fields.Boolean('Emptied')
     is_letra_q = fields.Boolean("Letra Q Move", compute="_compute_is_letra_q",
                                 store=True)

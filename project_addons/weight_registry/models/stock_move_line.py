@@ -4,6 +4,7 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_round, float_compare, float_is_zero
 
+
 class StockMoveLine(models.Model):
 
     _inherit = "stock.move.line"
@@ -74,6 +75,17 @@ class StockMoveLine(models.Model):
             
         return res
 
+    @api.multi
+    def _compute_secondary_unit_qty_available(self):
+        for line in self.filtered('secondary_uom_id'):
+            if line.qty_done:
+                qty = line.qty_done
+            else:
+                qty = line.product_uom_qty
+            qty = qty / (
+                line.secondary_uom_id.factor or 1.0)
+            line.secundary_uom_qty = float_round(
+                qty, precision_rounding=line.uom_id.rounding)
 
 class StockMove(models.Model):
 
@@ -85,13 +97,21 @@ class StockMove(models.Model):
                     'flow_control_uom_id': self.env["ir.config_parameter"].sudo().get_param("weight_registry.flow_control_default_uom_id")})
         return True
 
+    @api.multi
+    def _compute_secondary_unit_qty_available(self):
+        for line in self.filtered('secondary_uom_id'):
+            if line.product_id.weight_control and line.move_line_ids and line.move_line_ids[0].weight_registry_id:
+                line.secondary_uom_qty = line.move_line_ids[0].weight_registry_id.net
+            else:
+                line.secondary_uom_qty = sum(x.secondary_uom_qty for x in line.move_line_ids)
 
     registry_line_id_qty = fields.Float('Weigth qty', compute="compute_wc_qties")
     registry_line_id_qty_flow = fields.Float('Flow qty', compute="compute_wc_qties")
     weight_control = fields.Selection(related='picking_type_id.weight_control')
     weight_control_uom_id = fields.Many2one('uom.uom', default=lambda self: self.default_control_uom_id())
     flow_control_uom_id = fields.Many2one('uom.uom', default=lambda self: self.default_control_uom_id())
-
+    secondary_uom_qty = fields.Float(compute="_compute_secondary_unit_qty_available")
+    weight_registry_id = fields.Many2one('weight.registry', 'Weight Registry')
     @api.multi
     def compute_wc_qties(self):
         for move in self:

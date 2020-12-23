@@ -101,9 +101,13 @@
                                        attrs="{'column_invisible': [('parent.type', 'in', ('incoming'))]}"/>
                                 <field name="deposit_id" readonly="1"/>
                                 <field name="used"/>
-                                <field name="registry_line_id_qty_flow"/>
-                                <field name="registry_line_id_qty"/>
-                                <field name="qty"/>
+                                <field name="secondary_uom_qty"/>
+                                <field name="secondary_uom_id"/>
+                                <field name="registry_line_id_qty_flow" invisible="1"/>
+                                <field name="registry_line_id_qty" invisible="1"/>
+                                <field name="product_uom_qty"/>
+                                <field name="product_uom_id"/>
+                                <field name="qty" invisible="1"/>
 <!--                                options="{'no_create_edit': True, 'no_quick_create': True}"-->
                                 <field name="lot_id"
                                        attrs="{'column_invisible': [('parent.unique_lot_id', '!=', False)]}"

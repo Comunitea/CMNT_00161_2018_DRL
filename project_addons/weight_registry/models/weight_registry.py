@@ -96,15 +96,23 @@ class WeightRegistry(models.Model):
                                'Registry Lines')
 
     used_line_ids = fields.One2many('weight.registry.line', 'registry_id', domain=[('used','=', True)], string='Used Registry Lines')
-    picking_ids = fields.Many2many('stock.picking',  "stock_picking_weight_rel", string="Albaranes asociados")
-    state = fields.Selection(selection=WEIGHT_REGISTRY_STATES, string='Estado', compute ="compute_state", store=True, help="")
+    picking_id = fields.Many2one('stock.picking', string="Albarán asociado")
+    state = fields.Selection(selection=WEIGHT_REGISTRY_STATES, string='Estado', compute ="compute_state")
+    """
+        WEIGHT_REGISTRY_STATES = [
+            ('0', '1º Control'),
+            ('1', '1º Control. Con albarán'),
+            ('2', '2º Control. Sin albarán'),
+            ('3', '2º Control. Con albarán'),
+            ('4', '2º Control. Asignado')
+        ]
+    """
 
-
-    @api.depends('check_in_weight', 'check_out_weight', 'picking_ids', 'used_line_ids.move_line_id')
+    #@api.depends('check_in_weight', 'check_out_weight', 'picking_id', 'used_line_ids.move_line_id')
     def compute_state(self):
         for wc in self:
             if wc.check_out_weight:
-                if wc.picking_ids:
+                if wc.picking_id:
                     if wc.used_line_ids.mapped('move_line_id'):
                         wc.state = '4'
                     else:
@@ -112,7 +120,7 @@ class WeightRegistry(models.Model):
                 else:
                     wc.state = '2'
             elif wc.check_in_weight:
-                if wc.picking_ids:
+                if wc.picking_id:
                     wc.state = '1'
                 else:
                     wc.state = '0'
@@ -159,26 +167,30 @@ class WeightRegistry(models.Model):
     def name_get(self):
         result = []
         for registry in self:
+            date_str = fields.Datetime.to_string(fields.Datetime.context_timestamp(registry,
+                                                                                            fields.Datetime.from_string(
+                                                                                                registry.check_in))).split(' ')[0]
+
             if not registry.check_out:
-                result.append((registry.id, _("%(empl_name)s [%(check_in)s] : %(weight)s Kg") % {
-                    'empl_name': registry.vehicle_id.register,
-                    'weight': registry.check_in_weight,
-                    'check_in': fields.Datetime.to_string(fields.Datetime.context_timestamp(registry,
-                                                                                            fields.Datetime.from_string(
-                                                                                                registry.check_in))),
-                }))
+                weight = registry.check_in_weight
+                cad = '⛀'
+                date_str = fields.Datetime.to_string(fields.Datetime.context_timestamp(registry,
+                                                                                       fields.Datetime.from_string(
+                                                                                           registry.check_in))).split(
+                    ' ')[0]
             else:
-                result.append((registry.id, _("%(empl_name)s [%(check_in)s] : %(weight_in)s Kg --> [%(check_out)s] : %(weight_out)s Kg") % {
+                weight = registry.net
+                cad = '⛁'
+                date_str = fields.Datetime.to_string(fields.Datetime.context_timestamp(registry,
+                                                                                       fields.Datetime.from_string(
+                                                                                           registry.check_out))).split(
+                    ' ')[0]
+
+            result.append((registry.id, _("%(cad)s %(empl_name)s [%(check_in)s] : %(weight)s Kg") % {
+                    'cad': cad,
                     'empl_name': registry.vehicle_id.register,
-                    'weight_in': registry.check_in_weight,
-                    'weight_out': registry.check_out_weight,
-                    'check_in': fields.Datetime.to_string(fields.Datetime.context_timestamp(registry,
-                                                                                            fields.Datetime.from_string(
-                                                                                                registry.check_in))),
-                    'check_out': fields.Datetime.to_string(fields.Datetime.context_timestamp(registry,
-                                                                                             fields.Datetime.from_string(
-                                                                                                 registry.check_out))),
-                }))
+                    'check_in': date_str,
+                    'weight': weight}))
         return result
 
     @api.depends(
@@ -321,12 +333,15 @@ class WeightRegistry(models.Model):
         return True
 
     @api.model
-    def set_weight_registry(self, vehicle_id, weight, deposits, vehicles):
+    def set_weight_registry(self, vehicle_id, weight, deposits, vehicles, picking_id=False):
         _logger.info('Pesada para {}: Weight {}, depositos: {}, vehicles {}'.format(vehicle_id, weight, deposits, vehicles))
         res = True
         vehicle = self.env['vehicle'].browse(vehicle_id)
         reg = vehicle.vehicle_action_change(weight)
         if reg:
+            if picking_id:
+                picking_id.weight_control_id = reg
+                reg.picking_id = picking_id
             vehicle_ids = [x['id'] for x in vehicles]
             reg.vehicle_ids = [(6, 0, vehicle_ids)]
             reg.onchange_vehicle_ids()
@@ -352,11 +367,11 @@ class WeightRegistry(models.Model):
                     }
                     self.env['weight.registry.line'].create(vals)
             else:
-
-
                 ## En este caso las lineas se crean antes del pesaje
                 ## por lo tanto ya tengo un albarán y unos movimientos asovciados a la línea
-                move_id = reg.picking_ids[0].move_lines
+                if picking_id:
+                    move_id = picking_id.move_lines
+
                 if move_id.quantity_done == 0:
                     update_move_line = True
                 product_id = move_id.product_id
@@ -416,7 +431,7 @@ class WeightRegistry(models.Model):
         domain = [
             #('picking_type_id.weight_control', '=', self.registry_type),
 
-                  ('picking_id.weight_registry_ids', '=', False),
+                  ('picking_id.weight_registry_id', '=', False),
                   ('date_expected', '<=', fields.Date.to_string(date.today() + relativedelta(days=7)))
                   ]
         moves = self.env['stock.move'].search(domain)
@@ -483,17 +498,17 @@ class WeightRegistryLine(models.Model):
     def name_get(self):
         result = []
         for line in self:
+            if line.registry_id.check_out:
+                qty = line.qty
+            else:
+                qty = line.capacity
+
             custom_name = \
-                "%(veh)s[%(check_out)s] Nº: %(deposit)s (%(cap)s) - \
-                    [%(qty)s / %(net)s]" % \
-            {
-                'veh': line.registry_id.vehicle_id.register,
-                'check_out': line.registry_id.check_in,
-                'deposit': line.deposit_id.number,
-                'cap': line.deposit_id.capacity,
-                'qty': line.qty,
-                'net': line.registry_id.net,
-            }
+                "%(name)s Nº: %(deposit)s (%(qty)s) " % {
+                    'name': line.registry_id.display_name,
+                    'deposit': line.deposit_id.number,
+                    'qty': int(qty),
+                }
             result.append((line.id, custom_name))
         return result
 

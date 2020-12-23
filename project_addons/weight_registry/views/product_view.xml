@@ -28,4 +28,24 @@
             </field>
         </field>
     </record>
+
+    <record id="stock_secondary_unit.product_form_view_procurement_button" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <!--field name="inherit_id"
+               ref="stock.secundary_unit.product_form_view_procurement_button"/-->
+        <field name="groups_id" eval="[(4, ref('uom.group_uom'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_quants']" position="after">
+                <button class="oe_stat_button"
+                       name="%(stock.product_open_quants)d"
+                       icon="fa-building-o"
+                       type="action" attrs="{'invisible':[('type', '!=', 'product')]}">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value"><field name="secondary_unit_qty_available" widget="statinfo" nolabel="1"/></span>
+                        <span class="o_stat_text"><field name="stock_secondary_uom_id"/></span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
 </odoo>
