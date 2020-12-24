@@ -41,8 +41,9 @@ class StockPicking(models.Model):
     @api.multi
     def compute_first_product_id(self):
         for pick in self:
-            move = self.move_lines.filtered(lambda x: x.product_id.weight_control)
-            pick.first_product_id = move and move.product_id or False
+            move = pick.move_lines.filtered(lambda x: x.product_id.weight_control)
+            if move:
+                pick.first_product_id = move[0].product_id
 
     @api.multi
     def _compute_last_weight_state(self):

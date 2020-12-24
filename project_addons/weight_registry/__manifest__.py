@@ -15,7 +15,7 @@
         'delivery',
         'web',
         'web_tree_dynamic_icon',
-        'stock_secondary_unit'
+        'stock_secondary_unit',
     ],
     'data': [
         'security/ir.model.access.csv',

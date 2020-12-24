@@ -11,8 +11,9 @@ class StockPicking(models.Model):
     @api.multi
     def compute_first_product_id(self):
         for pick in self:
-            pick.first_product_id = pick.move_lines and pick.move_lines[0].product_id
-
+            move = pick.move_lines
+            if move:
+                pick.first_product_id = move[0].product_id
 
     operator_id = fields.Many2one("delivery.carrier", string="Operator")
     driver_id = fields.Many2one("res.partner", string="Driver", domain="[('id', 'in', available_driver_ids)]")
