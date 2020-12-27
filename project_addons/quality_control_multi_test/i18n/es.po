@@ -121,7 +121,7 @@ msgstr "Valor cuantitativo 6"
 #: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection_line__result_required
 #: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_question__result_required
 msgid "Required for validate move"
-msgstr "Requerido para validar la oepración"
+msgstr "Requerido para validar la operación"
 
 #. module: quality_control_multi_test
 #: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_test_question__result_type

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-03 20:10+0000\n"
-"PO-Revision-Date: 2020-11-03 20:10+0000\n"
+"POT-Creation-Date: 2020-12-27 20:29+0000\n"
+"PO-Revision-Date: 2020-12-27 20:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgid "Available Qc Test"
 msgstr "Test disponibles"
 
 #. module: custom_contract
-#: code:addons/custom_contract/models/contract.py:266
+#: code:addons/custom_contract/models/contract.py:269
 #: selection:contract.quality.demand,price_change:0
 #, python-format
 msgid "Bonus"
@@ -62,7 +62,7 @@ msgstr "Contrato"
 #: model:ir.actions.act_window,name:custom_contract.open_deliver_calendar
 #: model:ir.ui.menu,name:custom_contract.menu_open_draft_deliveries_contract
 msgid "Contract Deliveries"
-msgstr "Entregas de contratos"
+msgstr "Entregas contratos"
 
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_contract__contract_type
@@ -109,7 +109,7 @@ msgid "Delivery dates"
 msgstr "Fechas de entrega"
 
 #. module: custom_contract
-#: code:addons/custom_contract/models/contract.py:267
+#: code:addons/custom_contract/models/contract.py:270
 #: selection:contract.quality.demand,price_change:0
 #, python-format
 msgid "Discount"
@@ -134,7 +134,7 @@ msgid "Draft Deliveries"
 msgstr "Entregas borrador"
 
 #. module: custom_contract
-#: code:addons/custom_contract/models/contract.py:241
+#: code:addons/custom_contract/models/contract.py:244
 #: code:addons/custom_contract/models/sale.py:32
 #, python-format
 msgid "El producto no se encuentra en el contrato."
@@ -174,6 +174,11 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__load_date
+msgid "Load Date"
+msgstr "Fecha de carga"
+
+#. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__partner_shipping_id
 msgid "Partner Shipping"
 msgstr "Dirección de entrega"
@@ -197,7 +202,7 @@ msgstr "Cambio en el precio"
 #: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__price_unit
 #: model:ir.model.fields,field_description:custom_contract.field_contract_price_agreement__price_unit
 msgid "Price Unit"
-msgstr "Precio"
+msgstr "Precio unitario"
 
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_contract__price_agreement_ids
@@ -239,7 +244,7 @@ msgstr "Cantidad"
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__quantity_document
 msgid "Quantity Document"
-msgstr "Cantidad documentos"
+msgstr ""
 
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_contract__recurring_invoices
@@ -285,7 +290,7 @@ msgstr "Valor estándar"
 #: model:ir.model.fields,field_description:custom_contract.field_contract_contract__state
 #: model:ir.model.fields,field_description:custom_contract.field_contract_delivery_agreement__state
 msgid "State"
-msgstr "Estado"
+msgstr "Provincia"
 
 #. module: custom_contract
 #: selection:contract.contract,contract_type:0
@@ -293,7 +298,7 @@ msgid "Supplier"
 msgstr "Proveedor"
 
 #. module: custom_contract
-#: code:addons/custom_contract/models/contract.py:207
+#: code:addons/custom_contract/models/contract.py:209
 #, python-format
 msgid "The product is already in the price agreements list."
 msgstr "El producto ya se encuentra en el listado de precios acordados."
@@ -302,6 +307,11 @@ msgstr "El producto ya se encuentra en el listado de precios acordados."
 #: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__tolerance
 msgid "Tolerance"
 msgstr "Tolerancia"
+
+#. module: custom_contract
+#: model:ir.model.fields,field_description:custom_contract.field_contract_contract__carrier_id
+msgid "Transportista"
+msgstr ""
 
 #. module: custom_contract
 #: model:ir.model.fields,field_description:custom_contract.field_contract_quality_demand__value

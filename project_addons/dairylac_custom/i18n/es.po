@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-22 17:43+0000\n"
-"PO-Revision-Date: 2020-12-22 17:43+0000\n"
+"POT-Creation-Date: 2020-12-27 20:32+0000\n"
+"PO-Revision-Date: 2020-12-27 20:32+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "Capacidad"
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_delivery_carrier__carrier_code
 msgid "Carrier Code"
-msgstr "Codigo de transportista"
+msgstr "Código transportista"
 
 #. module: dairylac_custom
 #: model_terms:ir.ui.view,arch_db:dairylac_custom.vehicle_search_view
@@ -58,7 +58,7 @@ msgstr "Contacto"
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_stock_picking__created_tests
 msgid "Created Tests"
-msgstr "Test creados"
+msgstr "Tests creados"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit__create_uid
@@ -83,7 +83,7 @@ msgstr ""
 #. module: dairylac_custom
 #: model:ir.model,name:dairylac_custom.model_delivery_carrier
 msgid "Delivery Methods"
-msgstr ""
+msgstr "Métodos de entrega"
 
 #. module: dairylac_custom
 #: model:ir.actions.act_window,name:dairylac_custom.show_deposit_action_vehicle
@@ -93,12 +93,12 @@ msgstr "Depósito"
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__deposit_ids
 msgid "Deposit Used"
-msgstr "Depósitos usados"
+msgstr "Depósito usado"
 
 #. module: dairylac_custom
 #: model_terms:ir.ui.view,arch_db:dairylac_custom.vehicle_form_view
 msgid "Deposits"
-msgstr "Depositos"
+msgstr "Depósitos"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__description
@@ -143,7 +143,7 @@ msgstr ""
 #. module: dairylac_custom
 #: model_terms:ir.ui.view,arch_db:dairylac_custom.res_partner_driver_filter
 msgid "Is driver"
-msgstr "Es conductor"
+msgstr ""
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit____last_update
@@ -174,7 +174,7 @@ msgstr "Lanzar test de calidad"
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__letter_code_q
 msgid "Letter code Q"
-msgstr "Letra Q"
+msgstr "Código letra Q"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_delivery_carrier__vehicle_ids
@@ -196,7 +196,7 @@ msgstr "Nombre"
 #. module: dairylac_custom
 #: model_terms:ir.actions.act_window,help:dairylac_custom.show_deposit_action_vehicle
 msgid "No deposit."
-msgstr "Sin deposito."
+msgstr "No depósito"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_deposit__number
@@ -206,12 +206,12 @@ msgstr "Número"
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__register
 msgid "Register"
-msgstr "Matrícula"
+msgstr "Matricula"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__total_deposits
 msgid "Total Deposits"
-msgstr "Depósitos totales."
+msgstr "Total depósitos"
 
 #. module: dairylac_custom
 #: model:ir.model.fields,field_description:dairylac_custom.field_vehicle__total_quantity
