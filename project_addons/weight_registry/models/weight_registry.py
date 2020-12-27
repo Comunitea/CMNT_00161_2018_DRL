@@ -495,6 +495,22 @@ class WeightRegistryLine(models.Model):
     qty_flowmeter = fields.Float('Flow meter Qty')
     picking_id = fields.Many2one('stock.picking', string="Albarán asociado")
 
+
+    # @api.onchange('used')
+    # def onchange_used(self):
+        
+    #     net = self.registry_id.net
+    #     used_deposits = self.registry_id.line_ids.filtered(lambda x: x.used)
+    #     total_capacity = sum(used_deposits.mapped('capacity'))
+    #     if not total_capacity:
+    #         return 0
+    #     factor = net / total_capacity
+    #     for dep in used_deposits:
+    #         dep.qty = factor * dep.capacity
+    #     not_used_deposits = self.registry_id.line_ids.filtered(lambda x: x.used == False)
+    #     for dep in not_used_deposits:
+    #         dep.qty = 0
+
     def name_get(self):
         result = []
         for line in self:

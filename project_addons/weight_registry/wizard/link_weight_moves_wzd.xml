@@ -75,7 +75,7 @@
                         <field name="unique_location_id"
                                options="{'no_create_edit': True, 'no_quick_create': True}"
                                attrs="{'invisible': [('type', '!=', 'outgoing')]}"
-                               domain="[('id', 'child_of', location_id), ('weight_control','=', True)]"
+                               domain="[('id', 'child_of', location_id), ('weight_control','=', True), ('product_id', '=', product_id)]"
                         />
                         <!--field name="full_empty" /-->
                         <field name="unique_lot_id"

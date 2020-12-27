@@ -49,6 +49,9 @@
                                    widget="statinfo"/>
                         </button>
             </xpath>
+            <field name="journal_id" position="after">
+                <field name="carrier_id"/>
+            </field>
             <field name="contract_line_ids" position="after">
                 <field name="price_agreement_ids">
                     <tree editable="top">
@@ -67,6 +70,7 @@
                             domain="[('id', 'in', available_product_ids)]"/>
                         <field name="quantity"/>
                         <field name="price_unit"/>
+                        <field name="load_date"/>
                         <field name="delivery_date"/>
                         <field name="partner_shipping_id"/>
                     </tree>
@@ -133,7 +137,7 @@
         <field name="name">Draft Deliveries</field>
         <field name="model">contract.delivery.agreement</field>
         <field name="arch" type="xml">
-            <calendar string="Draft Deliveries" date_start="delivery_date"  mode="month" quick_add="False" color="contract_id">
+            <calendar string="Draft Deliveries" date_start="load_date"  mode="month" quick_add="False" color="contract_id">
                 <field name="display_name"/>
             </calendar>
         </field>
@@ -150,6 +154,7 @@
                             <field name="product_id" />
                             <field name="quantity"/>
                             <field name="price_unit"/>
+                            <field name="load_date"/>
                             <field name="delivery_date"/>
                             <field name="partner_shipping_id"/>
                         </group>

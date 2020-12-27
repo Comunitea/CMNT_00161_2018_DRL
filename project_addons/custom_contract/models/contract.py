@@ -36,6 +36,7 @@ class ContractContract(models.Model):
     sale_count = fields.Integer(compute="_compute_sale_count")
     picking_count = fields.Integer(compute="_compute_picking_count")
     delivery_count = fields.Integer(compute="_compute_delivery_count")
+    carrier_id = fields.Many2one(comodel_name="delivery.carrier", string="Transportista")
 
     @api.multi
     def _compute_sale_count(self):
@@ -92,8 +93,9 @@ class ContractContract(models.Model):
         return {
             "partner_id": self.partner_id.id,
             "partner_shipping_id": delivery_line.partner_shipping_id.id,
-            "commitment_date": delivery_line.delivery_date,
+            "commitment_date": delivery_line.load_date,
             "contract_id": self.id,
+            "carrier_id": self.carrier_id and self.carrier_id.id,
             "payment_mode_id": self.payment_mode_id.id,
             "order_line": [
                 (0, 0, sale_line_vals) for sale_line_vals in sale_line_vals_list
@@ -220,6 +222,7 @@ class ContractDeliveryAgreement(models.Model):
         compute="_compute_quantity_document",
     )
     delivery_date = fields.Date("Delivery Date", required=True)
+    load_date = fields.Date("Load Date", required=True)
     contract_id = fields.Many2one("contract.contract")
     partner_shipping_id = fields.Many2one("res.partner", required=True)
     state = fields.Selection(related="contract_id.state")
@@ -228,7 +231,7 @@ class ContractDeliveryAgreement(models.Model):
 
     def _compute_quantity_document(self):
         for delivery in self:
-            delivery.quantity_document = delivery.quantity * 1000
+            delivery.quantity_document = delivery.quantity
 
     @api.onchange("product_id")
     def product_id_change_check_contract_lines(self):

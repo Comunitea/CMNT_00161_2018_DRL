@@ -28,9 +28,9 @@
                                 <table class="custom-table-bordered"  width="100%"> 
                                     <tr> 
                                         <td width="20%">FECHA:</td>
-                                        <td width="40%">lunes, 14 de septiembre de 2020</td>
-                                        <td width="20%">HORA:</td>
-                                        <td width="20%">22:50</td>
+                                        <td width="40%"><field name="o.date_done" /></td>
+                                        <!--td width="20%">HORA:</td>
+                                        <td width="20%">22:50</td-->
                                     </tr> 
                                 </table>  
 
@@ -42,7 +42,11 @@
                                     </tr> 
                                     <tr> 
                                         <td width="30%">MATRICULAS </td>
-                                        <td width="70%">5137KYT R7503BB</td>
+                                        <td width="70%">
+                                        <t t-foreach="o.vehicle_ids" t-as="vehicle_id">
+                                        <span t-field="vehicle_id.register"/>
+                                        </t>
+                                        </td>
                                     </tr> 
                                     <tr> 
                                         <td width="30%">CISTERNAS </td>
@@ -50,7 +54,7 @@
                                     </tr> 
                                     <tr > 
                                         <td width="30%">CONDUCTOR </td>
-                                        <td width="70%">TRANSPORTES GONZALO EXPOSITO SL </td>
+                                        <td width="70%"><field name="o.driver_id.name" /></td>
                                     </tr> 
                                 </table>  
 
@@ -76,7 +80,7 @@
                                     </tr> 
                                     <tr>
                                         <td width="30%">OPERARIO DE CONTROL DE LIMPIEZA</td>
-                                        <td width="70%">SANTIAGO COTON REY</td>
+                                        <td width="70%"></td>
                                     </tr> 
                                 </table>  
                                 <br/>
@@ -90,7 +94,7 @@
                                     </tr> 
                                     <tr style="height:100px !important"> 
                                         <td width="50%"></td>
-                                        <td width="50%" style="vertical-align:bottom; padding-bottom:10px; font-size:11px">fdo: VAZQUEZ FERNANDEZ JOSE ENRIQUE nif:3425136E</td>
+                                        <td width="50%" style="vertical-align:bottom; padding-bottom:10px; font-size:11px">fdo:</td>
                                     </tr> 
                                 
                                 </table>

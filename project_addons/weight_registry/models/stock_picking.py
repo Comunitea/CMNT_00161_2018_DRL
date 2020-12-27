@@ -56,7 +56,7 @@ class StockPicking(models.Model):
     weight_control = fields.Selection(related='picking_type_id.weight_control', store=True)
     net_weight_registry = fields.Integer(related="weight_registry_id.net", string='Net weight registry')#, compute="compute_weight_state")
     weight_state = fields.Selection (selection=PICK_WEIGHT_STATES, string="Weight state",
-                                     compute="compute_weight_state",
+                                     compute="_compute_weight_state",
                                      help="No weight: No need weight control.\nWaiting Control: Need control, watiting fot it.\nWaiting assigment: Control done, need moves.\Moves done. Weight done")
     available_vehicle_ids = fields.Many2many(related="carrier_id.vehicle_ids")
     vehicle_ids = fields.Many2many('vehicle', string="Listado de matrículas", required=False, copy=False, domain="[('id', 'in', available_vehicle_ids)]")
@@ -73,9 +73,9 @@ class StockPicking(models.Model):
 
 
     @api.multi
-    def compute_weight_state(self):
+    def _compute_weight_state(self):
         for pick in self:
-            if not pick.first_product_id:
+            if not pick.first_product_id or not pick.first_product_id.weight_control:
                 pick.weight_state = 'none'
                 continue
 

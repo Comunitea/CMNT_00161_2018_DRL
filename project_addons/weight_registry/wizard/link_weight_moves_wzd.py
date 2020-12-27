@@ -67,6 +67,8 @@ class AvailableLineMovesWzd(models.TransientModel):
     )
 
 
+
+
     @api.onchange('location_id')
     def onchange_location_id(self):
         domain = [('product_id', '=', self.move_id.product_id.id), ('location_id', 'child_of', self.location_id.id)]

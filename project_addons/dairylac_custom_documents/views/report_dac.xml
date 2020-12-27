@@ -7,9 +7,9 @@
                     <t t-call="web.external_layout">
                         <t t-set="o" t-value="o.with_context(lang=lang)"/>
                         <div class="row text-center">
-                            <div class="col-3 border border-dark border-right-0">
+                            <!--div class="col-3 border border-dark border-right-0">
                                 <span t-field="o.company_id.logo"/>
-                            </div>
+                            </div-->
                             <div class="col-6 border border-dark border-right-0">
                                 <span>DOCUMENTO DE ACOMPAÑAMIENTO COMERCIAL (DAC)</span>
                             </div>

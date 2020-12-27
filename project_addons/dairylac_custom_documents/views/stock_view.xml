@@ -16,6 +16,9 @@
                     </group>
                 </page>
             </xpath>
+            <field name="picking_type_id" position="after">
+                <field name="output_lot" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+            </field>
         </field>
     </record>
 

@@ -10,6 +10,7 @@ class StockPicking(models.Model):
     conform = fields.Boolean('Se ajusta', help='Se ajusta a las especificaciones')
     specifications = fields.Char('Especificaciones', help='Ficha de especificaciones')
     not_conform_note = fields.Text('Motivo', help='En caso de que la partida NO se ajuste a las especificaciones, indicar el motivo del incumplimiento')
+    output_lot = fields.Char('Output Lot', help='Lote de salida')
 
     def get_letter_values(self):
         self.ensure_one()
@@ -48,6 +49,11 @@ class StockPicking(models.Model):
             ml = self.move_lines[0]
             wrl = ml.move_line_ids[0].registry_line_id
             wr = wrl.registry_id
+
+            res['operator'] = self.operator_id and self.operator_id.name
+            res['transport'] = self.carrier_id and self.carrier_id.name
+            res['driver'] = self.driver_id and self.driver_id.name
+            res['nif_driver'] = self.driver_id and self.driver_id.vat
             if wr.vehicle_id:
                 res['truck'] = wr.vehicle_id.register
                 res['registration'] = wr.vehicle_id.register
@@ -112,10 +118,11 @@ class StockPicking(models.Model):
                 res['net'] = wr.net
             if wr.check_out:
                 res['date'] = wr.check_out.strftime('%d-%m-%Y %H:%M')
-            
-            lots = ml.move_line_ids.mapped('lot_id')
-            if lots:
-                res['lots'] = ','.join(lots.mapped('name'))
+        
+            res['lots'] = self.output_lot
+            #lots = ml.move_line_ids.mapped('lot_id')
+            #if lots:
+            #    res['lots'] = ','.join(lots.mapped('name'))
                 
 
         return res

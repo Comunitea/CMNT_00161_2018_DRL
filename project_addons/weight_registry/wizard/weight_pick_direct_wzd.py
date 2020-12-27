@@ -36,7 +36,7 @@ class WeightPickLinkWzd(models.TransientModel):
 
         vehicle_id = self.picking_id.vehicle_ids.filtered(lambda x: x.master)[0]
         if not vehicle_id:
-            raise ValidationError ("No encunetro un vehiculo principal")
+            raise ValidationError ("No está establecido un vehiculo principal, asígnelo en el albarán")
         vehicle_ids = self.picking_id.vehicle_ids
         if not vehicle_ids[0].vehicle_type_id.master:
             raise ValidationError(_('First register must be master'))
@@ -64,6 +64,7 @@ class WeightPickLinkWzd(models.TransientModel):
 
         new_w = self.env['weight.registry'].set_weight_registry(vehicle_id.id, self.weight, deposit_ids, vehicle_ids_v, self.picking_id)
         #new_w = self.env['weight.registry'].set_weight_registry(vehicle_id.id, weight, deposit_ids, vehicle_ids)
+        self.picking_id.launch_tests_before_move()
         if new_w:
             self.picking_id.weight_registry_id = new_w
             if new_w.check_out:
