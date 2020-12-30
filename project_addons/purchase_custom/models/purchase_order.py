@@ -23,6 +23,7 @@ class PurchaseOrder(models.Model):
                     moves_to_assign = moves.filtered(lambda x: x.purchase_line_id.date_planned == scheduled_date)
                     for move in moves_to_assign:
                         move.picking_id = new_picking
+                        move.move_line_ids.picking_id = new_picking
                     moves -= moves_to_assign
                     new_picking.message_post_with_view('mail.message_origin_link',
                                                    values={'self': new_picking, 'origin': order},

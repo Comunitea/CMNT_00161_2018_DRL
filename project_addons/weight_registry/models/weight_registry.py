@@ -5,6 +5,8 @@ from odoo import models, fields, api, exceptions, _
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError, ValidationError
+
 
 from odoo.tools.float_utils import float_compare, float_round, float_is_zero
 import logging
@@ -371,6 +373,9 @@ class WeightRegistry(models.Model):
                 ## por lo tanto ya tengo un albarán y unos movimientos asovciados a la línea
                 if picking_id:
                     move_id = picking_id.move_lines
+                    if len(move_id) > 1:
+                        raise UserError(_('Para poder realizar la pesada el albarán debe tener un único producto. Por favor divida el albarán ') )
+
 
                 if move_id.quantity_done == 0:
                     update_move_line = True

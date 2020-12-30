@@ -136,7 +136,7 @@ msgstr "6 valores"
 #. module: quality_control_multi_test
 #: model:ir.model.fields,field_description:quality_control_multi_test.field_qc_inspection__valid_for_move
 msgid "Success"
-msgstr "Correcta"
+msgstr "Completo para validar"
 
 #. module: quality_control_multi_test
 #: selection:qc.test.question,result_type:0

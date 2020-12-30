@@ -14,3 +14,13 @@ class DeliveryCarrier(models.Model):
     driver_ids = fields.Many2many(
         "res.partner", string="Drivers", domain=[("driver", "=", True)]
     )
+
+class Vehicle(models.Model):
+    _inherit = 'vehicle'
+
+    carrier_ids = fields.Many2many('delivery.carrier', string="Transportistas", required=False, copy=False)
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    carrier_ids = fields.Many2many('delivery.carrier', string="Transportistas", required=False, copy=False)

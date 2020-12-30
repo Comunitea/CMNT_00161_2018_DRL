@@ -47,7 +47,7 @@ class WeightPickLinkWzd(models.TransientModel):
             v_dep = {'id': line.deposit_id.id, 'check': line.checked}
             deposit_ids.append((v_dep))
         domain = [('vehicle_id', '=', vehicle_id.id), ('check_out', '=', False)]
-        reg_id = self.env['weight.registry'].search(domain, limit=1, order="id desc")
+        #reg_id = self.env['weight.registry'].search(domain, limit=1, order="id desc")
         if vehicle_id.weight_registry_state == 'check_out':
             ## Si el vehiculo está fuera, entonces
             ## compruebo el albarán
@@ -64,7 +64,8 @@ class WeightPickLinkWzd(models.TransientModel):
 
         new_w = self.env['weight.registry'].set_weight_registry(vehicle_id.id, self.weight, deposit_ids, vehicle_ids_v, self.picking_id)
         #new_w = self.env['weight.registry'].set_weight_registry(vehicle_id.id, weight, deposit_ids, vehicle_ids)
-        self.picking_id.launch_tests_before_move()
+        if not self.picking_id.created_tests:
+            self.picking_id.launch_tests_before_move()
         if new_w:
             self.picking_id.weight_registry_id = new_w
             if new_w.check_out:

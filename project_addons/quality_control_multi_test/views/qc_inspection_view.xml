@@ -12,8 +12,8 @@
             <field name="auto_generated" position="after">
                 <field name="no_cases" invisible="1"/>
             </field>
-            <field name="quantitative_value" position="before">
-                <field name="result_required"/>
+            <field name="qualitative_value" position="before">
+                <field name="result_required" readonly="True"/>
             </field>
             <field name="quantitative_value" position="after">
                 <field name="quantitative_value2" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'column_invisible': [('parent.no_cases', '&lt;', 2)]}" />
@@ -23,10 +23,17 @@
                 <field name="quantitative_value6" attrs="{'readonly': [('question_type', '=', 'qualitative')], 'column_invisible': [('parent.no_cases', '&lt;', 6)]}" />
             </field>
         </field>
+    </record>
 
-        
-
-
+    <record model="ir.ui.view" id="qc_inspection_date_tree_view_">
+        <field name="name">qc.inspection.date.tree</field>
+        <field name="model">qc.inspection</field>
+        <field name="inherit_id" ref="quality_control.qc_inspection_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="qty" position="before">
+                <field name="date"/>
+            </field>
+        </field>
     </record>
 
 </odoo>

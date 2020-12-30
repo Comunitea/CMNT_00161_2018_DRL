@@ -40,6 +40,17 @@
                         <page name="drivers" string="Drivers">
                             <field name="driver_ids" />
                         </page>
+                        <page string="Carriers">
+                        
+                            <group string="Carriers">
+                                <field name="carrier_ids" nolabel="1">
+                                    <tree>
+                                        <field name="carrier_code"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
 
